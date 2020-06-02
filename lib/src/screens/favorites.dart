@@ -44,7 +44,7 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
                   'Wish List',
                   overflow: TextOverflow.fade,
                   softWrap: false,
-                  style: Theme.of(context).textTheme.display1,
+                  style: Theme.of(context).textTheme.headline4,
                 ),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,

@@ -14,13 +14,21 @@ class FlashSalesCarouselItemWidget extends StatelessWidget {
     this.marginLeft,
     this.product,
   }) : super(key: key);
+  _imageNotFound() {
+    if (product.image == '' || product.image == null) {
+      return AssetImage('img/pro5.webp');
+    } else {
+      return NetworkImage(product.image);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context)
-            .pushNamed('/Product', arguments: new RouteArgument(id: product.id, argumentsList: [product, heroTag]));
+        Navigator.of(context).pushNamed('/Product',
+            arguments: new RouteArgument(
+                id: product.id, argumentsList: [product, heroTag]));
       },
       child: Container(
         margin: EdgeInsets.only(left: this.marginLeft, right: 20),
@@ -28,7 +36,7 @@ class FlashSalesCarouselItemWidget extends StatelessWidget {
           alignment: AlignmentDirectional.topCenter,
           children: <Widget>[
             Hero(
-              tag: heroTag + product.id,
+              tag: heroTag +   product.name,
               child: Container(
                 width: 160,
                 height: 200,
@@ -36,7 +44,8 @@ class FlashSalesCarouselItemWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6),
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage(product.image),
+                    image: _imageNotFound(),
+                    // NetworkImage(product.image)
                   ),
                 ),
               ),
@@ -47,11 +56,15 @@ class FlashSalesCarouselItemWidget extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(100)), color: Theme.of(context).accentColor),
+                    borderRadius: BorderRadius.all(Radius.circular(100)),
+                    color: Theme.of(context).accentColor),
                 alignment: AlignmentDirectional.topEnd,
                 child: Text(
                   '${product.discount} %',
-                  style: Theme.of(context).textTheme.body2.merge(TextStyle(color: Theme.of(context).primaryColor)),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2
+                      .merge(TextStyle(color: Theme.of(context).primaryColor)),
                 ),
               ),
             ),
@@ -65,14 +78,16 @@ class FlashSalesCarouselItemWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6),
                   boxShadow: [
                     BoxShadow(
-                        color: Theme.of(context).hintColor.withOpacity(0.15), offset: Offset(0, 3), blurRadius: 10)
+                        color: Theme.of(context).hintColor.withOpacity(0.15),
+                        offset: Offset(0, 3),
+                        blurRadius: 10)
                   ]),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     product.name,
-                    style: Theme.of(context).textTheme.body2,
+                    style: Theme.of(context).textTheme.bodyText2,
                     maxLines: 1,
                     softWrap: false,
                     overflow: TextOverflow.fade,
@@ -83,7 +98,7 @@ class FlashSalesCarouselItemWidget extends StatelessWidget {
                       Expanded(
                         child: Text(
                           '${product.sales} Sales',
-                          style: Theme.of(context).textTheme.body1,
+                          style: Theme.of(context).textTheme.bodyText1,
                           overflow: TextOverflow.fade,
                           softWrap: false,
                         ),
@@ -95,7 +110,7 @@ class FlashSalesCarouselItemWidget extends StatelessWidget {
                       ),
                       Text(
                         product.rate.toString(),
-                        style: Theme.of(context).textTheme.body2,
+                        style: Theme.of(context).textTheme.bodyText2,
                       )
                     ],
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -103,10 +118,13 @@ class FlashSalesCarouselItemWidget extends StatelessWidget {
                   SizedBox(height: 7),
                   Text(
                     '${product.available} Available',
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  AvailableProgressBarWidget(available: product.available.toDouble())
+                  AvailableProgressBarWidget(
+                      available: product.available == null
+                          ? 10.00
+                          : product.available.toDouble())
                 ],
               ),
             )

@@ -85,7 +85,7 @@ class _MessageItemWidgetState extends State<MessageItemWidget> {
                       this.widget.message.user.name,
                       overflow: TextOverflow.fade,
                       softWrap: false,
-                      style: Theme.of(context).textTheme.body2,
+                      style: Theme.of(context).textTheme.bodyText2,
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -103,7 +103,7 @@ class _MessageItemWidgetState extends State<MessageItemWidget> {
                           this.widget.message.chats[0].time,
                           overflow: TextOverflow.fade,
                           softWrap: false,
-                          style: Theme.of(context).textTheme.body1,
+                          style: Theme.of(context).textTheme.bodyText1,
                         ),
                       ],
                     )

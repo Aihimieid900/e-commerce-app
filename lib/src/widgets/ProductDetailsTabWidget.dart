@@ -30,14 +30,14 @@ class ProductDetailsTabWidgetState extends State<ProductDetailsTabWidget> {
             ),
             title: Text(
               'Description',
-              style: Theme.of(context).textTheme.display1,
+              style: Theme.of(context).textTheme.headline6,
             ),
           ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-          child: Text(
-              'We’re all going somewhere. And whether it’s the podcast blaring from your headphones as you walk down the street or the essay that encourages you to take on that big project, there’s a real joy in getting lost in the kind of story that feels like a destination unto itself.'),
+          child: Text(widget.product.description ??
+              ' عذراً هذا المنتج لا يحتوي علي وصف '),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
@@ -50,12 +50,13 @@ class ProductDetailsTabWidgetState extends State<ProductDetailsTabWidget> {
             ),
             title: Text(
               'Related Poducts',
-              style: Theme.of(context).textTheme.display1,
+              style: Theme.of(context).textTheme.headline6,
             ),
           ),
         ),
         FlashSalesCarouselWidget(
-            heroTag: 'product_details_related_products', productsList: widget._productsList.flashSalesList),
+            heroTag: 'product_details_related_products',
+            productsList: widget._productsList.flashSalesList),
       ],
     );
   }
@@ -150,7 +151,9 @@ class _SelectSizeWidgetState extends State<SelectSizeWidget> {
         backgroundColor: Theme.of(context).focusColor.withOpacity(0.05),
         selectedColor: Theme.of(context).focusColor.withOpacity(0.2),
         selected: selectedSize == size,
-        shape: StadiumBorder(side: BorderSide(color: Theme.of(context).focusColor.withOpacity(0.05))),
+        shape: StadiumBorder(
+            side: BorderSide(
+                color: Theme.of(context).focusColor.withOpacity(0.05))),
 //        avatar: Icon(Icons.check_circle),
         onSelected: (bool value) {
           setState(() {

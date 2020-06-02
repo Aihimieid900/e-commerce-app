@@ -19,37 +19,40 @@ class ProductGridItemWidget extends StatelessWidget {
       splashColor: Theme.of(context).accentColor.withOpacity(0.08),
       onTap: () {
         Navigator.of(context).pushNamed('/Product',
-            arguments: new RouteArgument(argumentsList: [this.product, this.heroTag], id: this.product.id));
+            arguments: new RouteArgument(
+                argumentsList: [this.product, this.heroTag],
+                id: this.product.id));
       },
       child: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(6),
           boxShadow: [
-            BoxShadow(color: Theme.of(context).hintColor.withOpacity(0.10), offset: Offset(0, 4), blurRadius: 10)
+            BoxShadow(
+                color: Theme.of(context).hintColor.withOpacity(0.10),
+                offset: Offset(0, 4),
+                blurRadius: 10)
           ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Hero(
-              tag: this.heroTag + product.id,
-              child: Image.asset(product.image),
+              tag: this.heroTag + product.id.toString(),
+              child: Image(image: NetworkImage(product.image)),
             ),
             SizedBox(height: 12),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
               child: Text(
                 product.name,
-                style: Theme.of(context).textTheme.body2,
+                style: Theme.of(context).textTheme.bodyText2,
               ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Text(
-                product.getPrice(),
-                style: Theme.of(context).textTheme.title,
-              ),
+              child: Text(product.price,
+                  style: Theme.of(context).textTheme.headline6),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -59,7 +62,7 @@ class ProductGridItemWidget extends StatelessWidget {
                   Expanded(
                     child: Text(
                       '${product.sales} Sales',
-                      style: Theme.of(context).textTheme.body1,
+                      style: Theme.of(context).textTheme.bodyText1,
                       overflow: TextOverflow.fade,
                       softWrap: false,
                     ),
@@ -71,7 +74,7 @@ class ProductGridItemWidget extends StatelessWidget {
                   ),
                   Text(
                     product.rate.toString(),
-                    style: Theme.of(context).textTheme.body2,
+                    style: Theme.of(context).textTheme.bodyText2,
                   )
                 ],
                 crossAxisAlignment: CrossAxisAlignment.center,

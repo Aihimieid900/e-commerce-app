@@ -47,14 +47,14 @@ class OrderList {
 
   OrderList() {
     this._list = [
-      new Order(new Product('Digital Display Bracelet Watch', 'img/watch6.webp', 80, 63.98, 200, 2554, 3.1, 10.5),
-          'RB4551532214564', OrderState.shipped),
-      new Order(new Product('Spring Hand Grip Finger Strength', 'img/sport5.webp', 10, 12.36, 153, 166, 4.2, 11.5),
-          'CH4561454563156', OrderState.toBeShipped),
-      new Order(new Product('Digital Display Bracelet Watch', 'img/home10.webp', 80, 63.98, 200, 2554, 3.1, 10.5),
-          'RB4551532214564', OrderState.unpaid),
-      new Order(new Product('Robe pin up', 'img/home2.webp', 10, 12.36, 153, 166, 4.2, 11.5), 'CH456124566652',
-          OrderState.shipped),
+      // new Order(new Product('Digital Display Bracelet Watch', 'img/watch6.webp', 80, 63.98, 200, 2554, 3.1, 10.5),
+      //     'RB4551532214564', OrderState.shipped),
+      // new Order(new Product('Spring Hand Grip Finger Strength', 'img/sport5.webp', 10, 12.36, 153, 166, 4.2, 11.5),
+      //     'CH4561454563156', OrderState.toBeShipped),
+      // new Order(new Product('Digital Display Bracelet Watch', 'img/home10.webp', 80, 63.98, 200, 2554, 3.1, 10.5),
+      //     'RB4551532214564', OrderState.unpaid),
+      // new Order(new Product('Robe pin up', 'img/home2.webp', 10, 12.36, 153, 166, 4.2, 11.5), 'CH456124566652',
+      //     OrderState.shipped),
     ];
   }
 }

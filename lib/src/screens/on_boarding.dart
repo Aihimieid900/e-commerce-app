@@ -1,8 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce_app_ui_kit/config/app_config.dart' as config;
+import 'package:ecommerce_app_ui_kit/src/models/category.dart';
 import 'package:ecommerce_app_ui_kit/src/models/on_boarding.dart';
+import 'package:ecommerce_app_ui_kit/src/models/product.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class OnBoardingWidget extends StatefulWidget {
   @override
@@ -12,10 +16,12 @@ class OnBoardingWidget extends StatefulWidget {
 class _OnBoardingWidgetState extends State<OnBoardingWidget> {
   int _current = 0;
   OnBoardingList _onBoardingList;
+
   @override
   void initState() {
-    _onBoardingList = new OnBoardingList();
     super.initState();
+
+    _onBoardingList = new OnBoardingList();
   }
 
   @override
@@ -29,7 +35,9 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget> {
             Padding(
               padding: const EdgeInsets.only(right: 20, top: 50),
               child: FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/Tabs', arguments: 2);
+                },
                 child: Text(
                   'Skip',
                   style: Theme.of(context).textTheme.button,
@@ -65,7 +73,7 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget> {
                           padding: const EdgeInsets.only(right: 20),
                           child: Text(
                             boarding.description,
-                            style: Theme.of(context).textTheme.display1,
+                            style: Theme.of(context).textTheme.headline4,
                           ),
                         ),
                       ],
@@ -82,14 +90,16 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget> {
                   return Container(
                     width: 25.0,
                     height: 3.0,
-                    margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                    margin:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(
                           Radius.circular(8),
                         ),
-                        color: _current == _onBoardingList.list.indexOf(boarding)
-                            ? Theme.of(context).hintColor.withOpacity(0.8)
-                            : Theme.of(context).hintColor.withOpacity(0.2)),
+                        color:
+                            _current == _onBoardingList.list.indexOf(boarding)
+                                ? Theme.of(context).hintColor.withOpacity(0.8)
+                                : Theme.of(context).hintColor.withOpacity(0.2)),
                   );
                 }).toList(),
               ),
@@ -107,7 +117,7 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget> {
                   children: <Widget>[
                     Text(
                       'Sign up',
-                      style: Theme.of(context).textTheme.display1.merge(
+                      style: Theme.of(context).textTheme.headline3.merge(
                             TextStyle(color: Theme.of(context).primaryColor),
                           ),
                     ),

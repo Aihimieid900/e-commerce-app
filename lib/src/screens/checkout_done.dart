@@ -23,7 +23,7 @@ class _CheckoutDoneWidgetState extends State<CheckoutDoneWidget> {
         elevation: 0,
         title: Text(
           'Checkout',
-          style: Theme.of(context).textTheme.display1,
+          style: Theme.of(context).textTheme.headline4,
         ),
         actions: <Widget>[
           new ShoppingCartButtonWidget(

@@ -42,14 +42,14 @@ class _SignInWidgetState extends State<SignInWidget> {
                   child: Column(
                     children: <Widget>[
                       SizedBox(height: 25),
-                      Text('Sign In', style: Theme.of(context).textTheme.display3),
+                      Text('Sign In', style: Theme.of(context).textTheme.headline2),
                       SizedBox(height: 20),
                       new TextField(
                         style: TextStyle(color: Theme.of(context).accentColor),
                         keyboardType: TextInputType.emailAddress,
                         decoration: new InputDecoration(
                           hintText: 'Email Address',
-                          hintStyle: Theme.of(context).textTheme.body1.merge(
+                          hintStyle: Theme.of(context).textTheme.bodyText1.merge(
                                 TextStyle(color: Theme.of(context).accentColor),
                               ),
                           enabledBorder: UnderlineInputBorder(
@@ -69,7 +69,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                         obscureText: !_showPassword,
                         decoration: new InputDecoration(
                           hintText: 'Password',
-                          hintStyle: Theme.of(context).textTheme.body1.merge(
+                          hintStyle: Theme.of(context).textTheme.bodyText1.merge(
                                 TextStyle(color: Theme.of(context).accentColor),
                               ),
                           enabledBorder: UnderlineInputBorder(
@@ -96,7 +96,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                         onPressed: () {},
                         child: Text(
                           'Forgot your password ?',
-                          style: Theme.of(context).textTheme.body1,
+                          style: Theme.of(context).textTheme.bodyText1,
                         ),
                       ),
                       SizedBox(height: 30),
@@ -108,7 +108,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                         },
                         child: Text(
                           'Login',
-                          style: Theme.of(context).textTheme.title.merge(
+                          style: Theme.of(context).textTheme.headline6.merge(
                                 TextStyle(color: Theme.of(context).primaryColor),
                               ),
                         ),
@@ -118,7 +118,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                       SizedBox(height: 50),
                       Text(
                         'Or using social media',
-                        style: Theme.of(context).textTheme.body1,
+                        style: Theme.of(context).textTheme.bodyText1,
                       ),
                       SizedBox(height: 20),
                       new SocialMediaWidget()
@@ -133,7 +133,7 @@ class _SignInWidgetState extends State<SignInWidget> {
               },
               child: RichText(
                 text: TextSpan(
-                  style: Theme.of(context).textTheme.title.merge(
+                  style: Theme.of(context).textTheme.headline6.merge(
                         TextStyle(color: Theme.of(context).primaryColor),
                       ),
                   children: [

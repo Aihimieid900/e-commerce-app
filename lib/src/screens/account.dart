@@ -32,7 +32,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                       Text(
                         _user.name,
                         textAlign: TextAlign.left,
-                        style: Theme.of(context).textTheme.display2,
+                        style: Theme.of(context).textTheme.headline3,
                       ),
                       Text(
                         _user.email,
@@ -79,7 +79,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                         Icon(UiIcons.heart),
                         Text(
                           'Wish List',
-                          style: Theme.of(context).textTheme.body1,
+                          style: Theme.of(context).textTheme.bodyText1,
                         )
                       ],
                     ),
@@ -96,7 +96,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                         Icon(UiIcons.favorites),
                         Text(
                           'Following',
-                          style: Theme.of(context).textTheme.body1,
+                          style: Theme.of(context).textTheme.bodyText1,
                         )
                       ],
                     ),
@@ -113,7 +113,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                         Icon(UiIcons.chat_1),
                         Text(
                           'Messages',
-                          style: Theme.of(context).textTheme.body1,
+                          style: Theme.of(context).textTheme.bodyText1,
                         )
                       ],
                     ),
@@ -139,7 +139,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                   leading: Icon(UiIcons.inbox),
                   title: Text(
                     'My Orders',
-                    style: Theme.of(context).textTheme.body2,
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                   trailing: ButtonTheme(
                     padding: EdgeInsets.all(0),
@@ -151,7 +151,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                       },
                       child: Text(
                         "View all",
-                        style: Theme.of(context).textTheme.body1,
+                        style: Theme.of(context).textTheme.bodyText1,
                       ),
                     ),
                   ),
@@ -163,7 +163,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                   dense: true,
                   title: Text(
                     'Unpaid',
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                   trailing: Chip(
                     padding: EdgeInsets.symmetric(horizontal: 10),
@@ -182,7 +182,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                   dense: true,
                   title: Text(
                     'To be shipped',
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                   trailing: Chip(
                     padding: EdgeInsets.symmetric(horizontal: 10),
@@ -201,7 +201,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                   dense: true,
                   title: Text(
                     'Shipped',
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                   trailing: Chip(
                     padding: EdgeInsets.symmetric(horizontal: 10),
@@ -262,7 +262,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                   dense: true,
                   title: Text(
                     'Full name',
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                   trailing: Text(
                     _user.name,
@@ -274,7 +274,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                   dense: true,
                   title: Text(
                     'Email',
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                   trailing: Text(
                     _user.email,
@@ -286,7 +286,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                   dense: true,
                   title: Text(
                     'Gender',
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                   trailing: Text(
                     _user.gender,
@@ -298,7 +298,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                   dense: true,
                   title: Text(
                     'Birth Date',
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                   trailing: Text(
                     _user.getDateOfBirth(),
@@ -325,7 +325,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                   leading: Icon(UiIcons.settings_1),
                   title: Text(
                     'Account Settings',
-                    style: Theme.of(context).textTheme.body2,
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ),
                 ListTile(
@@ -361,7 +361,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                       SizedBox(width: 10),
                       Text(
                         'Languages',
-                        style: Theme.of(context).textTheme.body1,
+                        style: Theme.of(context).textTheme.bodyText1,
                       ),
                     ],
                   ),
@@ -385,7 +385,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                       SizedBox(width: 10),
                       Text(
                         'Help & Support',
-                        style: Theme.of(context).textTheme.body1,
+                        style: Theme.of(context).textTheme.bodyText1,
                       ),
                     ],
                   ),

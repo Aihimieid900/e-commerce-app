@@ -25,7 +25,7 @@ class FaqItemWidget extends StatelessWidget {
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5))),
             child: Text(
               'Gluten-free spaghetti with tomatoes ?',
-              style: Theme.of(context).textTheme.body2.merge(TextStyle(color: Theme.of(context).primaryColor)),
+              style: Theme.of(context).textTheme.bodyText2.merge(TextStyle(color: Theme.of(context).primaryColor)),
             ),
           ),
           Container(
@@ -36,7 +36,7 @@ class FaqItemWidget extends StatelessWidget {
                 borderRadius: BorderRadius.only(bottomRight: Radius.circular(5), bottomLeft: Radius.circular(5))),
             child: Text(
               'Gluten-free spaghetti with tomatoes Gluten-free spaghetti with tomatoes',
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText1,
             ),
           ),
         ],

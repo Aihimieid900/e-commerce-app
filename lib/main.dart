@@ -1,8 +1,19 @@
 import 'package:ecommerce_app_ui_kit/config/app_config.dart' as config;
 import 'package:ecommerce_app_ui_kit/route_generator.dart';
+import 'package:ecommerce_app_ui_kit/src/models/category.dart';
+import 'package:ecommerce_app_ui_kit/src/models/product.dart';
 import 'package:flutter/material.dart';
-
-void main() => runApp(MyApp());
+import 'package:get_it/get_it.dart';
+void setupGetIt(){
+GetIt.I.registerLazySingleton(() => ProductsList());
+GetIt.I.registerLazySingleton(() => CategoriesList());
+GetIt.I.registerLazySingleton(() => SubCategoriesList());
+// GetIt.I.registerLazySingleton(() => ProductService());
+}
+void main() {
+setupGetIt();
+runApp(MyApp());
+} 
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

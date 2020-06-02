@@ -41,7 +41,7 @@ class _OrdersProductsWidgetState extends State<OrdersProductsWidget> {
                   'Orders List',
                   overflow: TextOverflow.fade,
                   softWrap: false,
-                  style: Theme.of(context).textTheme.display1,
+                  style: Theme.of(context).textTheme.headline3,
                 ),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,

@@ -23,7 +23,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
         elevation: 0,
         title: Text(
           'Checkout',
-          style: Theme.of(context).textTheme.display1,
+          style: Theme.of(context).textTheme.headline4,
         ),
         actions: <Widget>[
           new ShoppingCartButtonWidget(
@@ -61,7 +61,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                   'Payment Mode',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.display1,
+                  style: Theme.of(context).textTheme.headline4,
                 ),
                 subtitle: Text(
                   'Select your prefered payment mode',
@@ -139,7 +139,7 @@ class _CheckoutWidgetState extends State<CheckoutWidget> {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                     '\$55.36',
-                    style: Theme.of(context).textTheme.display1.merge(TextStyle(color: Theme.of(context).primaryColor)),
+                    style: Theme.of(context).textTheme.headline4.merge(TextStyle(color: Theme.of(context).primaryColor)),
                   ),
                 )
               ],

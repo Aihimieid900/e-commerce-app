@@ -66,7 +66,7 @@ class _BrandIconWidgetState extends State<BrandIconWidget> with SingleTickerProv
                   ),
                   Text(
                     widget.brand.selected ? widget.brand.rate.toString() : '',
-                    style: Theme.of(context).textTheme.body2,
+                    style: Theme.of(context).textTheme.bodyText2,
                   )
                 ],
               ),

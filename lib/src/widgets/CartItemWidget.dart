@@ -36,7 +36,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Hero(
-              tag: widget.heroTag + widget.product.id,
+              tag: widget.heroTag + widget.product.id.toString(),
               child: Container(
                 height: 90,
                 width: 90,
@@ -59,11 +59,11 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                           widget.product.name,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
-                          style: Theme.of(context).textTheme.subhead,
+                          style: Theme.of(context).textTheme.subtitle1,
                         ),
                         Text(
-                          widget.product.getPrice(),
-                          style: Theme.of(context).textTheme.display1,
+                          widget.product.price,
+                          style: Theme.of(context).textTheme.headline4,
                         ),
                       ],
                     ),
@@ -84,7 +84,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                         icon: Icon(Icons.add_circle_outline),
                         color: Theme.of(context).hintColor,
                       ),
-                      Text(widget.quantity.toString(), style: Theme.of(context).textTheme.subhead),
+                      Text(widget.quantity.toString(), style: Theme.of(context).textTheme.subtitle1),
                       IconButton(
                         onPressed: () {
                           setState(() {

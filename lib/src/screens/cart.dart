@@ -30,7 +30,7 @@ class _CartWidgetState extends State<CartWidget> {
         elevation: 0,
         title: Text(
           'Cart',
-          style: Theme.of(context).textTheme.display1,
+          style: Theme.of(context).textTheme.headline3,
         ),
         actions: <Widget>[
           Container(
@@ -73,7 +73,7 @@ class _CartWidgetState extends State<CartWidget> {
                         'Shopping Cart',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.display1,
+                        style: Theme.of(context).textTheme.headline4,
                       ),
                       subtitle: Text(
                         'Verify your quantity and click checkout',
@@ -123,10 +123,10 @@ class _CartWidgetState extends State<CartWidget> {
                         Expanded(
                           child: Text(
                             'Subtotal',
-                            style: Theme.of(context).textTheme.body2,
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                         ),
-                        Text('\$50.23', style: Theme.of(context).textTheme.subhead),
+                        Text('\$50.23', style: Theme.of(context).textTheme.subtitle1),
                       ],
                     ),
                     SizedBox(height: 5),
@@ -135,10 +135,10 @@ class _CartWidgetState extends State<CartWidget> {
                         Expanded(
                           child: Text(
                             'TAX (20%)',
-                            style: Theme.of(context).textTheme.body2,
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                         ),
-                        Text('\$13.23', style: Theme.of(context).textTheme.subhead),
+                        Text('\$13.23', style: Theme.of(context).textTheme.subtitle1),
                       ],
                     ),
                     SizedBox(height: 10),
@@ -168,7 +168,7 @@ class _CartWidgetState extends State<CartWidget> {
                             '\$55.36',
                             style: Theme.of(context)
                                 .textTheme
-                                .display1
+                                .headline4
                                 .merge(TextStyle(color: Theme.of(context).primaryColor)),
                           ),
                         )

@@ -34,7 +34,7 @@ class _FlashSalesHeaderWidgetState extends State<FlashSalesHeaderWidget> {
         ),
         title: Text(
           'Flash Sales',
-          style: Theme.of(context).textTheme.display1,
+          style: Theme.of(context).textTheme.headline4,
         ),
         trailing: Text('End in $_timer'),
       ),

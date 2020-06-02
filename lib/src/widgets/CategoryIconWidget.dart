@@ -29,7 +29,7 @@ class _CategoryIconWidgetState extends State<CategoryIconWidget> with SingleTick
       highlightColor: Theme.of(context).accentColor,
       onTap: () {
         setState(() {
-          widget.onPressed(widget.category.id);
+          // widget.onPressed(widget.category.id);
         });
       },
       child: AnimatedContainer(
@@ -43,7 +43,7 @@ class _CategoryIconWidgetState extends State<CategoryIconWidget> with SingleTick
         child: Row(
           children: <Widget>[
             Hero(
-              tag: widget.heroTag + widget.category.id,
+              tag: widget.heroTag +widget.category.id.toString() ,
               child: Icon(
                 widget.category.icon,
                 color: widget.category.selected ? Theme.of(context).accentColor : Theme.of(context).primaryColor,

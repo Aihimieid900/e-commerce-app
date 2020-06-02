@@ -64,7 +64,7 @@ class _FavoriteListItemWidgetState extends State<FavoriteListItemWidget> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Hero(
-                tag: widget.heroTag + widget.product.id,
+                tag: widget.heroTag + widget.product.id.toString(),
                 child: Container(
                   height: 60,
                   width: 60,
@@ -87,14 +87,14 @@ class _FavoriteListItemWidgetState extends State<FavoriteListItemWidget> {
                             widget.product.name,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
-                            style: Theme.of(context).textTheme.subhead,
+                            style: Theme.of(context).textTheme.subtitle1
                           ),
                           Row(
                             children: <Widget>[
                               // The title of the product
                               Text(
                                 '${widget.product.sales} Sales',
-                                style: Theme.of(context).textTheme.body1,
+                                style: Theme.of(context).textTheme.bodyText1,
                                 overflow: TextOverflow.fade,
                                 softWrap: false,
                               ),
@@ -106,7 +106,7 @@ class _FavoriteListItemWidgetState extends State<FavoriteListItemWidget> {
                               ),
                               Text(
                                 widget.product.rate.toString(),
-                                style: Theme.of(context).textTheme.body2,
+                                style: Theme.of(context).textTheme.bodyText2,
                               )
                             ],
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -115,7 +115,7 @@ class _FavoriteListItemWidgetState extends State<FavoriteListItemWidget> {
                       ),
                     ),
                     SizedBox(width: 8),
-                    Text(widget.product.getPrice(), style: Theme.of(context).textTheme.display1),
+                    Text(widget.product.price, style: Theme.of(context).textTheme.headline4),
                   ],
                 ),
               )

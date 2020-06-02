@@ -37,7 +37,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
             elevation: 0,
             title: Text(
               'My Orders',
-              style: Theme.of(context).textTheme.display1,
+              style: Theme.of(context).textTheme.headline3,
             ),
             actions: <Widget>[
               new ShoppingCartButtonWidget(

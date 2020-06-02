@@ -21,7 +21,7 @@ class DrawerWidget extends StatelessWidget {
               ),
               accountName: Text(
                 _user.name,
-                style: Theme.of(context).textTheme.title,
+                style: Theme.of(context).textTheme.headline6,
               ),
               accountEmail: Text(
                 _user.email,
@@ -43,7 +43,7 @@ class DrawerWidget extends StatelessWidget {
             ),
             title: Text(
               "Home",
-              style: Theme.of(context).textTheme.subhead,
+              style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
           ListTile(
@@ -56,7 +56,7 @@ class DrawerWidget extends StatelessWidget {
             ),
             title: Text(
               "Notifications",
-              style: Theme.of(context).textTheme.subhead,
+              style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
           ListTile(
@@ -69,7 +69,7 @@ class DrawerWidget extends StatelessWidget {
             ),
             title: Text(
               "My Orders",
-              style: Theme.of(context).textTheme.subhead,
+              style: Theme.of(context).textTheme.subtitle1,
             ),
             trailing: Chip(
               padding: EdgeInsets.symmetric(horizontal: 5),
@@ -129,7 +129,7 @@ class DrawerWidget extends StatelessWidget {
             ),
             title: Text(
               "Categories",
-              style: Theme.of(context).textTheme.subhead,
+              style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
           ListTile(
@@ -142,14 +142,14 @@ class DrawerWidget extends StatelessWidget {
             ),
             title: Text(
               "Brands",
-              style: Theme.of(context).textTheme.subhead,
+              style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
           ListTile(
             dense: true,
             title: Text(
               "Application Preferences",
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText1,
             ),
             trailing: Icon(
               Icons.remove,
@@ -166,7 +166,7 @@ class DrawerWidget extends StatelessWidget {
             ),
             title: Text(
               "Help & Support",
-              style: Theme.of(context).textTheme.subhead,
+              style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
           ListTile(
@@ -179,7 +179,7 @@ class DrawerWidget extends StatelessWidget {
             ),
             title: Text(
               "Settings",
-              style: Theme.of(context).textTheme.subhead,
+              style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
           ListTile(
@@ -192,7 +192,7 @@ class DrawerWidget extends StatelessWidget {
             ),
             title: Text(
               "Languages",
-              style: Theme.of(context).textTheme.subhead,
+              style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
           ListTile(
@@ -205,14 +205,14 @@ class DrawerWidget extends StatelessWidget {
             ),
             title: Text(
               "Log out",
-              style: Theme.of(context).textTheme.subhead,
+              style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
           ListTile(
             dense: true,
             title: Text(
               "Version 0.0.1",
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText1,
             ),
             trailing: Icon(
               Icons.remove,

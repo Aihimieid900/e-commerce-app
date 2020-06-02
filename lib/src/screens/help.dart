@@ -43,7 +43,7 @@ class _HelpWidgetState extends State<HelpWidget> {
           ),
           title: Text(
             'Help & Support',
-            style: Theme.of(context).textTheme.display1.merge(TextStyle(color: Theme.of(context).primaryColor)),
+            style: Theme.of(context).textTheme.headline3.merge(TextStyle(color: Theme.of(context).primaryColor)),
           ),
           actions: <Widget>[
             new ShoppingCartButtonWidget(
@@ -71,7 +71,7 @@ class _HelpWidgetState extends State<HelpWidget> {
                       'Faq',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.display1,
+                      style: Theme.of(context).textTheme.headline4,
                     ),
                   ),
                   ListView.separated(

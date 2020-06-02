@@ -55,7 +55,7 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                         children: <Widget>[
                           Text(
                             slide.description,
-                            style: Theme.of(context).textTheme.title.merge(TextStyle(height: 0.8)),
+                            style: Theme.of(context).textTheme.headline6.merge(TextStyle(height: 0.8)),
                             textAlign: TextAlign.right,
                             overflow: TextOverflow.fade,
                             maxLines: 3,

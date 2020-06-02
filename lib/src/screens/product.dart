@@ -1,5 +1,6 @@
 import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
 import 'package:ecommerce_app_ui_kit/src/models/product.dart';
+import 'package:ecommerce_app_ui_kit/src/models/review.dart';
 import 'package:ecommerce_app_ui_kit/src/models/route_argument.dart';
 import 'package:ecommerce_app_ui_kit/src/widgets/DrawerWidget.dart';
 import 'package:ecommerce_app_ui_kit/src/widgets/ProductDetailsTabWidget.dart';
@@ -22,14 +23,29 @@ class ProductWidget extends StatefulWidget {
   _ProductWidgetState createState() => _ProductWidgetState();
 }
 
-class _ProductWidgetState extends State<ProductWidget> with SingleTickerProviderStateMixin {
+class _ProductWidgetState extends State<ProductWidget>
+    with SingleTickerProviderStateMixin {
+  ReviewsList reviewsList = ReviewsList();
   TabController _tabController;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   int _tabIndex = 0;
+  int _idProductForReview;
+  var review;
+  void reviewProduct() async {
+    setState(() {
+   
+    });
+    review = await reviewsList.getReview(_idProductForReview);
+    print(review);
+    setState(() {
+      reviewsList.reviewsList = review;
+    });
+  }
 
   @override
   void initState() {
-    _tabController = TabController(length: 3, initialIndex: _tabIndex, vsync: this);
+    _tabController =
+        TabController(length: 3, initialIndex: _tabIndex, vsync: this);
     _tabController.addListener(_handleTabSelection);
     super.initState();
   }
@@ -43,7 +59,12 @@ class _ProductWidgetState extends State<ProductWidget> with SingleTickerProvider
     if (_tabController.indexIsChanging) {
       setState(() {
         _tabIndex = _tabController.index;
+
       });
+      if(_tabIndex == _tabController.length - 1){
+           _idProductForReview = widget._product.id;
+        reviewProduct();
+      }
     }
   }
 
@@ -57,7 +78,10 @@ class _ProductWidgetState extends State<ProductWidget> with SingleTickerProvider
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColor.withOpacity(0.9),
           boxShadow: [
-            BoxShadow(color: Theme.of(context).focusColor.withOpacity(0.15), blurRadius: 5, offset: Offset(0, -2)),
+            BoxShadow(
+                color: Theme.of(context).focusColor.withOpacity(0.15),
+                blurRadius: 5,
+                offset: Offset(0, -2)),
           ],
         ),
         child: Row(
@@ -106,15 +130,14 @@ class _ProductWidgetState extends State<ProductWidget> with SingleTickerProvider
                         });
                       },
                       iconSize: 30,
-                      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                       icon: Icon(Icons.remove_circle_outline),
                       color: Theme.of(context).primaryColor,
                     ),
                     Text('2',
-                        style: Theme.of(context)
-                            .textTheme
-                            .subhead
-                            .merge(TextStyle(color: Theme.of(context).primaryColor))),
+                        style: Theme.of(context).textTheme.subtitle1.merge(
+                            TextStyle(color: Theme.of(context).primaryColor))),
                     IconButton(
                       onPressed: () {
                         setState(() {
@@ -122,7 +145,8 @@ class _ProductWidgetState extends State<ProductWidget> with SingleTickerProvider
                         });
                       },
                       iconSize: 30,
-                      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                       icon: Icon(Icons.add_circle_outline),
                       color: Theme.of(context).primaryColor,
                     )
@@ -140,12 +164,14 @@ class _ProductWidgetState extends State<ProductWidget> with SingleTickerProvider
 //          pinned: true,
           automaticallyImplyLeading: false,
           leading: new IconButton(
-            icon: new Icon(UiIcons.return_icon, color: Theme.of(context).hintColor),
+            icon: new Icon(UiIcons.return_icon,
+                color: Theme.of(context).hintColor),
             onPressed: () => Navigator.of(context).pop(),
           ),
           actions: <Widget>[
             new ShoppingCartButtonWidget(
-                iconColor: Theme.of(context).hintColor, labelColor: Theme.of(context).accentColor),
+                iconColor: Theme.of(context).hintColor,
+                labelColor: Theme.of(context).accentColor),
             Container(
                 width: 30,
                 height: 30,
@@ -166,7 +192,7 @@ class _ProductWidgetState extends State<ProductWidget> with SingleTickerProvider
           flexibleSpace: FlexibleSpaceBar(
             collapseMode: CollapseMode.parallax,
             background: Hero(
-              tag: widget._heroTag + widget.routeArgument.id,
+              tag: widget._heroTag + widget.routeArgument.id.toString(),
               child: Stack(
                 fit: StackFit.expand,
                 children: <Widget>[
@@ -176,24 +202,28 @@ class _ProductWidgetState extends State<ProductWidget> with SingleTickerProvider
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage(widget._product.image),
+                        image: NetworkImage(widget._product.image),
                       ),
                     ),
                   ),
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                        gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-                      Theme.of(context).primaryColor,
-                      Colors.white.withOpacity(0),
-                      Colors.white.withOpacity(0),
-                      Theme.of(context).scaffoldBackgroundColor
-                    ], stops: [
-                      0,
-                      0.4,
-                      0.6,
-                      1
-                    ])),
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                          Theme.of(context).primaryColor,
+                          Colors.white.withOpacity(0),
+                          Colors.white.withOpacity(0),
+                          Theme.of(context).scaffoldBackgroundColor
+                        ],
+                            stops: [
+                          0,
+                          0.4,
+                          0.6,
+                          1
+                        ])),
                   ),
                 ],
               ),
@@ -205,14 +235,19 @@ class _ProductWidgetState extends State<ProductWidget> with SingleTickerProvider
               labelPadding: EdgeInsets.symmetric(horizontal: 10),
               unselectedLabelColor: Theme.of(context).accentColor,
               labelColor: Theme.of(context).primaryColor,
-              indicator: BoxDecoration(borderRadius: BorderRadius.circular(50), color: Theme.of(context).accentColor),
+              indicator: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: Theme.of(context).accentColor),
               tabs: [
                 Tab(
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 5),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
-                        border: Border.all(color: Theme.of(context).accentColor.withOpacity(0.2), width: 1)),
+                        border: Border.all(
+                            color:
+                                Theme.of(context).accentColor.withOpacity(0.2),
+                            width: 1)),
                     child: Align(
                       alignment: Alignment.center,
                       child: Text("Product"),
@@ -224,7 +259,10 @@ class _ProductWidgetState extends State<ProductWidget> with SingleTickerProvider
                     padding: EdgeInsets.symmetric(horizontal: 5),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
-                        border: Border.all(color: Theme.of(context).accentColor.withOpacity(0.2), width: 1)),
+                        border: Border.all(
+                            color:
+                                Theme.of(context).accentColor.withOpacity(0.2),
+                            width: 1)),
                     child: Align(
                       alignment: Alignment.center,
                       child: Text("Detail"),
@@ -236,7 +274,10 @@ class _ProductWidgetState extends State<ProductWidget> with SingleTickerProvider
                     padding: EdgeInsets.symmetric(horizontal: 5),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
-                        border: Border.all(color: Theme.of(context).accentColor.withOpacity(0.2), width: 1)),
+                        border: Border.all(
+                            color:
+                                Theme.of(context).accentColor.withOpacity(0.2),
+                            width: 1)),
                     child: Align(
                       alignment: Alignment.center,
                       child: Text("Review"),
@@ -270,7 +311,8 @@ class _ProductWidgetState extends State<ProductWidget> with SingleTickerProvider
               child: Column(
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 15),
                     child: ListTile(
                       dense: true,
                       contentPadding: EdgeInsets.symmetric(vertical: 0),
@@ -282,7 +324,7 @@ class _ProductWidgetState extends State<ProductWidget> with SingleTickerProvider
                         'Product Reviews',
                         overflow: TextOverflow.fade,
                         softWrap: false,
-                        style: Theme.of(context).textTheme.display1,
+                        style: Theme.of(context).textTheme.headline4,
                       ),
                     ),
                   ),

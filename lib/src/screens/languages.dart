@@ -39,7 +39,7 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
         elevation: 0,
         title: Text(
           'Languages',
-          style: Theme.of(context).textTheme.display1,
+          style: Theme.of(context).textTheme.headline4,
         ),
         actions: <Widget>[
           new ShoppingCartButtonWidget(
@@ -81,7 +81,7 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
                     'App Language',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.display1,
+                    style: Theme.of(context).textTheme.headline4,
                   ),
                 ),
               ),

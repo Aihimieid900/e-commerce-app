@@ -58,7 +58,7 @@ class _TabsWidgetState extends State<TabsWidget> {
           widget.currentPage = AccountWidget();
           break;
         case 2:
-          widget.currentTitle = 'منافس';
+          widget.currentTitle = 'Home';
           widget.currentPage = HomeWidget();
           break;
         case 3:
@@ -76,6 +76,15 @@ class _TabsWidgetState extends State<TabsWidget> {
           break;
       }
     });
+  }
+
+  _imageHomeOrText() {
+    if (widget.currentTitle == 'Home') {
+      return Image(image: AssetImage('img/logoApp.png'),width: 120.0,);
+    } else {
+      return Text(widget.currentTitle,
+          style: Theme.of(context).textTheme.headline4);
+    }
   }
 
   @override
@@ -96,13 +105,12 @@ class _TabsWidgetState extends State<TabsWidget> {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text(
-          widget.currentTitle  ,
-          style: Theme.of(context).textTheme.headline4
-        ),
+        title: _imageHomeOrText(),
+
         actions: <Widget>[
           new ShoppingCartButtonWidget(
-              iconColor: Theme.of(context).hintColor, labelColor: Theme.of(context).accentColor),
+              iconColor: Theme.of(context).hintColor,
+              labelColor: Theme.of(context).accentColor),
           Container(
               width: 30,
               height: 30,
@@ -192,15 +200,20 @@ class _TabsWidgetState extends State<TabsWidget> {
                   ),
                   boxShadow: [
                     BoxShadow(
-                        color: Theme.of(context).accentColor.withOpacity(0.4), blurRadius: 40, offset: Offset(0, 15)),
+                        color: Theme.of(context).accentColor.withOpacity(0.4),
+                        blurRadius: 40,
+                        offset: Offset(0, 15)),
                     BoxShadow(
-                        color: Theme.of(context).accentColor.withOpacity(0.4), blurRadius: 13, offset: Offset(0, 3))
+                        color: Theme.of(context).accentColor.withOpacity(0.4),
+                        blurRadius: 13,
+                        offset: Offset(0, 3))
                   ],
                 ),
-                child: new Icon(UiIcons.home, color: Theme.of(context).primaryColor),
+                child: new Icon(UiIcons.home,
+                    color: Theme.of(context).primaryColor),
               )),
           BottomNavigationBarItem(
-            icon: new Icon( UiIcons.folder_1),
+            icon: new Icon(Icons.apps),
             title: new Container(height: 0.0),
           ),
           BottomNavigationBarItem(

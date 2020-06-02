@@ -31,7 +31,7 @@ class productHomeTabWidgetState extends State<ProductHomeTabWidget> {
                   widget.product.name,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
-                  style: Theme.of(context).textTheme.display2,
+                  style: Theme.of(context).textTheme.headline3,
                 ),
               ),
               Chip(
@@ -41,7 +41,7 @@ class productHomeTabWidgetState extends State<ProductHomeTabWidget> {
                   children: <Widget>[
                     Text(widget.product.rate.toString(),
                         style:
-                            Theme.of(context).textTheme.body2.merge(TextStyle(color: Theme.of(context).primaryColor))),
+                            Theme.of(context).textTheme.bodyText2.merge(TextStyle(color: Theme.of(context).primaryColor))),
                     Icon(
                       Icons.star_border,
                       color: Theme.of(context).primaryColor,
@@ -60,13 +60,13 @@ class productHomeTabWidgetState extends State<ProductHomeTabWidget> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text(widget.product.getPrice(), style: Theme.of(context).textTheme.display3),
+              Text(widget.product.price, style: Theme.of(context).textTheme.headline2),
               SizedBox(width: 10),
               Text(
-                widget.product.getPrice(myPrice: widget.product.price + 10.0),
+                widget.product.price,
                 style: Theme.of(context)
                     .textTheme
-                    .headline
+                    .headline5
                     .merge(TextStyle(color: Theme.of(context).focusColor, decoration: TextDecoration.lineThrough)),
               ),
               SizedBox(width: 10),
@@ -96,7 +96,7 @@ class productHomeTabWidgetState extends State<ProductHomeTabWidget> {
                   Expanded(
                     child: Text(
                       'Select Color',
-                      style: Theme.of(context).textTheme.body2,
+                      style: Theme.of(context).textTheme.bodyText2,
                     ),
                   ),
                   MaterialButton(
@@ -105,7 +105,7 @@ class productHomeTabWidgetState extends State<ProductHomeTabWidget> {
                     minWidth: 0,
                     child: Text(
                       'Clear All',
-                      style: Theme.of(context).textTheme.body1,
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                   )
                 ],
@@ -133,7 +133,7 @@ class productHomeTabWidgetState extends State<ProductHomeTabWidget> {
                   Expanded(
                     child: Text(
                       'Select Size',
-                      style: Theme.of(context).textTheme.body2,
+                      style: Theme.of(context).textTheme.bodyText2,
                     ),
                   ),
                   MaterialButton(
@@ -142,7 +142,7 @@ class productHomeTabWidgetState extends State<ProductHomeTabWidget> {
                     minWidth: 0,
                     child: Text(
                       'Clear All',
-                      style: Theme.of(context).textTheme.body1,
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                   )
                 ],
@@ -163,7 +163,7 @@ class productHomeTabWidgetState extends State<ProductHomeTabWidget> {
             ),
             title: Text(
               'Related Poducts',
-              style: Theme.of(context).textTheme.display1,
+              style: Theme.of(context).textTheme.headline1,
             ),
           ),
         ),

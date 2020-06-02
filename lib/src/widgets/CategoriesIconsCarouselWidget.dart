@@ -53,7 +53,7 @@ class _CategoriesIconsCarouselWidgetState extends State<CategoriesIconsCarouselW
                     double _marginLeft = 0;
                     (index == 0) ? _marginLeft = 12 : _marginLeft = 0;
                     return CategoryIconWidget(
-                        heroTag: widget.heroTag,
+                        heroTag: widget.heroTag ,
                         marginLeft: _marginLeft,
                         category: widget.categoriesList.list.elementAt(index),
                         onPressed: (String id) {

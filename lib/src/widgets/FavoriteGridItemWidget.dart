@@ -25,7 +25,7 @@ class FavoriteGridItemWidget extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: Hero(
-                  tag: heroTag + product.id,
+                  tag: heroTag + product.id.toString(),
                   child: Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(image: AssetImage(this.product.image), fit: BoxFit.cover),
@@ -37,7 +37,7 @@ class FavoriteGridItemWidget extends StatelessWidget {
               SizedBox(height: 5),
               Text(
                 product.name,
-                style: Theme.of(context).textTheme.body2,
+                style: Theme.of(context).textTheme.bodyText2,
                 overflow: TextOverflow.ellipsis,
               ),
               SizedBox(height: 2),

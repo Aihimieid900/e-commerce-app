@@ -29,10 +29,16 @@ dependencies:
   sticky_headers: ^0.1.8
   datetime_picker_formfield: ^0.4.2
   curved_navigation_bar: ^0.3.0
+  get_it: ^4.0.2
+  dio: ^3.0.9
+  sleek_circular_slider: ^1.1.0
+  json_serializable: ^3.3.0
+  json_annotation: ^3.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: ^1.10.0
 
 
 # For information on the generic Dart part of this file, see the
@@ -48,6 +54,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - img/logoApp.png
     - img/onboarding0.png
     - img/onboarding1.png
     - img/onboarding2.png

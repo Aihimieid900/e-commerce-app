@@ -1,19 +1,39 @@
 import 'package:ecommerce_app_ui_kit/src/models/category.dart';
 import 'package:ecommerce_app_ui_kit/src/models/route_argument.dart';
 import 'package:ecommerce_app_ui_kit/src/widgets/DrawerWidget.dart';
+import 'package:ecommerce_app_ui_kit/src/widgets/LoadingPlaced2item.dart';
 import 'package:ecommerce_app_ui_kit/src/widgets/SearchBarWidget.dart';
 import 'package:ecommerce_app_ui_kit/src/widgets/ShoppingCartButtonWidget.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class CategoriesWidget extends StatefulWidget {
-
   @override
   _CategoriesWidgetState createState() => _CategoriesWidgetState();
 }
 
 class _CategoriesWidgetState extends State<CategoriesWidget> {
-  CategoriesList _categoriesList = new CategoriesList();
+  CategoriesList _categoriesList = GetIt.I<CategoriesList>();
   SubCategoriesList _subCategoriesList = new SubCategoriesList();
+  var listCategories;
+  var listSubCategories;
+  bool isLoading = true;
+  void getCategories() async {
+    isLoading = true;
+    listCategories = await _categoriesList.getCategories();
+    listSubCategories = _subCategoriesList.getSubCategory();
+    setState(() {
+      _categoriesList.list = listCategories;
+      _subCategoriesList.list = listSubCategories;
+      if (_categoriesList.list.isNotEmpty) isLoading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCategories();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,23 +69,28 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
       //         )),
       //   ],
       // ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Wrap(
-          runSpacing: 20,
-          children: <Widget>[
-            SearchBarWidget(),
-            Wrap(
-              runSpacing: 30,
-              children: List.generate(_categoriesList.list.length, (index) {
-                Category category = _categoriesList.list.elementAt(index);
-                return index.isEven ? buildEvenCategory(context, category) : buildOddCategory(context, category);
-              }),
-            ),
-          ],
-        ),
+      body: isLoading
+          ? LoadingPlace2Item()
+          : SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Wrap(
+                runSpacing: 20,
+                children: <Widget>[
+                  SearchBarWidget(),
+                  Wrap(
+                    runSpacing: 30,
+                    children:
+                        List.generate(_categoriesList.list.length, (index) {
+                      Category category = _categoriesList.list.elementAt(index);
+                      return index.isEven
+                          ? buildEvenCategory(context, category)
+                          : buildOddCategory(context, category);
+                    }),
+                  ),
+                ],
+              ),
 //        child: buildOddCategory(context),
-      ),
+            ),
     );
   }
 
@@ -81,15 +106,22 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                 padding: EdgeInsets.symmetric(horizontal: 5, vertical: 20),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        bottomLeft: Radius.circular(10)),
                     boxShadow: [
                       BoxShadow(
-                          color: Theme.of(context).hintColor.withOpacity(0.10), offset: Offset(0, 4), blurRadius: 10)
+                          color: Theme.of(context).hintColor.withOpacity(0.10),
+                          offset: Offset(0, 4),
+                          blurRadius: 10)
                     ],
-                    gradient: LinearGradient(begin: Alignment.bottomLeft, end: Alignment.topRight, colors: [
-                      Theme.of(context).accentColor,
-                      Theme.of(context).accentColor.withOpacity(0.2),
-                    ])),
+                    gradient: LinearGradient(
+                        begin: Alignment.bottomLeft,
+                        end: Alignment.topRight,
+                        colors: [
+                          Theme.of(context).accentColor,
+                          Theme.of(context).accentColor.withOpacity(0.2),
+                        ])),
                 child: Column(
                   children: <Widget>[
                     Hero(
@@ -142,9 +174,14 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
               borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(10), bottomRight: Radius.circular(10), bottomLeft: Radius.circular(10)),
+                  topRight: Radius.circular(10),
+                  bottomRight: Radius.circular(10),
+                  bottomLeft: Radius.circular(10)),
               boxShadow: [
-                BoxShadow(color: Theme.of(context).hintColor.withOpacity(0.10), offset: Offset(0, 4), blurRadius: 10)
+                BoxShadow(
+                    color: Theme.of(context).hintColor.withOpacity(0.10),
+                    offset: Offset(0, 4),
+                    blurRadius: 10)
               ],
             ),
             constraints: BoxConstraints(minHeight: 120),
@@ -153,24 +190,29 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
               spacing: 10,
               runSpacing: 5,
               children: List.generate(_subCategoriesList.list.length, (index) {
-                SubCategory subCategory = _subCategoriesList.list.elementAt(index);
+                SubCategory subCategory =
+                    _subCategoriesList.list.elementAt(index);
                 return Material(
                   borderRadius: BorderRadius.circular(30),
                   child: InkWell(
                     onTap: () {
-                      Navigator.of(context)
-                          .pushNamed('/Category', arguments: RouteArgument(id: index, argumentsList: [category]));
+                      Navigator.of(context).pushNamed('/Category',
+                          arguments: RouteArgument(
+                              id: index, argumentsList: [category]));
                     },
                     borderRadius: BorderRadius.circular(20),
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        border: Border.all(color: Theme.of(context).hintColor.withOpacity(0.2)),
+                        border: Border.all(
+                            color:
+                                Theme.of(context).hintColor.withOpacity(0.2)),
                       ),
                       child: Text(
                         subCategory.name,
-                        style: Theme.of(context).textTheme.body1,
+                        style: Theme.of(context).textTheme.bodyText1,
                       ),
                     ),
                   ),
@@ -194,9 +236,14 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10), bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
+                  topLeft: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(10)),
               boxShadow: [
-                BoxShadow(color: Theme.of(context).hintColor.withOpacity(0.10), offset: Offset(0, 4), blurRadius: 10)
+                BoxShadow(
+                    color: Theme.of(context).hintColor.withOpacity(0.10),
+                    offset: Offset(0, 4),
+                    blurRadius: 10)
               ],
             ),
             constraints: BoxConstraints(minHeight: 120),
@@ -205,24 +252,29 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
               spacing: 10,
               runSpacing: 5,
               children: List.generate(_subCategoriesList.list.length, (index) {
-                SubCategory subCategory = _subCategoriesList.list.elementAt(index);
+                SubCategory subCategory =
+                    _subCategoriesList.list.elementAt(index);
                 return Material(
                   borderRadius: BorderRadius.circular(30),
                   child: InkWell(
                     onTap: () {
-                      Navigator.of(context)
-                          .pushNamed('/Category', arguments: RouteArgument(id: index, argumentsList: [category]));
+                      Navigator.of(context).pushNamed('/Category',
+                          arguments: RouteArgument(
+                              id: index, argumentsList: [category]));
                     },
                     borderRadius: BorderRadius.circular(20),
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        border: Border.all(color: Theme.of(context).hintColor.withOpacity(0.2)),
+                        border: Border.all(
+                            color:
+                                Theme.of(context).hintColor.withOpacity(0.2)),
                       ),
                       child: Text(
                         subCategory.name,
-                        style: Theme.of(context).textTheme.body1,
+                        style: Theme.of(context).textTheme.bodyText1,
                       ),
                     ),
                   ),
@@ -239,15 +291,22 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                 padding: EdgeInsets.symmetric(horizontal: 5, vertical: 20),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10)),
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(10),
+                        bottomRight: Radius.circular(10)),
                     boxShadow: [
                       BoxShadow(
-                          color: Theme.of(context).hintColor.withOpacity(0.10), offset: Offset(0, 4), blurRadius: 10)
+                          color: Theme.of(context).hintColor.withOpacity(0.10),
+                          offset: Offset(0, 4),
+                          blurRadius: 10)
                     ],
-                    gradient: LinearGradient(begin: Alignment.bottomLeft, end: Alignment.topRight, colors: [
-                      Theme.of(context).accentColor,
-                      Theme.of(context).accentColor.withOpacity(0.2),
-                    ])),
+                    gradient: LinearGradient(
+                        begin: Alignment.bottomLeft,
+                        end: Alignment.topRight,
+                        colors: [
+                          Theme.of(context).accentColor,
+                          Theme.of(context).accentColor.withOpacity(0.2),
+                        ])),
                 child: Column(
                   children: <Widget>[
                     Hero(

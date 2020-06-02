@@ -44,7 +44,7 @@ class ReviewItemWidget extends StatelessWidget {
                               maxLines: 2,
                               style: Theme.of(context)
                                   .textTheme
-                                  .title
+                                  .headline6
                                   .merge(TextStyle(color: Theme.of(context).hintColor)),
                             ),
                             Row(
@@ -75,7 +75,7 @@ class ReviewItemWidget extends StatelessWidget {
                             Text(review.rate.toString(),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .body2
+                                    .bodyText2
                                     .merge(TextStyle(color: Theme.of(context).primaryColor))),
                             Icon(
                               Icons.star_border,
@@ -96,7 +96,7 @@ class ReviewItemWidget extends StatelessWidget {
         ),
         Text(
           review.review,
-          style: Theme.of(context).textTheme.body1,
+          style: Theme.of(context).textTheme.bodyText1,
           overflow: TextOverflow.ellipsis,
           softWrap: false,
           maxLines: 3,
