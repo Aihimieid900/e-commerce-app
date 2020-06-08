@@ -25,79 +25,58 @@ class Category {
   }
 }
 
-class CategoryNameId {
-  String id;
-  String name;
-  CategoryNameId({this.id, this.name});
-}
-
 class SubCategory {
   int id;
   String name;
   bool selected;
   List<Product> products;
+  int parent;
 
-  SubCategory(this.id, this.name, this.selected, this.products);
+  SubCategory(this.id, this.name, this.selected, this.products, this.parent);
   factory SubCategory.fromJson(dynamic sub) {
-    return SubCategory(
-      sub['id'],
-      sub['name'],
-      false,
-      [],
-    );
+    return SubCategory(sub['id'], sub['name'], false, [], sub['parent']);
   }
 }
 
-class CategoriesList {
-  // hat kol al categories && a3ml forEach 3liha hotaha fi list return list
-  // Future<List<CategoryNameId>> getCategoryNameId() async {
-  //   String path = 'products/categories';
-  //   Network network = Network();
-  //   var categoriesData = await network.getData(path);
-  //   final data = jsonDecode(categoriesData);
-  //   data.forEach((categoryNameAndId) {
-  //     var nameAndId = CategoryNameId(
-  //       id: categoryNameAndId['id'],
-  //       name: categoryNameAndId['name'],
-  //     );
-
-  //     listNameId.add(nameAndId);
-  //   });
-  //   return _listNameId;
-  // }
-  // Category(
-  //   category['id'],
-  //   category['name'],
-  //   UiIcons.shoe_1,
-  //   false,
-  //   category['images'] == [] ? '' : category['images'][0]['src'],
-  // );
+class CategoriesList with ChangeNotifier {
+  NetworkWoocommerce get network => GetIt.I<NetworkWoocommerce>();
   var categoriesData;
-  Future<List> getCategories() async {
-    String categories = 'products/categories';
-    Network network = Network(path:categories);
-    categoriesData = await network.getData();
-    categoriesData.forEach((category) {
-        _list.add(Category.fromJson(category));
-      // _list.add(Category.fromJson(product));
-    });
-    return _list;
-  }
+  Future<void> getCategories() async {
+    setLoading(true);
 
-  // CategoryService get categoryService => GetIt.I<CategoryService>();
+    String categories = 'products/categories?per_page=100';
+    categoriesData = await network.getData(categories);
+    setLoading(false);
+    categoriesData.forEach((category) {
+      if (category['display'] == 'default')
+        addCategoriesList(Category.fromJson(category));
+      // _listSub.add(SubCategory.fromJson(category));
+    });
+  }
+ bool isFetched = false;
 
   List<Category> _list;
-  // List<CategoryNameId> _listNameId;
 
-  set list(List<Category> value) {
-    _list = value;
+void addCategoriesList(Category item) {
+    _list.add(item);
+    notifyListeners();
+  }
+ void setLoading(value) {
+    isFetched = value;
+    notifyListeners();
   }
 
+  bool isLoading() {
+    return isFetched;
+  }
+
+
+  int get itemCount {
+    return _list.length == null ? 0 : _list.length;
+  }
   List<Category> get list => _list;
-  // List<CategoryNameId> get listNameId => _listNameId;
 
   CategoriesList() {
-    // this._listNameId = [];
     this._list = [];
   }
 
@@ -117,28 +96,32 @@ class CategoriesList {
   }
 }
 
-class SubCategoriesList {
+class SubCategoriesList with ChangeNotifier {
   CategoriesList get _categoriesList => GetIt.I<CategoriesList>();
   getSubCategory() {
     var subCategories = _categoriesList.categoriesData;
-    if (subCategories == null) {
+    if (subCategories != null) {
       subCategories.forEach((sub) {
-        if(sub['display'] == 'default')
-        _list.add(SubCategory.fromJson(sub));
+        if (sub['display'] != 'default') addSubCategoriesList(SubCategory.fromJson(sub));
       });
-      return _list;
+ 
     }
   }
 
   List<SubCategory> _list;
 
   List<SubCategory> get list => _list;
-  set list(List<SubCategory> value) => _list = value;
+void addSubCategoriesList(SubCategory item) {
+    _list.add(item);
+    notifyListeners();
+  }
 
+
+  int get itemCount {
+    return _list.length == null ? 0 : _list.length;
+  }
   SubCategoriesList() {
-    this._list = [
-     
-    ];
+    this._list = [];
   }
 
   selectById(String id) {

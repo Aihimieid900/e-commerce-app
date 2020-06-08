@@ -100,7 +100,7 @@ class _CheckoutDoneWidgetState extends State<CheckoutDoneWidget> {
               Text(
                 'Your payment was successfully processed',
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.display2,
+                style: Theme.of(context).textTheme.headline3,
               ),
               SizedBox(height: 50),
               FlatButton(

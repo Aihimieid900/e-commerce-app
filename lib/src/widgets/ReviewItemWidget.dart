@@ -22,7 +22,7 @@ class ReviewItemWidget extends StatelessWidget {
               width: 60,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(100)),
-                image: DecorationImage(image: AssetImage(this.review.user.avatar), fit: BoxFit.cover),
+                image: DecorationImage(image: NetworkImage(this.review.user.avatar), fit: BoxFit.cover),
               ),
             ),
             SizedBox(width: 15),

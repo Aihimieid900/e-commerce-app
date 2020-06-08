@@ -2,9 +2,14 @@ import 'dart:math';
 
 import 'package:ecommerce_app_ui_kit/src/models/user.dart';
 import 'package:ecommerce_app_ui_kit/src/services/network.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get_it/get_it.dart';
 // import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show DateFormat;
+import 'package:json_annotation/json_annotation.dart';
 
+// part 'review.g.dart';
+@JsonSerializable()
 class Review {
   int id;
   User user;
@@ -30,49 +35,34 @@ class Review {
   }
 }
 
-class ReviewsList {
-  Future<List<Review>> getReview(int idProduct) async {
-    String path = 'products/reviews?poduct[0]["items"]=[$idProduct]';
-    Network network = Network(path: path);
+class ReviewsList with ChangeNotifier {
+  NetworkWoocommerce get network => GetIt.I<NetworkWoocommerce>();
+
+  Future<void> getReview(int idProduct) async {
     print(idProduct);
-    var reviewProductData = await network.getData();
+    String reviewID = 'products/reviews?poduct[0]["items"]=[$idProduct]';
+    var reviewProductData = await network.getData(reviewID);
+    removeAll();
     reviewProductData.forEach((review) {
-      if (review['id'] == reviewsList.asMap().containsKey(review['id']))
-        return _reviewsList;
-      else
-        _reviewsList.add(Review.fromJson(review));
+      addReviewsList(Review.fromJson(review));
     });
-    return _reviewsList;
   }
-
   List<Review> _reviewsList;
-
   List<Review> get reviewsList => _reviewsList;
-  set reviewsList(List<Review> value) {
-    _reviewsList = value;
-    //  notifyListeners();
+  void addReviewsList(Review item) {
+    _reviewsList.add(item);
+    notifyListeners();
   }
-
+  void removeAll() {
+    _reviewsList.clear();
+    notifyListeners();
+  }
+int reviewCount(){
+  // return _reviewsList.length;
+  return _reviewsList.length == null ? 0 : _reviewsList.length;
+}
   ReviewsList() {
     this._reviewsList = [
-      // new Review(
-      // new User.basic('Maria R. Garza', 'img/user0.jpg', UserState.available),
-      // 'There are a few foods that predate colonization, and the European colonization of the Americas brought about the introduction of a large number of new ingredients',
-      // 3.2),
-      // new Review(
-      //     new User.basic('George T. Larkin', 'img/user1.jpg', UserState.available),
-      //     'There are a few foods that predate colonization, and the European colonization of the Americas brought about the introduction of a large number of new ingredients',
-      //     3.2),
-      // new Review(
-      //     new User.basic('Edward E. Linn', 'img/user3.jpg', UserState.available),
-      //     'There are a few foods that predate colonization, and the European colonization of the Americas brought about the introduction of a large number of new ingredients',
-      //     3.2),
-      // new Review(
-      //     new User.basic('George T. Larkin', 'img/user0.jpg', UserState.available),
-      //     'There are a few foods that predate colonization, and the European colonization of the Americas brought about the introduction of a large number of new ingredients',
-      //     3.2),
-      // new Review(new User.basic('Laurie Z. Bergeron', 'img/user1.jpg', UserState.available),
-      //     'There are a few foods that predate colonization, and the European colonization of the Americas brought', 3.2)
     ];
   }
 }

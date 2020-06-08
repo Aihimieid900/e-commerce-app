@@ -39,7 +39,7 @@ class ProductGridItemWidget extends StatelessWidget {
           children: <Widget>[
             Hero(
               tag: this.heroTag + product.id.toString(),
-              child: Image(image: NetworkImage(product.image)),
+              child: Image.network(product.image),
             ),
             SizedBox(height: 12),
             Padding(

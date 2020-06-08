@@ -56,7 +56,8 @@ class ProductDetailsTabWidgetState extends State<ProductDetailsTabWidget> {
         ),
         FlashSalesCarouselWidget(
             heroTag: 'product_details_related_products',
-            productsList: widget._productsList.flashSalesList),
+            // productsList: widget._productsList.flashSalesList
+            ),
       ],
     );
   }

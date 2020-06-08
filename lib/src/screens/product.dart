@@ -8,6 +8,7 @@ import 'package:ecommerce_app_ui_kit/src/widgets/ProductHomeTabWidget.dart';
 import 'package:ecommerce_app_ui_kit/src/widgets/ReviewsListWidget.dart';
 import 'package:ecommerce_app_ui_kit/src/widgets/ShoppingCartButtonWidget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductWidget extends StatefulWidget {
   RouteArgument routeArgument;
@@ -31,19 +32,11 @@ class _ProductWidgetState extends State<ProductWidget>
   int _tabIndex = 0;
   int _idProductForReview;
   var review;
-  void reviewProduct() async {
-    setState(() {
-   
-    });
-    review = await reviewsList.getReview(_idProductForReview);
-    print(review);
-    setState(() {
-      reviewsList.reviewsList = review;
-    });
-  }
 
   @override
   void initState() {
+    context.read<ReviewsList>().getReview(_idProductForReview);
+
     _tabController =
         TabController(length: 3, initialIndex: _tabIndex, vsync: this);
     _tabController.addListener(_handleTabSelection);
@@ -59,11 +52,9 @@ class _ProductWidgetState extends State<ProductWidget>
     if (_tabController.indexIsChanging) {
       setState(() {
         _tabIndex = _tabController.index;
-
       });
-      if(_tabIndex == _tabController.length - 1){
-           _idProductForReview = widget._product.id;
-        reviewProduct();
+      if (_tabIndex == _tabController.length - 1) {
+        _idProductForReview = widget._product.id;
       }
     }
   }
@@ -88,18 +79,35 @@ class _ProductWidgetState extends State<ProductWidget>
           children: <Widget>[
             Expanded(
               child: FlatButton(
-                  onPressed: () {
+                onPressed: () {
+                  if (widget._product.like == false) {
+                    Provider.of<ProductsList>(context, listen: false)
+                        .addFavoritesList(widget._product);
+                    Provider.of<ProductsList>(context, listen: false)
+                        .toggleLike(widget._product);
                     setState(() {
-//                      this.cartCount += this.quantity;
+                      widget._product.like = true;
                     });
-                  },
-                  padding: EdgeInsets.symmetric(vertical: 14),
-                  color: Theme.of(context).accentColor,
-                  shape: StadiumBorder(),
-                  child: Icon(
-                    UiIcons.heart,
-                    color: Theme.of(context).primaryColor,
-                  )),
+                  } else {
+                    Provider.of<ProductsList>(context, listen: false)
+                        .toggleLike(widget._product);
+                    Provider.of<ProductsList>(context, listen: false)
+                        .removeFromFav(widget._product);
+                    setState(() {
+                      widget._product.like = false;
+                    });
+                  }
+                },
+                padding: EdgeInsets.symmetric(vertical: 14),
+                color: Theme.of(context).accentColor,
+                shape: StadiumBorder(),
+                child: Icon(
+                  UiIcons.heart,
+                  color: widget._product.like
+                      ? Colors.red
+                      : Theme.of(context).primaryColor,
+                ),
+              ),
             ),
             SizedBox(width: 10),
             FlatButton(
@@ -126,6 +134,8 @@ class _ProductWidgetState extends State<ProductWidget>
                     IconButton(
                       onPressed: () {
                         setState(() {
+                          Provider.of<ProductsList>(context, listen: false)
+                              .removeCartList(widget._product);
 //                          this.quantity = this.decrementQuantity(this.quantity);
                         });
                       },
@@ -135,12 +145,17 @@ class _ProductWidgetState extends State<ProductWidget>
                       icon: Icon(Icons.remove_circle_outline),
                       color: Theme.of(context).primaryColor,
                     ),
-                    Text('2',
+                    Text(
+                        Provider.of<ProductsList>(context, listen: false)
+                            .itemCountCart
+                            .toString(),
                         style: Theme.of(context).textTheme.subtitle1.merge(
                             TextStyle(color: Theme.of(context).primaryColor))),
                     IconButton(
                       onPressed: () {
                         setState(() {
+                           Provider.of<ProductsList>(context, listen: false)
+                    .addCartList(widget._product);
 //                          this.quantity = this.incrementQuantity(this.quantity);
                         });
                       },

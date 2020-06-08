@@ -3,9 +3,9 @@ import 'package:ecommerce_app_ui_kit/src/models/route_argument.dart';
 import 'package:ecommerce_app_ui_kit/src/widgets/DrawerWidget.dart';
 import 'package:ecommerce_app_ui_kit/src/widgets/LoadingPlaced2item.dart';
 import 'package:ecommerce_app_ui_kit/src/widgets/SearchBarWidget.dart';
-import 'package:ecommerce_app_ui_kit/src/widgets/ShoppingCartButtonWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 
 class CategoriesWidget extends StatefulWidget {
   @override
@@ -15,24 +15,24 @@ class CategoriesWidget extends StatefulWidget {
 class _CategoriesWidgetState extends State<CategoriesWidget> {
   CategoriesList _categoriesList = GetIt.I<CategoriesList>();
   SubCategoriesList _subCategoriesList = new SubCategoriesList();
-  var listCategories;
-  var listSubCategories;
-  bool isLoading = true;
-  void getCategories() async {
-    isLoading = true;
-    listCategories = await _categoriesList.getCategories();
-    listSubCategories = _subCategoriesList.getSubCategory();
-    setState(() {
-      _categoriesList.list = listCategories;
-      _subCategoriesList.list = listSubCategories;
-      if (_categoriesList.list.isNotEmpty) isLoading = false;
-    });
-  }
+
+  // void getCategories() async {
+  //   isLoading = true;
+  //   listCategories = await _categoriesList.getCategories();
+  //   listSubCategories = _subCategoriesList.getSubCategory();
+  //   setState(() {
+  //     _categoriesList.list = listCategories;
+  //     _subCategoriesList.list = listSubCategories;
+  //     if (_categoriesList.list.isNotEmpty) isLoading = false;
+  //   });
+  // }
 
   @override
   void initState() {
     super.initState();
-    getCategories();
+    // context.read<CategoriesList>();
+        context.read<CategoriesList>().getCategories();
+
   }
 
   @override
@@ -69,7 +69,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
       //         )),
       //   ],
       // ),
-      body: isLoading
+      body: Provider.of<CategoriesList>(context).isLoading()
           ? LoadingPlace2Item()
           : SingleChildScrollView(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -80,8 +80,8 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                   Wrap(
                     runSpacing: 30,
                     children:
-                        List.generate(_categoriesList.list.length, (index) {
-                      Category category = _categoriesList.list.elementAt(index);
+                        List.generate(Provider.of<CategoriesList>(context).itemCount, (index) {
+                      Category category = Provider.of<CategoriesList>(context).list.elementAt(index);
                       return index.isEven
                           ? buildEvenCategory(context, category)
                           : buildOddCategory(context, category);
@@ -254,6 +254,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
               children: List.generate(_subCategoriesList.list.length, (index) {
                 SubCategory subCategory =
                     _subCategoriesList.list.elementAt(index);
+
                 return Material(
                   borderRadius: BorderRadius.circular(30),
                   child: InkWell(

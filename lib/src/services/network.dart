@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
-
 const String site = 'https://monaviss.com/wp-json/wc/v3/';
 const String key = 'ck_13b8cd383b97f91b2a26a7f5e24d983d6ceff9ff';
 const String sec = 'cs_3a06e978a52a6f1964271a3fe3c4579262b00eb2';
@@ -9,30 +8,29 @@ const Map<String, dynamic> headers = {
   'consumer_secret': sec,
 };
 
-class Network {
-  String path;
-  Network({@required this.path});
+class NetworkWoocommerce {
   Dio dio = Dio();
   Response response;
 
-  Future<dynamic> getData() async {
-    response = await dio.get('$site$path', queryParameters: headers);
+
+  Future<dynamic> getData(String path) async {
+      response = await dio.get('$site$path', queryParameters: headers);
     if (response.statusCode == 200) {
       var getData = response.data;
       return getData;
     } else {
-      print(response.statusMessage);
+      return response.statusMessage;
       // throw Exception('error getting weather for location');
     }
   }
 
-  Future<dynamic> postData() async {
+  Future<dynamic> postData(String path) async {
     response = await dio.post('$site$path', queryParameters: headers);
     if (response.statusCode == 200) {
       var getData = response.data;
       return getData;
     } else {
-      print(response.statusMessage);
+      return response.isRedirect;
       // throw Exception('error getting weather for location');
     }
   }

@@ -1,31 +1,33 @@
 import 'package:ecommerce_app_ui_kit/src/models/product.dart';
 import 'package:ecommerce_app_ui_kit/src/widgets/FlashSalesCarouselItemWidget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FlashSalesCarouselWidget extends StatelessWidget {
-  List<Product> productsList;
+  // List<Product> productsList;
   String heroTag;
 
   FlashSalesCarouselWidget({
     Key key,
-    this.productsList,
+    // this.productsList,
     this.heroTag,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var productsList = Provider.of<ProductsList>(context);
     return Container(
         height: 300,
         margin: EdgeInsets.only(top: 10),
         child: ListView.builder(
-          itemCount: productsList.length,
+          itemCount: productsList.itemCount,
           itemBuilder: (context, index) {
             double _marginLeft = 0;
             (index == 0) ? _marginLeft = 20 : _marginLeft = 0;
             return FlashSalesCarouselItemWidget(
               heroTag: this.heroTag,
               marginLeft: _marginLeft,
-              product: productsList.elementAt(index),
+              product: Provider.of<ProductsList>(context).flashSalesList.elementAt(index),
             );
           },
           scrollDirection: Axis.horizontal,

@@ -14,7 +14,7 @@ class BrandsWidget extends StatefulWidget {
 class _BrandsWidgetState extends State<BrandsWidget> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   BrandsList _brandsList = new BrandsList();
-  SubCategoriesList _subCategoriesList = new SubCategoriesList();
+  // SubCategoriesList _subCategoriesList = new SubCategoriesList();
 
   @override
   Widget build(BuildContext context) {

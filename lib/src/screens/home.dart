@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
 import 'package:ecommerce_app_ui_kit/src/models/brand.dart';
 import 'package:ecommerce_app_ui_kit/src/models/category.dart';
@@ -12,6 +14,7 @@ import 'package:ecommerce_app_ui_kit/src/widgets/LoadingPlaced2item.dart';
 import 'package:ecommerce_app_ui_kit/src/widgets/SearchBarWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'dart:core';
 
@@ -36,41 +39,15 @@ class _HomeWidgetState extends State<HomeWidget>
   var listForProducts;
   var listForCategories;
   //for stop circular progress
-  bool isLoading = true;
   // showProducts for get product from api
-  void showData() async {
-    listForProducts = await _productsList.getProducts();
-    listForCategories = await _categoriesList.getCategories();
-       setState(() {
-         isLoading = true;
-      _productsList.flashSalesList = listForProducts;
-      _categoriesList.list = listForCategories;
-      // to set and show it on loaded
-        if (_categoriesList.list.isEmpty)
-        isLoading = true;
-      else
-        isLoading = false;
-    });
-  }
-
-  void showDataCategories() async {
-   setState(() {
-    
-      if (_categoriesList.list != null)
-        isLoading = true;
-      else
-        isLoading = false;
-      // to set and show it on loaded
-    });
-  }
+  bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
+
     // showProducts for get product from api
-    showData();
-    showDataCategories();
- 
+    context.read<ProductsList>().getProducts();
 
     animationController =
         AnimationController(duration: Duration(milliseconds: 200), vsync: this);
@@ -104,11 +81,12 @@ class _HomeWidgetState extends State<HomeWidget>
         HomeSliderWidget(),
 
         FlashSalesHeaderWidget(),
-        isLoading
+        Provider.of<ProductsList>(context).isLoading()
             ? LoadingPlace2Item()
             : FlashSalesCarouselWidget(
                 heroTag: 'home_flash_sales',
-                productsList: _productsList.flashSalesList),
+                // productsList: Provider.of<ProductsList>(context).flashSalesList
+              ),
         // Heading (Recommended for you)
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
@@ -141,7 +119,7 @@ class _HomeWidgetState extends State<HomeWidget>
                   });
                 });
               }),
-          content: isLoading
+          content: Provider.of<ProductsList>(context).isLoading()
               ? LoadingPlace2Item()
               : CategorizedProductsWidget(
                   animationOpacity: animationOpacity,
@@ -177,7 +155,7 @@ class _HomeWidgetState extends State<HomeWidget>
                   });
                 });
               }),
-          content: isLoading
+          content: Provider.of<ProductsList>(context).isLoading()
               ? LoadingPlace2Item()
               : CategorizedProductsWidget(
                   animationOpacity: animationOpacity,

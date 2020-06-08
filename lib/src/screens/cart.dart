@@ -2,6 +2,7 @@ import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
 import 'package:ecommerce_app_ui_kit/src/models/product.dart';
 import 'package:ecommerce_app_ui_kit/src/widgets/CartItemWidget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CartWidget extends StatefulWidget {
   @override
@@ -23,7 +24,8 @@ class _CartWidgetState extends State<CartWidget> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         leading: new IconButton(
-          icon: new Icon(UiIcons.return_icon, color: Theme.of(context).hintColor),
+          icon:
+              new Icon(UiIcons.return_icon, color: Theme.of(context).hintColor),
           onPressed: () => Navigator.of(context).pop(),
         ),
         backgroundColor: Colors.transparent,
@@ -83,18 +85,22 @@ class _CartWidgetState extends State<CartWidget> {
                       ),
                     ),
                   ),
-                  ListView.separated(
-                    padding: EdgeInsets.symmetric(vertical: 15),
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    primary: false,
-                    itemCount: _productsList.cartList.length,
-                    separatorBuilder: (context, index) {
-                      return SizedBox(height: 15);
-                    },
-                    itemBuilder: (context, index) {
-                      return CartItemWidget(product: _productsList.cartList.elementAt(index), heroTag: 'cart');
-                    },
+                  Consumer<ProductsList>(
+                    builder: (context, value, child) => ListView.separated(
+                      padding: EdgeInsets.symmetric(vertical: 15),
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      primary: false,
+                      itemCount: value.itemCountCart,
+                      separatorBuilder: (context, index) {
+                        return SizedBox(height: 15);
+                      },
+                      itemBuilder: (context, index) {
+                        return CartItemWidget(
+                            product: value.cartList.elementAt(index),
+                            heroTag: 'cart');
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -107,10 +113,14 @@ class _CartWidgetState extends State<CartWidget> {
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
               decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20)),
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(20),
+                      topLeft: Radius.circular(20)),
                   boxShadow: [
                     BoxShadow(
-                        color: Theme.of(context).focusColor.withOpacity(0.15), offset: Offset(0, -2), blurRadius: 5.0)
+                        color: Theme.of(context).focusColor.withOpacity(0.15),
+                        offset: Offset(0, -2),
+                        blurRadius: 5.0)
                   ]),
               child: SizedBox(
                 width: MediaQuery.of(context).size.width - 40,
@@ -126,7 +136,8 @@ class _CartWidgetState extends State<CartWidget> {
                             style: Theme.of(context).textTheme.bodyText2,
                           ),
                         ),
-                        Text('\$50.23', style: Theme.of(context).textTheme.subtitle1),
+                        Text('\$50.23',
+                            style: Theme.of(context).textTheme.subtitle1),
                       ],
                     ),
                     SizedBox(height: 5),
@@ -138,7 +149,8 @@ class _CartWidgetState extends State<CartWidget> {
                             style: Theme.of(context).textTheme.bodyText2,
                           ),
                         ),
-                        Text('\$13.23', style: Theme.of(context).textTheme.subtitle1),
+                        Text('\$13.23',
+                            style: Theme.of(context).textTheme.subtitle1),
                       ],
                     ),
                     SizedBox(height: 10),
@@ -158,7 +170,8 @@ class _CartWidgetState extends State<CartWidget> {
                             child: Text(
                               'Checkout',
                               textAlign: TextAlign.start,
-                              style: TextStyle(color: Theme.of(context).primaryColor),
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor),
                             ),
                           ),
                         ),
@@ -166,10 +179,9 @@ class _CartWidgetState extends State<CartWidget> {
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
                             '\$55.36',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline4
-                                .merge(TextStyle(color: Theme.of(context).primaryColor)),
+                            style: Theme.of(context).textTheme.headline4.merge(
+                                TextStyle(
+                                    color: Theme.of(context).primaryColor)),
                           ),
                         )
                       ],

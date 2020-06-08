@@ -110,7 +110,7 @@ class _CategoryWidgetState extends State<CategoryWidget> with SingleTickerProvid
                       Text(
                         widget._category.name,
                         style:
-                            Theme.of(context).textTheme.title.merge(TextStyle(color: Theme.of(context).primaryColor)),
+                            Theme.of(context).textTheme.headline6.merge(TextStyle(color: Theme.of(context).primaryColor)),
                       )
                     ],
                   ),

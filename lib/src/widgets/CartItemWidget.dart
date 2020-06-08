@@ -42,7 +42,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                 width: 90,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(5)),
-                  image: DecorationImage(image: AssetImage(widget.product.image), fit: BoxFit.cover),
+                  image: DecorationImage(image: NetworkImage(widget.product.image), fit: BoxFit.cover),
                 ),
               ),
             ),

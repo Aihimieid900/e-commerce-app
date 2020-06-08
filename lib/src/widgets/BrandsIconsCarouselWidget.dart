@@ -3,10 +3,11 @@ import 'package:ecommerce_app_ui_kit/src/models/brand.dart';
 import 'package:ecommerce_app_ui_kit/src/widgets/BrandIconWidget.dart';
 import 'package:flutter/material.dart';
 
+@immutable
 class BrandsIconsCarouselWidget extends StatefulWidget {
-  BrandsList brandsList;
-  String heroTag;
-  ValueChanged<String> onChanged;
+  final BrandsList brandsList;
+  final String heroTag;
+  final ValueChanged<String> onChanged;
 
   BrandsIconsCarouselWidget({Key key, this.brandsList, this.heroTag, this.onChanged}) : super(key: key);
 

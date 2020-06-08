@@ -12,10 +12,10 @@ class ProductHomeTabWidget extends StatefulWidget {
   ProductHomeTabWidget({this.product});
 
   @override
-  productHomeTabWidgetState createState() => productHomeTabWidgetState();
+  ProductHomeTabWidgetState createState() => ProductHomeTabWidgetState();
 }
 
-class productHomeTabWidgetState extends State<ProductHomeTabWidget> {
+class ProductHomeTabWidgetState extends State<ProductHomeTabWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -168,7 +168,9 @@ class productHomeTabWidgetState extends State<ProductHomeTabWidget> {
           ),
         ),
         FlashSalesCarouselWidget(
-            heroTag: 'product_related_products', productsList: widget._productsList.flashSalesList),
+            heroTag: 'product_related_products',
+            //  productsList: widget._productsList.flashSalesList
+            ),
       ],
     );
   }
