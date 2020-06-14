@@ -1,17 +1,18 @@
 import 'package:ecommerce_app_ui_kit/config/app_config.dart' as config;
 import 'package:ecommerce_app_ui_kit/route_generator.dart';
-import 'package:ecommerce_app_ui_kit/src/models/category.dart';
-import 'package:ecommerce_app_ui_kit/src/models/product.dart';
-import 'package:ecommerce_app_ui_kit/src/services/network.dart';
-import 'package:ecommerce_app_ui_kit/src/services/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
+
+import 'src/core/models/category.dart';
+import 'src/core/models/product.dart';
+import 'src/core/models/user.dart';
+import 'src/core/services/provider.dart';
 void setupGetIt(){
-GetIt.I.registerLazySingleton(() => NetworkWoocommerce());
 GetIt.I.registerLazySingleton(() => ProductsList());
 GetIt.I.registerLazySingleton(() => CategoriesList());
 GetIt.I.registerLazySingleton(() => SubCategoriesList());
+GetIt.I.registerLazySingleton(() => User());
 // GetIt.I.registerLazySingleton(() => ProductService());
 }
 void main() {

@@ -1,20 +1,20 @@
-import 'package:ecommerce_app_ui_kit/src/models/route_argument.dart';
-import 'package:ecommerce_app_ui_kit/src/screens/brand.dart';
-import 'package:ecommerce_app_ui_kit/src/screens/brands.dart';
-import 'package:ecommerce_app_ui_kit/src/screens/cart.dart';
-import 'package:ecommerce_app_ui_kit/src/screens/categories.dart';
-import 'package:ecommerce_app_ui_kit/src/screens/category.dart';
-import 'package:ecommerce_app_ui_kit/src/screens/chat.dart';
-import 'package:ecommerce_app_ui_kit/src/screens/checkout.dart';
-import 'package:ecommerce_app_ui_kit/src/screens/checkout_done.dart';
-import 'package:ecommerce_app_ui_kit/src/screens/help.dart';
-import 'package:ecommerce_app_ui_kit/src/screens/languages.dart';
-import 'package:ecommerce_app_ui_kit/src/screens/on_boarding.dart';
-import 'package:ecommerce_app_ui_kit/src/screens/orders.dart';
-import 'package:ecommerce_app_ui_kit/src/screens/product.dart';
-import 'package:ecommerce_app_ui_kit/src/screens/signin.dart';
-import 'package:ecommerce_app_ui_kit/src/screens/signup.dart';
-import 'package:ecommerce_app_ui_kit/src/screens/tabs.dart';
+import 'package:ecommerce_app_ui_kit/src/core/models/route_argument.dart';
+import 'package:ecommerce_app_ui_kit/src/ui/screens/brand.dart';
+import 'package:ecommerce_app_ui_kit/src/ui/screens/brands.dart';
+import 'package:ecommerce_app_ui_kit/src/ui/screens/cart.dart';
+import 'package:ecommerce_app_ui_kit/src/ui/screens/categories.dart';
+import 'package:ecommerce_app_ui_kit/src/ui/screens/category.dart';
+import 'package:ecommerce_app_ui_kit/src/ui/screens/chat.dart';
+import 'package:ecommerce_app_ui_kit/src/ui/screens/checkout.dart';
+import 'package:ecommerce_app_ui_kit/src/ui/screens/checkout_done.dart';
+import 'package:ecommerce_app_ui_kit/src/ui/screens/help.dart';
+import 'package:ecommerce_app_ui_kit/src/ui/screens/languages.dart';
+import 'package:ecommerce_app_ui_kit/src/ui/screens/on_boarding.dart';
+import 'package:ecommerce_app_ui_kit/src/ui/screens/orders.dart';
+import 'package:ecommerce_app_ui_kit/src/ui/screens/product.dart';
+import 'package:ecommerce_app_ui_kit/src/ui/screens/signin.dart';
+import 'package:ecommerce_app_ui_kit/src/ui/screens/signup.dart';
+import 'package:ecommerce_app_ui_kit/src/ui/screens/tabs.dart';
 import 'package:flutter/material.dart';
 
 class RouteGenerator {
