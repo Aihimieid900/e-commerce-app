@@ -90,14 +90,14 @@ class _FilterWidgetState extends State<FilterWidget> {
                             _brand.selected = value;
                           });
                         },
-                        secondary: SizedBox(
-                          width: 40,
-                          height: 30,
-                          child: SvgPicture.asset(
-                            _brand.logo,
-                            color: _brand.color,
-                          ),
-                        ),
+                        // secondary: SizedBox(
+                        //   width: 40,
+                        //   height: 30,
+                        //   child: SvgPicture.asset(
+                        //     _brand.logo,
+                        //     color: _brand.color,
+                        //   ),
+                        // ),
                         title: Text(
                           _brand.name,
                           overflow: TextOverflow.fade,

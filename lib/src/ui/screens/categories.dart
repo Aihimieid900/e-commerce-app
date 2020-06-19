@@ -26,15 +26,17 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
   //     if (_categoriesList.list.isNotEmpty) isLoading = false;
   //   });
   // }
-@override
+  int index;
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
-  //  context.read<SubCategoriesList>().getSubCategory();
+    //  context.read<SubCategoriesList>().getSubCategory();
+  
   }
+
   @override
   Widget build(BuildContext context) {
-     
     return Scaffold(
       drawer: DrawerWidget(),
       // appBar:  AppBar(
@@ -95,7 +97,10 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
     );
   }
 
+  subbCategory() {}
   Widget buildEvenCategory(BuildContext context, Category category) {
+    var modelSub =Provider.of<CategoriesList>(context); 
+    
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -186,40 +191,85 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
               ],
             ),
             constraints: BoxConstraints(minHeight: 120),
-            child: Wrap(
-              runAlignment: WrapAlignment.center,
-              spacing: 10,
-              runSpacing: 5,
-              children: List.generate( Provider.of<SubCategoriesList>(context).itemCount, (index) {
-                SubCategory subCategory =
-                    Provider.of<SubCategoriesList>(context).list.elementAt(index);
-                return Material(
-                  borderRadius: BorderRadius.circular(30),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushNamed('/Category',
-                          arguments: RouteArgument(
-                              id: index, argumentsList: [category]));
-                    },
-                    borderRadius: BorderRadius.circular(20),
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(
-                            color:
-                                Theme.of(context).hintColor.withOpacity(0.2)),
+            child:  Wrap(
+                runAlignment: WrapAlignment.center,
+                spacing: 10,
+                runSpacing: 5,
+                children: 
+                modelSub.list.firstWhere((element) {
+                  setState(() {
+                    
+                 index = modelSub.list.indexOf(element);
+                  });
+                  return element.id == category.id;}).subCategory.map((e) => 
+                  Material(
+                      borderRadius: BorderRadius.circular(30),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushNamed('/Category',
+                              arguments: RouteArgument(
+                                  id: index, argumentsList: [category]));
+                        },
+                        borderRadius: BorderRadius.circular(20),
+                        child: Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            border: Border.all(
+                                color: Theme.of(context)
+                                    .hintColor
+                                    .withOpacity(0.2)),
+                          ),
+                          child: Text(
+                            e.name,
+                            style: Theme.of(context).textTheme.bodyText1,
+                          ),
+                        ),
                       ),
-                      child: Text(
-                        subCategory.name,
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
-                    ),
-                  ),
-                );
-              }),
-            ),
+                    )
+                
+                ).toList(),
+                // List.(modelSub.list..itemCount, (index) {
+                //   SubCategory subCategory = modelSub.list.elementAt(index);
+                //   //  if( category.id == subCategory.parent)
+                //   if (Provider.of<CategoriesList>(context, listen: false)
+                //       .list
+                //       .every((element) => element.id == subCategory.parent))
+                //     return Material(
+                //       borderRadius: BorderRadius.circular(30),
+                //       child: InkWell(
+                //         onTap: () {
+                //           Navigator.of(context).pushNamed('/Category',
+                //               arguments: RouteArgument(
+                //                   id: index, argumentsList: [category]));
+                //         },
+                //         borderRadius: BorderRadius.circular(20),
+                //         child: Container(
+                //           padding:
+                //               EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                //           decoration: BoxDecoration(
+                //             borderRadius: BorderRadius.circular(30),
+                //             border: Border.all(
+                //                 color: Theme.of(context)
+                //                     .hintColor
+                //                     .withOpacity(0.2)),
+                //           ),
+                //           child: Text(
+                //             subCategory.name,
+                //             style: Theme.of(context).textTheme.bodyText1,
+                //           ),
+                //         ),
+                //       ),
+                //     );
+                //   else
+                //     return Text(
+                //       subCategory.name,
+                //       style: Theme.of(context).textTheme.bodyText1,
+                //     );
+                // }),
+              ),
+            
           ),
         )
       ],
@@ -248,40 +298,41 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
               ],
             ),
             constraints: BoxConstraints(minHeight: 120),
-            child: Wrap(
-              runAlignment: WrapAlignment.center,
-              spacing: 10,
-              runSpacing: 5,
-              children: List.generate( Provider.of<SubCategoriesList>(context).itemCount, (index) {
-                SubCategory subCategory =
-                     Provider.of<SubCategoriesList>(context).list.elementAt(index);
+            child: Consumer<SubCategoriesList>(
+              builder: (context, modelSub, child) => Wrap(
+                runAlignment: WrapAlignment.center,
+                spacing: 10,
+                runSpacing: 5,
+                children: List.generate(modelSub.itemCount, (index) {
+                  SubCategory subCategory = modelSub.list.elementAt(index);
 
-                return Material(
-                  borderRadius: BorderRadius.circular(30),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushNamed('/Category',
-                          arguments: RouteArgument(
-                              id: index, argumentsList: [category]));
-                    },
-                    borderRadius: BorderRadius.circular(20),
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(
-                            color:
-                                Theme.of(context).hintColor.withOpacity(0.2)),
-                      ),
-                      child: Text(
-                        subCategory.name,
-                        style: Theme.of(context).textTheme.bodyText1,
+                  return Material(
+                    borderRadius: BorderRadius.circular(30),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushNamed('/Category',
+                            arguments: RouteArgument(
+                                id: index, argumentsList: [category]));
+                      },
+                      borderRadius: BorderRadius.circular(20),
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          border: Border.all(
+                              color:
+                                  Theme.of(context).hintColor.withOpacity(0.2)),
+                        ),
+                        child: Text(
+                          subCategory.name,
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
                       ),
                     ),
-                  ),
-                );
-              }),
+                  );
+                }),
+              ),
             ),
           ),
         ),

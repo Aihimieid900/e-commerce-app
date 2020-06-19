@@ -13,7 +13,7 @@ class BrandsWidget extends StatefulWidget {
 
 class _BrandsWidgetState extends State<BrandsWidget> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  BrandsList _brandsList = new BrandsList();
+  // BrandsList get _brandsList =>  BrandsList();
   // SubCategoriesList _subCategoriesList = new SubCategoriesList();
 
   @override
@@ -59,7 +59,7 @@ class _BrandsWidgetState extends State<BrandsWidget> {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: SearchBarWidget(),
             ),
-            BrandGridWidget(brandsList: _brandsList),
+            BrandGridWidget(),
           ],
         ),
       ),

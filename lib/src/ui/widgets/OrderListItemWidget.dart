@@ -63,7 +63,7 @@ class _OrderListItemWidgetState extends State<OrderListItemWidget> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Hero(
-                tag: widget.heroTag + widget.order.product.getId(widget.order.product.id),
+                tag: widget.heroTag + widget.order.product.id.toString(),
                 child: Container(
                   height: 60,
                   width: 60,

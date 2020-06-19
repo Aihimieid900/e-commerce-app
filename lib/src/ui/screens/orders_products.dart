@@ -54,7 +54,9 @@ class _OrdersProductsWidgetState extends State<OrdersProductsWidget> {
                       },
                       icon: Icon(
                         Icons.format_list_bulleted,
-                        color: this.layout == 'list' ? Theme.of(context).accentColor : Theme.of(context).focusColor,
+                        color: this.layout == 'list'
+                            ? Theme.of(context).accentColor
+                            : Theme.of(context).focusColor,
                       ),
                     ),
                     IconButton(
@@ -65,7 +67,9 @@ class _OrdersProductsWidgetState extends State<OrdersProductsWidget> {
                       },
                       icon: Icon(
                         Icons.apps,
-                        color: this.layout == 'grid' ? Theme.of(context).accentColor : Theme.of(context).focusColor,
+                        color: this.layout == 'grid'
+                            ? Theme.of(context).accentColor
+                            : Theme.of(context).focusColor,
                       ),
                     )
                   ],
@@ -100,7 +104,7 @@ class _OrdersProductsWidgetState extends State<OrdersProductsWidget> {
             offstage: this.layout != 'grid' || widget.ordersList.isEmpty,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
-              child: new StaggeredGridView.countBuilder(
+              child: StaggeredGridView.countBuilder(
                 primary: false,
                 shrinkWrap: true,
                 crossAxisCount: 4,

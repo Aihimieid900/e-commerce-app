@@ -52,15 +52,13 @@ class ProductsList with ChangeNotifier {
   List<Product> _list;
   ProductsList() {
     getProducts();
-    {
-      _flashSalesList = [];
-      _favoritesList = [];
-      _list = [];
-      _cartList = [];
-    }
+    _flashSalesList = [];
+    _favoritesList = [];
+    _list = [];
+    _cartList = [];
   }
-    NetworkWoocommerce network = NetworkWoocommerce();
-    ApiResponse _apiResponse;
+  NetworkWoocommerce network = NetworkWoocommerce();
+  ApiResponse _apiResponse;
 
   Future<void> getProducts() async {
     setLoading(true);
@@ -69,10 +67,12 @@ class ProductsList with ChangeNotifier {
     setLoading(false);
     setError(_apiResponse.error);
     setErrorMsg(_apiResponse.errorMsg);
+    if (!_apiResponse.error) {
       _apiResponse.data.forEach((product) {
         addFlashSalesList(Product.fromJson(product));
       });
-      notifyListeners();
+    }
+    notifyListeners();
   }
 
   void setLoading(value) {
@@ -82,7 +82,8 @@ class ProductsList with ChangeNotifier {
 
   bool isLoading() {
     return isFetched;
-  }  
+  }
+
   void setError(value) {
     error = value;
     notifyListeners();
@@ -91,7 +92,8 @@ class ProductsList with ChangeNotifier {
   bool isError() {
     return error;
   }
-   void setErrorMsg(value) {
+
+  void setErrorMsg(value) {
     errorMsg = value;
     notifyListeners();
   }
@@ -141,6 +143,10 @@ class ProductsList with ChangeNotifier {
 
   int get itemCountCart {
     return _cartList.length == null ? 0 : _cartList.length;
+  }
+
+  int get itemCountList {
+    return _list.length == null ? 0 : _list.length;
   }
 
   // List<Product> get categorized => _categorized;

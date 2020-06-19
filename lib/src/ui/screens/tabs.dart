@@ -94,6 +94,7 @@ class _TabsWidgetState extends State<TabsWidget> {
       drawer: DrawerWidget(),
       endDrawer: FilterWidget(),
       appBar: AppBar(
+        
         automaticallyImplyLeading: false,
 //        leading: new IconButton(
 //          icon: new Icon(UiIcons.return_icon, color: Theme.of(context).hintColor),

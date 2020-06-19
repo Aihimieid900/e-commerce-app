@@ -100,16 +100,16 @@ class _BrandWidgetState extends State<BrandWidget>
                         widget._brand.color,
                         Theme.of(context).primaryColor.withOpacity(0.5),
                       ])),
-                  child: Center(
-                    child: Hero(
-                      tag: widget._brand.id,
-                      child: SvgPicture.asset(
-                        widget._brand.logo,
-                        color: Theme.of(context).primaryColor,
-                        width: 130,
-                      ),
-                    ),
-                  ),
+                  // child: Center(
+                  //   child: Hero(
+                  //     tag: widget._brand.id,
+                  //     child: SvgPicture.asset(
+                  //       widget._brand.logo,
+                  //       color: Theme.of(context).primaryColor,
+                  //       width: 130,
+                  //     ),
+                  //   ),
+                  // ),
                 ),
                 Positioned(
                   right: -60,

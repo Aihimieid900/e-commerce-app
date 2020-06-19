@@ -19,7 +19,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    context.read<OrderList>().getOrders();
+    // context.read<OrderList>().getOrders();
   }
 
   @override
@@ -142,7 +142,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                 ]),
           ),
           body: TabBarView(children: [
-            OrdersProductsWidget(ordersList: _orderList.list),
+            OrdersProductsWidget(ordersList: Provider.of<OrderList>(context,listen:false).list),
             OrdersProductsWidget(
                 ordersList: _orderList.list
                     .where((order) => order.orderState == OrderState.unpaid)

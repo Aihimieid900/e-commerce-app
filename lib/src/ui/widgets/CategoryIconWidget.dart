@@ -47,9 +47,7 @@ class _CategoryIconWidgetState extends State<CategoryIconWidget>
         ),
         child: Row(
           children: <Widget>[
-            Hero(
-              tag: widget.heroTag + widget.category.id.toString(),
-              child: Text(
+             Text(
                 widget.category.selected
                     ? widget.category.name
                     : widget.category.name,
@@ -65,7 +63,7 @@ class _CategoryIconWidgetState extends State<CategoryIconWidget>
               //
               //   size: 32,
               // ),
-            ),
+          
             // SizedBox(width: 10),
             AnimatedSize(
               duration: Duration(milliseconds: 200),

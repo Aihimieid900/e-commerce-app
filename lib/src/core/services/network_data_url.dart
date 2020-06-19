@@ -18,10 +18,10 @@ class NetworkWoocommerce {
       response = await dio.get('$site$path', queryParameters: headers);
       if (response.statusCode == 200) {
         var getData = response.data;
-        return ApiResponse(data: getData);
+        return ApiResponse(data: getData ,error: false, errorMsg: '');
       }
       return ApiResponse(error: true, errorMsg: response.statusMessage);
-    } on DioError catch (e) {
+    } catch (e) {
       return ApiResponse(error: true, errorMsg: e.message);
     }
   }

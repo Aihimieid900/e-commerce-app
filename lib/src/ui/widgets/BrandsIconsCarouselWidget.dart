@@ -2,12 +2,13 @@ import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
 import 'package:ecommerce_app_ui_kit/src/core/models/brand.dart';
 import 'package:ecommerce_app_ui_kit/src/ui/widgets/BrandIconWidget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 @immutable
 class BrandsIconsCarouselWidget extends StatefulWidget {
   final BrandsList brandsList;
   final String heroTag;
-  final ValueChanged<String> onChanged;
+  final ValueChanged<int> onChanged;
 
   BrandsIconsCarouselWidget({Key key, this.brandsList, this.heroTag, this.onChanged}) : super(key: key);
 
@@ -31,24 +32,26 @@ class _BrandsIconsCarouselWidgetState extends State<BrandsIconsCarouselWidget> {
                   color: Theme.of(context).accentColor.withOpacity(1),
                   borderRadius: BorderRadius.only(bottomRight: Radius.circular(60), topRight: Radius.circular(60)),
                 ),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: widget.brandsList.list.length,
-                  itemBuilder: (context, index) {
-                    double _marginLeft = 0;
-                    (index == 0) ? _marginLeft = 12 : _marginLeft = 0;
-                    return BrandIconWidget(
-                        heroTag: widget.heroTag,
-                        marginLeft: _marginLeft,
-                        brand: widget.brandsList.list.elementAt(index),
-                        onPressed: (String id) {
-                          setState(() {
-                            widget.brandsList.selectById(id);
-                            widget.onChanged(id);
+                child: Consumer<BrandsList>(
+                  builder: (context, modelBrand, child) => ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: modelBrand.itemCount,
+                    itemBuilder: (context, index) {
+                      double _marginLeft = 0;
+                      (index == 0) ? _marginLeft = 12 : _marginLeft = 0;
+                      return BrandIconWidget(
+                          heroTag: widget.heroTag,
+                          marginLeft: _marginLeft,
+                          brand: modelBrand.list.elementAt(index),
+                          onPressed: (int id) {
+                            setState(() {
+                              modelBrand.selectById(id);
+                              widget.onChanged(id);
+                            });
                           });
-                        });
-                  },
-                  scrollDirection: Axis.horizontal,
+                    },
+                    scrollDirection: Axis.horizontal,
+                  ),
                 )),
           ),
           Container(

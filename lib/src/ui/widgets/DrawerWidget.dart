@@ -1,11 +1,26 @@
 import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
+import 'package:ecommerce_app_ui_kit/src/core/models/order.dart';
+import 'package:ecommerce_app_ui_kit/src/core/models/theme.dart';
 import 'package:ecommerce_app_ui_kit/src/core/models/user.dart';
+import 'package:ecommerce_app_ui_kit/src/helpers/style/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class DrawerWidget extends StatelessWidget {
+class DrawerWidget extends StatefulWidget {
+  @override
+  _DrawerWidgetState createState() => _DrawerWidgetState();
+}
+
+class _DrawerWidgetState extends State<DrawerWidget> {
   User _user = new User.init().getCurrentUser();
+
+  var theme;
+
+  bool swithTheme = false;
+
   @override
   Widget build(BuildContext context) {
+    ThemeChanger _theme = Provider.of<ThemeChanger>(context);
     // TODO: implement build
     return Drawer(
       child: ListView(
@@ -74,9 +89,10 @@ class DrawerWidget extends StatelessWidget {
             trailing: Chip(
               padding: EdgeInsets.symmetric(horizontal: 5),
               backgroundColor: Colors.transparent,
-              shape: StadiumBorder(side: BorderSide(color: Theme.of(context).focusColor)),
+              shape: StadiumBorder(
+                  side: BorderSide(color: Theme.of(context).focusColor)),
               label: Text(
-                '8',
+                Provider.of<OrderList>(context).itemCount.toString(),
                 style: TextStyle(color: Theme.of(context).focusColor),
               ),
             ),
@@ -120,11 +136,11 @@ class DrawerWidget extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-                 Navigator.of(context).pushNamed('/Tabs', arguments: 3);
+              Navigator.of(context).pushNamed('/Tabs', arguments: 3);
               // Navigator.of(context).pushNamed('/Categories');
             },
             leading: Icon(
-              UiIcons.folder_1,
+              Icons.apps,
               color: Theme.of(context).focusColor.withOpacity(1),
             ),
             title: Text(
@@ -154,6 +170,21 @@ class DrawerWidget extends StatelessWidget {
             trailing: Icon(
               Icons.remove,
               color: Theme.of(context).focusColor.withOpacity(0.3),
+            ),
+          ),
+          SwitchListTile(
+            value: swithTheme,
+            onChanged: (v) {
+              swithTheme = v; //  theme = swithTheme ? kThemeLightData:;
+              _theme.setTheme(v);
+            },
+            secondary: Icon(
+              Icons.brightness_6,
+              color: Theme.of(context).focusColor.withOpacity(1),
+            ),
+            title: Text(
+              "Dark / Light",
+              style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
           ListTile(

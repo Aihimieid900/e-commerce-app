@@ -6,15 +6,18 @@ class BrandIconWidget extends StatefulWidget {
   final Brand brand;
   final String heroTag;
   final double marginLeft;
-  final ValueChanged<String> onPressed;
+  final ValueChanged<int> onPressed;
 
-  BrandIconWidget({Key key, this.brand, this.heroTag, this.marginLeft, this.onPressed}) : super(key: key);
+  BrandIconWidget(
+      {Key key, this.brand, this.heroTag, this.marginLeft, this.onPressed})
+      : super(key: key);
 
   @override
   _BrandIconWidgetState createState() => _BrandIconWidgetState();
 }
 
-class _BrandIconWidgetState extends State<BrandIconWidget> with SingleTickerProviderStateMixin {
+class _BrandIconWidgetState extends State<BrandIconWidget>
+    with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,36 +41,47 @@ class _BrandIconWidgetState extends State<BrandIconWidget> with SingleTickerProv
         curve: Curves.easeInOut,
         padding: EdgeInsets.symmetric(horizontal: 15),
         decoration: BoxDecoration(
-          color: widget.brand.selected ? Theme.of(context).primaryColor : Colors.transparent,
+          color: widget.brand.selected
+              ? Theme.of(context).primaryColor
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(50),
         ),
         child: Row(
           children: <Widget>[
-            Hero(
-              tag: widget.heroTag + widget.brand.id,
-              child: SvgPicture.asset(
-                widget.brand.logo,
-                color: widget.brand.selected ? Theme.of(context).accentColor : Theme.of(context).primaryColor,
-                width: 50,
-//                height: 18,
-              ),
+            Text(
+              widget.brand.selected ? widget.brand.name : widget.brand.name,
+              style: TextStyle(
+                fontSize: 14,
+                color: widget.brand.selected
+                    ? Theme.of(context).accentColor
+                    : Theme.of(context).primaryColor,
+              ), //
             ),
-            SizedBox(width: 10),
+            //      Hero(
+//               tag: widget.heroTag + widget.brand.id.toString(),
+//               child: SvgPicture.asset(
+//                 widget.brand.logo,
+//                 color: widget.brand.selected ? Theme.of(context).accentColor : Theme.of(context).primaryColor,
+//                 width: 50,
+// //                height: 18,
+//               ),
+//             ),
+            // SizedBox(width: 10),
             AnimatedSize(
               duration: Duration(milliseconds: 350),
               curve: Curves.easeInOut,
               vsync: this,
               child: Row(
                 children: <Widget>[
-                  Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                    size: widget.brand.selected ? 18 : 0,
-                  ),
-                  Text(
-                    widget.brand.selected ? widget.brand.rate.toString() : '',
-                    style: Theme.of(context).textTheme.bodyText2,
-                  )
+                  // Icon(
+                  //   Icons.star,
+                  //   color: Colors.amber,
+                  //   size: widget.brand.selected ? 18 : 0,
+                  // ),
+                  // Text(
+                  //   widget.brand.selected ? widget.brand.rate.toString() : '',
+                  //   style: Theme.of(context).textTheme.bodyText2,
+                  // )
                 ],
               ),
             )

@@ -1,16 +1,17 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce_app_ui_kit/config/app_config.dart' as config;
+import 'package:ecommerce_app_ui_kit/src/core/models/brand.dart';
 import 'package:ecommerce_app_ui_kit/src/core/models/category.dart';
 // import 'package:ecommerce_app_ui_kit/src/core/models/category.dart';
 import 'package:ecommerce_app_ui_kit/src/core/models/on_boarding.dart';
 import 'package:ecommerce_app_ui_kit/src/core/models/product.dart';
 import 'package:ecommerce_app_ui_kit/src/core/services/api_response.dart';
+import 'package:ecommerce_app_ui_kit/src/core/services/locators.dart';
 // import 'package:ecommerce_app_ui_kit/src/core/models/product.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-// import 'package:get_it/get_it.dart';
+
 import 'package:provider/provider.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
@@ -24,32 +25,26 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget> {
   OnBoardingList _onBoardingList;
   int idCategory;
   ApiResponse _apiResponse;
-  CategoriesList get _categoriesList => GetIt.I<CategoriesList>();
-  ProductsList get _productsList => GetIt.I<ProductsList>();
+  CategoriesList get _categoriesList => locator<CategoriesList>();
+  // CategoriesList get _subCategoriesList => locator<SubCategoriesList>();
+  ProductsList get _productsList => locator<ProductsList>();
+  BrandsList get _brandsList => locator<BrandsList>();
   @override
   void initState() {
     super.initState();
-   
-    // context.read<CategoriesList>().getCategories();
-    // context.read<ProductsList>().getProducts();
-
-    // idCategory = context.read<CategoriesList>().list.first.id;
-    // context.read<CategoriesList>().getProductCategory(idCategory);
+      _categoriesList.getCategories();
+    _productsList.getProducts();
+    _brandsList.getTags();
+    // _orderList.getOrders();
+    
+    // context.read<SubCategoriesList>().getSubCategories();
+    
     _onBoardingList = new OnBoardingList();
   }
 
   @override
   Widget build(BuildContext context) {
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   Provider.of<CategoriesList>(context, listen: false).getCategories();
-    //   Provider.of<ProductsList>(context, listen: false).getProducts();
-    //   Provider.of<SubCategoriesList>(context, listen: false).getSubCategories();
-
-    //   Provider.of<CategoriesList>(context, listen: false)
-    //       .getProductCategory(idCategory);
-    //   idCategory =
-    //       Provider.of<CategoriesList>(context, listen: false).list.first.id;
-    // });
+      
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor.withOpacity(0.96),
       body: SingleChildScrollView(

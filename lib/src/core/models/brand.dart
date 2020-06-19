@@ -1,124 +1,176 @@
 import 'package:ecommerce_app_ui_kit/src/core/models/product.dart';
+import 'package:ecommerce_app_ui_kit/src/core/services/api_response.dart';
+import 'package:ecommerce_app_ui_kit/src/core/services/network_data_url.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'brand.g.dart';
 
+@JsonSerializable()
 class Brand {
-  String id = UniqueKey().toString();
+  int id;
   String name;
-  String logo;
+  int count;
   bool selected;
-  double rate;
+  // double rate;
   List<Product> products;
   Color color;
 
-  Brand(this.name, this.logo, this.color, this.selected, this.rate, this.products);
+  Brand(
+      this.id,
+      this.name,
+      this.count,
+      this.color,
+      this.selected,
+      // this.rate,
+      this.products);
+  factory Brand.fromJson(dynamic brand) => _$BrandFromJson(brand);
 }
 
-class BrandsList {
+class BrandsList with ChangeNotifier {
   List<Brand> _list;
+  bool isFetched = false;
+  bool error;
+  String errorMsg;
+  int isIdCategory;
+  NetworkWoocommerce network = NetworkWoocommerce();
+  ApiResponse _apiResponse;
+  Future<void> getTags() async {
+    // if (checkEmptyOrNotCategoryList()) {
+    setLoading(true);
+    String tags = 'products/tags?per_page=100';
+    _apiResponse = await network.getData(tags);
+    setLoading(false);
+    setError(_apiResponse.error);
+    if (!_apiResponse.error) {
+      _apiResponse.data.forEach((tag) {
+        addCategoriesList(Brand.fromJson(tag));
+        // else
+        // _subCategoriesList.addSubCategoriesList(SubCategory.fromJson(category));
+      });
+      // callFirst();
+    } else {
+      setErrorMsg(_apiResponse.errorMsg);
+      throw Exception('error');
+      // }
+    }
+    notifyListeners();
+  }
+
+  Future<List<Product>> getProductBrand(int id) async {
+    /// set Loading for Spinner until get data from api
+    List<Product> products = _list.firstWhere((tag) {
+      // if (category.id == id) category.selected = true;
+      return tag.id == id;
+    }).products;
+    if (products.isEmpty) {
+      setLoading(true);
+      notifyListeners();
+      String productForTag = 'products?tag=$id';
+      _apiResponse = await network.getData(productForTag);
+      setLoading(false);
+      setError(_apiResponse.error);
+      setErrorMsg(_apiResponse.errorMsg);
+      _apiResponse.data.forEach((product) {
+        /// addProductsList is funC for add item in _list.products
+        // addProductsList(id, Product.fromJson(product));
+        if (!products.contains(Product.fromJson(product)))
+          products.add(Product.fromJson(product));
+      });
+      notifyListeners();
+    }
+      return products;
+  }
+
+  void addProductsList(int id, Product item) {
+    ///
+    /// if id category from ui == category exist in _list,
+    ///  add product  from function getProductCategory(id)
+    ///
+    if (!_list.contains(item)) {
+      _list
+          .firstWhere((tag) {
+            // if (category.id == id) category.selected = true;
+            return tag.id == id;
+          })
+          .products
+          .add(item);
+    }
+    notifyListeners();
+  }
+
+  ///
+  ///  for add all categories  in List BEFORE get Products ForEVERY Category
+  ///
+  void addCategoriesList(Brand item) {
+    if (!_list.contains(item)) _list.add(item);
+    notifyListeners();
+  }
+
+  ///
+  ///  funC for set true or false For SPINNER
+  ///
+  void setLoading(value) {
+    isFetched = value;
+    notifyListeners();
+  }
+
+  ///
+  ///  funC for get true or false For SPINNER
+  ///
+  bool isLoading() {
+    return isFetched;
+  }
+
+  ///
+  ///  funC for get length _list
+  ///
+  int get itemCount {
+    return _list.length == null ? 0 : _list.length;
+  }
+
+  callFirst() {
+    notifyListeners();
+    return _list.first.id;
+  }
+
+  checkEmptyOrNotCategoryList() {
+    return _list == null ? true : false;
+    // notifyListeners();
+  }
+
+  void setError(value) {
+    error = value;
+    notifyListeners();
+  }
+
+  bool isError() {
+    return error;
+  }
+
+  void setErrorMsg(value) {
+    errorMsg = value;
+    notifyListeners();
+  }
+
+  String isErrorMsg() {
+    return errorMsg;
+  }
 
   List<Brand> get list => _list;
 
   BrandsList() {
-    _list = [
-      new Brand('Wilson', 'img/logo-03.svg', Colors.greenAccent, true, 4.3, [
-        // new Product('Zogaa FlameSweater', 'img/man1.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men Polo Shirt Brand Clothing', 'img/man2.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Polo Shirt for Men', 'img/man3.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men\'s Sport Pants Long Summer', 'img/man4.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men\'s Hoodies Pullovers Striped', 'img/man5.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men Double Breasted Suit Vests', 'img/man6.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Puimentiua Summer Fashion', 'img/man7.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Casual Sweater fashion Jacket', 'img/man8.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-      ]),
-      new Brand('Converse', 'img/logo-04.svg', Colors.cyan, false, 4.3, [
-        // new Product('Zogaa FlameSweater', 'img/man1.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men Polo Shirt Brand Clothing', 'img/man2.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Polo Shirt for Men', 'img/man3.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men\'s Sport Pants Long Summer', 'img/man4.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men\'s Hoodies Pullovers Striped', 'img/man5.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men Double Breasted Suit Vests', 'img/man6.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Puimentiua Summer Fashion', 'img/man7.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Casual Sweater fashion Jacket', 'img/man8.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-      ]),
-      new Brand('Umbro', 'img/logo-05.svg', Colors.blueAccent, false, 4.3, [
-        // new Product('Zogaa FlameSweater', 'img/man1.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men Polo Shirt Brand Clothing', 'img/man2.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Polo Shirt for Men', 'img/man3.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men\'s Sport Pants Long Summer', 'img/man4.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men\'s Hoodies Pullovers Striped', 'img/man5.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men Double Breasted Suit Vests', 'img/man6.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Puimentiua Summer Fashion', 'img/man7.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Casual Sweater fashion Jacket', 'img/man8.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-      ]),
-      new Brand('Nike', 'img/logo-06.svg', Colors.orange, false, 4.3, [
-        // new Product('Zogaa FlameSweater', 'img/man1.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men Polo Shirt Brand Clothing', 'img/man2.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Polo Shirt for Men', 'img/man3.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men\'s Sport Pants Long Summer', 'img/man4.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men\'s Hoodies Pullovers Striped', 'img/man5.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men Double Breasted Suit Vests', 'img/man6.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Puimentiua Summer Fashion', 'img/man7.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Casual Sweater fashion Jacket', 'img/man8.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-      ]),
-      new Brand('Puma', 'img/logo-07.svg', Colors.pinkAccent, false, 4.3, [
-        // new Product('Zogaa FlameSweater', 'img/man1.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men Polo Shirt Brand Clothing', 'img/man2.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Polo Shirt for Men', 'img/man3.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men\'s Sport Pants Long Summer', 'img/man4.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men\'s Hoodies Pullovers Striped', 'img/man5.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men Double Breasted Suit Vests', 'img/man6.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Puimentiua Summer Fashion', 'img/man7.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Casual Sweater fashion Jacket', 'img/man8.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-      ]),
-      new Brand('Acer', 'img/logo-08.svg', Colors.deepPurpleAccent, false, 4.3, [
-        // new Product('Zogaa FlameSweater', 'img/man1.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men Polo Shirt Brand Clothing', 'img/man2.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Polo Shirt for Men', 'img/man3.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men\'s Sport Pants Long Summer', 'img/man4.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men\'s Hoodies Pullovers Striped', 'img/man5.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men Double Breasted Suit Vests', 'img/man6.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Puimentiua Summer Fashion', 'img/man7.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Casual Sweater fashion Jacket', 'img/man8.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-      ]),
-      new Brand('Reebook', 'img/logo-09.svg', Colors.brown, false, 4.3, [
-        // new Product('Zogaa FlameSweater', 'img/man1.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men Polo Shirt Brand Clothing', 'img/man2.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Polo Shirt for Men', 'img/man3.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men\'s Sport Pants Long Summer', 'img/man4.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men\'s Hoodies Pullovers Striped', 'img/man5.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men Double Breasted Suit Vests', 'img/man6.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Puimentiua Summer Fashion', 'img/man7.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Casual Sweater fashion Jacket', 'img/man8.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-      ]),
-      new Brand('Adidas', 'img/logo-10.svg', Colors.blueAccent, false, 4.3, [
-        // new Product('Zogaa FlameSweater', 'img/man1.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men Polo Shirt Brand Clothing', 'img/man2.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Polo Shirt for Men', 'img/man3.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men\'s Sport Pants Long Summer', 'img/man4.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men\'s Hoodies Pullovers Striped', 'img/man5.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men Double Breasted Suit Vests', 'img/man6.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Puimentiua Summer Fashion', 'img/man7.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Casual Sweater fashion Jacket', 'img/man8.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-      ]),
-      new Brand('Crocs', 'img/logo-11.svg', Colors.redAccent, false, 4.3, [
-        // new Product('Zogaa FlameSweater', 'img/man1.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men Polo Shirt Brand Clothing', 'img/man2.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Polo Shirt for Men', 'img/man3.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men\'s Sport Pants Long Summer', 'img/man4.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men\'s Hoodies Pullovers Striped', 'img/man5.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Men Double Breasted Suit Vests', 'img/man6.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Puimentiua Summer Fashion', 'img/man7.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-        // new Product('Casual Sweater fashion Jacket', 'img/man8.webp', 80, 42.63, 200, 2554, 3.1, 10.5),
-      ]),
-    ];
+    getTags();
+    _list = [];
   }
 
-  selectById(String id) {
+  selectById(int id) {
     this._list.forEach((Brand brand) {
+      notifyListeners();
       brand.selected = false;
       if (brand.id == id) {
         brand.selected = true;
+        notifyListeners();
       }
     });
   }

@@ -1,12 +1,11 @@
-// import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
 import 'package:ecommerce_app_ui_kit/src/core/models/product.dart';
 import 'package:ecommerce_app_ui_kit/src/core/services/api_response.dart';
 import 'package:ecommerce_app_ui_kit/src/core/services/network_data_url.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
-
 part 'category.g.dart';
 
+//
 @JsonSerializable()
 class Category {
   int id;
@@ -14,16 +13,17 @@ class Category {
   bool selected;
   String display;
   List<Product> products;
+  List<SubCategory> subCategory;
   int parent;
   Category(this.id, this.name, this.display, this.selected, this.products,
-      this.parent);
-  factory Category.fromJson(dynamic product) => _$CategoryFromJson(product);
+      this.subCategory, this.parent);
+  factory Category.fromJson(dynamic category) => _$CategoryFromJson(category);
 }
 
 class CategoriesList with ChangeNotifier {
-    CategoriesList() {
+  CategoriesList() {
     getCategories();
-    this._list = [];
+    _list = [];
   }
 
   ///
@@ -34,52 +34,65 @@ class CategoriesList with ChangeNotifier {
   // SubCategoriesList _subCategoriesList;
   ///
   ///  to get all categories
-  var categoriesData;
+  // var categoriesData;
   Future<void> getCategories() async {
-    // if (checkEmptyOrNotCategoryList()) {
+    if (_list.isEmpty) {
       setLoading(true);
+
       String categories = 'products/categories?per_page=100';
       _apiResponse = await network.getData(categories);
       setLoading(false);
+      setError(_apiResponse.error);
+      if (!_apiResponse.error) {
+        _apiResponse.data.forEach((category) {
+          if (category['parent'] == 0)
+            addCategoriesList(Category.fromJson(category));
+          // getSubCategory(category['id']);
+          // else
+          // _subCategoriesList.addSubCategoriesList(SubCategory.fromJson(category));
+        });
+        // callFirst();
+        notifyListeners();
+        // return _list;
+      } else {
+        setErrorMsg(_apiResponse.errorMsg);
+        throw Exception('error');
+        // }
 
-      _apiResponse.data.forEach((category) {
-        if (category['parent'] == 0)
-          addCategoriesList(Category.fromJson(category));
-        // else
-        // _subCategoriesList.addSubCategoriesList(SubCategory.fromJson(category));
-      });
-    // }
-    notifyListeners();
+      }
+    }
   }
 
-  Future<void> getProductCategory(id) async {
-    if (checkEmptyOrNotProductsInCategoryList(id)) {
+  Future<List<Product>> getProductCategory(id) async {
+    List<Product> products = _list.firstWhere((category) {
+      return category.id == id;
+    }).products;
+    if (products.isEmpty) {
       /// set Loading for Spinner until get data from api
       setLoading(true);
+      notifyListeners();
       String productForCategory = 'products?category=$id';
       _apiResponse = await network.getData(productForCategory);
+      setLoading(false);
+      setError(_apiResponse.error);
+      setErrorMsg(_apiResponse.errorMsg);
       _apiResponse.data.forEach((product) {
         /// addProductsList is funC for add item in _list.products
-        addProductsList(id, Product.fromJson(product));
+        products.add(Product.fromJson(product));
+        // addProductsList(id, Product.fromJson(product));
       });
-      setLoading(false);
     }
     notifyListeners();
+    return products;
   }
 
-  checkEmptyOrNotProductsInCategoryList(id) {
-    return _list
-        .firstWhere((category) {
-          // if (category.id == id) category.selected = true;
-          return category.id == id;
-        })
-        .products
-        .isEmpty;
-    // notifyListeners();
+  callFirst() {
+    notifyListeners();
+    return _list.first.id;
   }
 
   checkEmptyOrNotCategoryList() {
-    return _list.isEmpty;
+    return _list == null ? true : false;
     // notifyListeners();
   }
 
@@ -87,7 +100,27 @@ class CategoriesList with ChangeNotifier {
   /// to get && set for Spinner || get Data
   ///
   bool isFetched = false;
+  bool error;
+  String errorMsg;
   int isIdCategory;
+
+  void setError(value) {
+    error = value;
+    notifyListeners();
+  }
+
+  bool isError() {
+    return error;
+  }
+
+  void setErrorMsg(value) {
+    errorMsg = value;
+    notifyListeners();
+  }
+
+  String isErrorMsg() {
+    return errorMsg;
+  }
 
   ///
   /// this is _list here exists all categories  and product for every category
@@ -99,16 +132,33 @@ class CategoriesList with ChangeNotifier {
     /// if id category from ui == category exist in _list,
     ///  add product  from function getProductCategory(id)
     ///
-
-    _list
-        .firstWhere((category) {
-          // if (category.id == id) category.selected = true;
-          return category.id == id;
-        })
-        .products
-        .add(item);
+    if (!_list.contains(item)) {
+      _list
+          .firstWhere((category) {
+            // if (category.id == id) category.selected = true;
+            return category.id == id;
+          })
+          .products
+          .add(item);
+    }
     notifyListeners();
   }
+  // void addSubCategoryList(int id, SubCategory item) {
+  //   ///
+  //   /// if id category from ui == category exist in _list,
+  //   ///  add product  from function getProductCategory(id)
+  //   ///
+  //   if (!_list.contains(item)) {
+  //     _list
+  //         .firstWhere((category) {
+  //           // if (category.id == id) category.selected = true;
+  //           return category.id == id;
+  //         })
+  //         .subCategory
+  //         .add(item);
+  //   }
+  //   notifyListeners();
+  // }
 
   ///
   ///  for add all categories  in List BEFORE get Products ForEVERY Category
@@ -147,14 +197,16 @@ class CategoriesList with ChangeNotifier {
   ///
   ///  for get _list
   ///  and
-  /// add select = true to change in ui
+  ///  add select = true to change in ui
   ///
   List<Category> get list => _list;
   selectById(int id) {
     this._list.forEach((Category category) {
       category.selected = false;
+      notifyListeners();
       if (category.id == id) {
         category.selected = true;
+        notifyListeners();
       }
     });
   }
@@ -173,26 +225,19 @@ class SubCategory {
   String display;
   bool selected;
   List<Product> products;
+  List<SubCategory> subCategory;
   int parent;
 
-  SubCategory(this.id, this.display,this.name, this.selected, this.products, this.parent);
-  factory SubCategory.fromJson(dynamic product) =>
-      _$SubCategoryFromJson(product);
+  SubCategory(this.id, this.name, this.display, this.selected, this.products,
+      this.parent);
+  factory SubCategory.fromJson(dynamic subCategory) =>
+      _$SubCategoryFromJson(subCategory);
 }
 
 class SubCategoriesList with ChangeNotifier {
   NetworkWoocommerce network = NetworkWoocommerce();
   ApiResponse _apiResponse;
-  // CategoriesList get _categoriesList => GetIt.I<CategoriesList>();
-  /* getSubCategory() {
-  //   var subCategories = _categoriesList.list;
-  //   print(subCategories);
-  //   if (subCategories != null) {
-      _categoriesList.list.forEach((sub) {
-       
-      });
-  //   }});
-  }  */
+
   Future<void> getSubCategories() async {
     if (checkEmptyOrNotCategoryList()) {
       setLoading(true);
@@ -200,7 +245,8 @@ class SubCategoriesList with ChangeNotifier {
       _apiResponse = await network.getData(categories);
       setLoading(false);
       _apiResponse.data.forEach((sub) {
-        if (sub['parent'] != 0 ) addSubCategoriesList(SubCategory.fromJson(sub));
+        if (sub['display'] != 'default')
+          addSubCategoriesList(SubCategory.fromJson(sub));
       });
     }
   }
@@ -214,7 +260,7 @@ class SubCategoriesList with ChangeNotifier {
   }
 
   checkEmptyOrNotCategoryList() {
-    return _list.isEmpty;
+    return _list == null ? true : false;
     // notifyListeners();
   }
 
@@ -241,7 +287,8 @@ class SubCategoriesList with ChangeNotifier {
   ///  Constructor for Class SubCategoriesList()
   ///
   SubCategoriesList() {
-    this._list = [];
+    getSubCategories();
+    _list = [];
   }
 
   ///
