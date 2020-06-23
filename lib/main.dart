@@ -4,6 +4,7 @@ import 'package:ecommerce_app_ui_kit/src/core/models/theme.dart';
 import 'package:ecommerce_app_ui_kit/src/core/services/locators.dart';
 import 'package:ecommerce_app_ui_kit/src/core/services/providers/provider.dart';
 import 'package:ecommerce_app_ui_kit/src/helpers/style/constants.dart';
+import 'package:ecommerce_app_ui_kit/src/ui/screens/Splash.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +13,7 @@ setupGetIt();
 Provider.debugCheckInvalidValueType = null;
 runApp(
   ChangeNotifierProvider<ThemeChanger>(
-        create: (_) => ThemeChanger(false),
+        create: (_) => ThemeChanger(true),
         child: MyApp(),
       ),);
 } 
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: RouteGenerator.generateRoute,
         debugShowCheckedModeBanner: false,
         theme:_theme.getTheme() ?kThemeDarkData:kThemeLightData  ,
+        home: SplashScreen(),
     ),
     );
   }

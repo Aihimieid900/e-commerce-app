@@ -4,6 +4,7 @@ import 'package:ecommerce_app_ui_kit/src/core/models/brand.dart';
 import 'package:ecommerce_app_ui_kit/src/core/models/category.dart';
 // import 'package:ecommerce_app_ui_kit/src/core/models/category.dart';
 import 'package:ecommerce_app_ui_kit/src/core/models/on_boarding.dart';
+import 'package:ecommerce_app_ui_kit/src/core/models/order.dart';
 import 'package:ecommerce_app_ui_kit/src/core/models/product.dart';
 import 'package:ecommerce_app_ui_kit/src/core/services/api_response.dart';
 import 'package:ecommerce_app_ui_kit/src/core/services/locators.dart';
@@ -25,16 +26,18 @@ class _OnBoardingWidgetState extends State<OnBoardingWidget> {
   OnBoardingList _onBoardingList;
   int idCategory;
   ApiResponse _apiResponse;
-  CategoriesList get _categoriesList => locator<CategoriesList>();
-  // CategoriesList get _subCategoriesList => locator<SubCategoriesList>();
-  ProductsList get _productsList => locator<ProductsList>();
-  BrandsList get _brandsList => locator<BrandsList>();
+  // CategoriesList get _categoriesList => locator<CategoriesList>();
+  // // CategoriesList get _subCategoriesList => locator<SubCategoriesList>();
+  // ProductsList get _productsList => locator<ProductsList>();
+  // BrandsList get _brandsList => locator<BrandsList>();
+  // OrderList get _orderList => locator<OrderList>();
+  
   @override
   void initState() {
     super.initState();
-      _categoriesList.getCategories();
-    _productsList.getProducts();
-    _brandsList.getTags();
+    //   _categoriesList.getCategories();
+    // // _productsList.getProducts();
+    // _brandsList.getTags();
     // _orderList.getOrders();
     
     // context.read<SubCategoriesList>().getSubCategories();

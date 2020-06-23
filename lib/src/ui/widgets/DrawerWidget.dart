@@ -16,7 +16,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
 
   var theme;
 
-  bool swithTheme = false;
+  bool swithTheme = true;
 
   @override
   Widget build(BuildContext context) {

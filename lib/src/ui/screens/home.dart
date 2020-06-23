@@ -41,19 +41,20 @@ class _HomeWidgetState extends State<HomeWidget>
   BrandsList get _brandsList => locator<BrandsList>();
   @override
   void initState() {
+
     super.initState();
     // _categoriesList.getCategories();
     // _productsList.getProducts();
     // _brandsList.getTags();
-    _orderList.getOrders();
 
-    idCategory =
-        Provider.of<CategoriesList>(context, listen: false).callFirst();
-    idBrand = Provider.of<BrandsList>(context, listen: false).callFirst();
-
-    _categoriesList.selectById(idCategory);
-    // _categoriesList.getProductCategory(idCategory);
-    _brandsList.selectById(idBrand);
+    // idCategory =
+    //     Provider.of<CategoriesList>(context, listen: false).callFirst();
+    // idBrand = Provider.of<BrandsList>(context, listen: false).callFirst();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _categoriesList.selectById(idCategory);
+      // _categoriesList.getProductCategory(idCategory);
+      _brandsList.selectById(idBrand);
+    });
     // _brandsList.getProductBrand(idBrand);
     // showProducts for get product from api
     animationController =
@@ -66,12 +67,11 @@ class _HomeWidgetState extends State<HomeWidget>
       });
 
     animationController.forward();
-    _productsOfCategoryList =
-        Provider.of<CategoriesList>(context, listen: false).list.first.products;
-    _productsOfBrandList =
-        Provider.of<BrandsList>(context, listen: false).list.first.products;
+    // _productsOfCategoryList =
+    //     Provider.of<CategoriesList>(context, listen: false).list.first.products;
+    // _productsOfBrandList =
+    //     Provider.of<BrandsList>(context, listen: false).list.first.products;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +87,7 @@ class _HomeWidgetState extends State<HomeWidget>
         HomeSliderWidget(),
 
         FlashSalesHeaderWidget(),
-        modelProducts.isError() || modelProducts.itemCount == 0
+        modelProducts.isError()
             ? Container(
                 padding: const EdgeInsets.only(top: 50.0),
                 width: double.infinity,
@@ -95,21 +95,17 @@ class _HomeWidgetState extends State<HomeWidget>
                 child: Column(
                   children: <Widget>[
                     Text(
-                      ('اسفين لا يوجد منتجات في هذا التصنيف'),
+                      (modelCategories.isErrorMsg()),
                       textAlign: TextAlign.center,
                       style: kStyleTextNoItem,
                     )
                   ],
                 ),
               )
-            : modelProducts.isLoading()
-                ? LoadingPlace2or1Item(
-                    count: 2,
-                  )
-                : FlashSalesCarouselWidget(
-                    heroTag: 'home_flash_sales',
-                    // productsList: Provider.of<ProductsList>(context).flashSalesList
-                  ),
+            : FlashSalesCarouselWidget(
+                heroTag: 'home_flash_sales',
+                // productsList: Provider.of<ProductsList>(context).flashSalesList
+              ),
         // Heading (Recommended for you)
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
@@ -126,7 +122,7 @@ class _HomeWidgetState extends State<HomeWidget>
             ),
           ),
         ),
-        modelCategories.isError() || modelCategories.itemCount == 0
+        modelCategories.isError()
             ? Container(
                 padding: const EdgeInsets.only(top: 50.0),
                 width: double.infinity,
@@ -134,7 +130,7 @@ class _HomeWidgetState extends State<HomeWidget>
                 child: Column(
                   children: <Widget>[
                     Text(
-                      ('اسفين لا يوجد منتجات في هذا التصنيف'),
+                      (modelProducts.isErrorMsg()),
                       textAlign: TextAlign.center,
                       style: kStyleTextNoItem,
                     )
@@ -158,18 +154,11 @@ class _HomeWidgetState extends State<HomeWidget>
                         });
                       });
                     }),
-                content: modelCategories.isLoading()
-                    ? LoadingPlace2or1Item(
-                        count: 2,
-                      )
-                    :
-                  
-                    CategorizedProductsWidget(
-                        animationOpacity: animationOpacity,
-                        // productsList: _productsOfCategoryList
-                        funcName:
-                            _categoriesList.getProductCategory(idCategory),
-                      ),
+                content: CategorizedProductsWidget(
+                  animationOpacity: animationOpacity,
+                  // productsList: _productsOfCategoryList
+                  funcName: _categoriesList.getProductCategory(idCategory),
+                ),
               ),
 
         // Heading (Brands)
@@ -188,7 +177,7 @@ class _HomeWidgetState extends State<HomeWidget>
             ),
           ),
         ),
-        modelBrand.isError() || modelBrand.itemCount == 0
+        modelBrand.isError()
             ? Container(
                 padding: const EdgeInsets.only(top: 50.0),
                 width: double.infinity,
@@ -196,7 +185,7 @@ class _HomeWidgetState extends State<HomeWidget>
                 child: Column(
                   children: <Widget>[
                     Text(
-                      ('اسفين لا يوجد منتجات في هذا التصنيف'),
+                      (modelBrand.isErrorMsg()),
                       textAlign: TextAlign.center,
                       style: kStyleTextNoItem,
                     )
@@ -221,15 +210,11 @@ class _HomeWidgetState extends State<HomeWidget>
                         });
                       });
                     }),
-                content: modelBrand.isLoading()
-                    ? LoadingPlace2or1Item(
-                        count: 2,
-                      )
-                    : CategorizedProductsWidget(
-                        animationOpacity: animationOpacity,
-                        // productsList: _productsOfBrandLis
-                        funcName: _brandsList.getProductBrand(idBrand),
-                      ),
+                content: CategorizedProductsWidget(
+                  animationOpacity: animationOpacity,
+                  // productsList: _productsOfBrandLis
+                  funcName: _brandsList.getProductBrand(idBrand),
+                ),
               ),
       ],
     );

@@ -88,14 +88,40 @@ class OrderList with ChangeNotifier {
     String orders = 'orders';
     _apiResponse = await network.getData(orders);
     setLoading(false);
-    _apiResponse.data.forEach((order) {
-      addOrderList(Order.fromJson(order));
-    });
+    setError(_apiResponse.error);
+    if (!_apiResponse.error)
+      _apiResponse.data.forEach((order) {
+        addOrderList(Order.fromJson(order));
+      });
+    else
+      throw Exception(_apiResponse.errorMsg);
   }
 
   void setLoading(value) {
     isFetched = value;
     notifyListeners();
+  }
+
+  bool error;
+  String errorMsg;
+  int isIdCategory;
+
+  void setError(value) {
+    error = value;
+    notifyListeners();
+  }
+
+  bool isError() {
+    return error;
+  }
+
+  void setErrorMsg(value) {
+    errorMsg = value;
+    notifyListeners();
+  }
+
+  String isErrorMsg() {
+    return errorMsg;
   }
 
   bool isLoading() {

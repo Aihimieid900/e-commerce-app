@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_ui_kit/src/core/models/route_argument.dart';
+import 'package:ecommerce_app_ui_kit/src/ui/screens/Splash.dart';
 import 'package:ecommerce_app_ui_kit/src/ui/screens/brand.dart';
 import 'package:ecommerce_app_ui_kit/src/ui/screens/brands.dart';
 import 'package:ecommerce_app_ui_kit/src/ui/screens/cart.dart';
@@ -15,7 +16,13 @@ import 'package:ecommerce_app_ui_kit/src/ui/screens/product.dart';
 import 'package:ecommerce_app_ui_kit/src/ui/screens/signin.dart';
 import 'package:ecommerce_app_ui_kit/src/ui/screens/signup.dart';
 import 'package:ecommerce_app_ui_kit/src/ui/screens/tabs.dart';
+import 'package:ecommerce_app_ui_kit/src/ui/screens/vendor/add/product.dart';
 import 'package:flutter/material.dart';
+
+import 'src/ui/screens/vendor/add/category.dart';
+import 'src/ui/screens/vendor/add/tag.dart';
+
+// import 'src/ui/screens/splash.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -24,6 +31,8 @@ class RouteGenerator {
 
     switch (settings.name) {
       case '/':
+        return MaterialPageRoute(builder: (_) => SplashScreen());
+      case '/onBoarding':
         return MaterialPageRoute(builder: (_) => OnBoardingWidget());
       case '/SignUp':
         return MaterialPageRoute(builder: (_) => SignUpWidget());
@@ -47,11 +56,16 @@ class RouteGenerator {
                   currentTab: args,
                 ));
       case '/Category':
-        return MaterialPageRoute(builder: (_) => CategoryWidget(routeArgument: args as RouteArgument));
+        return MaterialPageRoute(
+            builder: (_) =>
+                CategoryWidget(routeArgument: args as RouteArgument));
       case '/Brand':
-        return MaterialPageRoute(builder: (_) => BrandWidget(routeArgument: args as RouteArgument));
+        return MaterialPageRoute(
+            builder: (_) => BrandWidget(routeArgument: args as RouteArgument));
       case '/Product':
-        return MaterialPageRoute(builder: (_) => ProductWidget(routeArgument: args as RouteArgument));
+        return MaterialPageRoute(
+            builder: (_) =>
+                ProductWidget(routeArgument: args as RouteArgument));
 //      case '/Food':
 //        return MaterialPageRoute(
 //            builder: (_) => FoodWidget(
@@ -67,6 +81,12 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => HelpWidget());
       case '/Languages':
         return MaterialPageRoute(builder: (_) => LanguagesWidget());
+      case '/AddProduct':
+        return MaterialPageRoute(builder: (_) => ProductAddScreen());
+      case '/AddCategory':
+        return MaterialPageRoute(builder: (_) => CategoryAddScreen());
+      case '/AddTag':
+        return MaterialPageRoute(builder: (_) => TagAddScreen());
 //      case '/second':
 //      // Validation of correct data type
 //        if (args is String) {

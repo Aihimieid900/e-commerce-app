@@ -13,10 +13,10 @@ class Category {
   bool selected;
   String display;
   List<Product> products;
-  List<SubCategory> subCategory;
+  // List<SubCategory> subCategory;
   int parent;
   Category(this.id, this.name, this.display, this.selected, this.products,
-      this.subCategory, this.parent);
+      this.parent);
   factory Category.fromJson(dynamic category) => _$CategoryFromJson(category);
 }
 
@@ -36,7 +36,7 @@ class CategoriesList with ChangeNotifier {
   ///  to get all categories
   // var categoriesData;
   Future<void> getCategories() async {
-    if (_list.isEmpty) {
+    if (_list.isEmpty || _list == null) {
       setLoading(true);
 
       String categories = 'products/categories?per_page=100';
@@ -45,49 +45,53 @@ class CategoriesList with ChangeNotifier {
       setError(_apiResponse.error);
       if (!_apiResponse.error) {
         _apiResponse.data.forEach((category) {
-          if (category['parent'] == 0)
+          if (category['display'] == 'default')
             addCategoriesList(Category.fromJson(category));
           // getSubCategory(category['id']);
           // else
           // _subCategoriesList.addSubCategoriesList(SubCategory.fromJson(category));
         });
         // callFirst();
-        notifyListeners();
         // return _list;
       } else {
         setErrorMsg(_apiResponse.errorMsg);
-        throw Exception('error');
+        throw Exception(_apiResponse.errorMsg);
         // }
-
+        
       }
+    }else{
+      print("object");
     }
+    notifyListeners();
   }
 
   Future<List<Product>> getProductCategory(id) async {
+    id == null ? id = callFirst() : id = id;
     List<Product> products = _list.firstWhere((category) {
       return category.id == id;
     }).products;
+
+    selectById(id);
     if (products.isEmpty) {
       /// set Loading for Spinner until get data from api
       setLoading(true);
-      notifyListeners();
+      // notifyListeners();
       String productForCategory = 'products?category=$id';
       _apiResponse = await network.getData(productForCategory);
       setLoading(false);
       setError(_apiResponse.error);
       setErrorMsg(_apiResponse.errorMsg);
       _apiResponse.data.forEach((product) {
-        /// addProductsList is funC for add item in _list.products
-        products.add(Product.fromJson(product));
-        // addProductsList(id, Product.fromJson(product));
+        Product item = Product.fromJson(product);
+        if (!products.contains(item)) products.add(item);
       });
     }
-    notifyListeners();
+    // notifyListeners();
     return products;
   }
 
   callFirst() {
-    notifyListeners();
+    // notifyListeners();
     return _list.first.id;
   }
 
@@ -143,24 +147,7 @@ class CategoriesList with ChangeNotifier {
     }
     notifyListeners();
   }
-  // void addSubCategoryList(int id, SubCategory item) {
-  //   ///
-  //   /// if id category from ui == category exist in _list,
-  //   ///  add product  from function getProductCategory(id)
-  //   ///
-  //   if (!_list.contains(item)) {
-  //     _list
-  //         .firstWhere((category) {
-  //           // if (category.id == id) category.selected = true;
-  //           return category.id == id;
-  //         })
-  //         .subCategory
-  //         .add(item);
-  //   }
-  //   notifyListeners();
-  // }
 
-  ///
   ///  for add all categories  in List BEFORE get Products ForEVERY Category
   ///
   void addCategoriesList(Category item) {
@@ -187,7 +174,7 @@ class CategoriesList with ChangeNotifier {
   ///  funC for get length _list
   ///
   int get itemCount {
-    return _list.length == null ? 0 : _list.length;
+    return _list == null ? 0 : _list.length;
   }
 
   ///
@@ -203,10 +190,10 @@ class CategoriesList with ChangeNotifier {
   selectById(int id) {
     this._list.forEach((Category category) {
       category.selected = false;
-      notifyListeners();
+      // notifyListeners();
       if (category.id == id) {
         category.selected = true;
-        notifyListeners();
+        // notifyListeners();
       }
     });
   }
@@ -245,7 +232,7 @@ class SubCategoriesList with ChangeNotifier {
       _apiResponse = await network.getData(categories);
       setLoading(false);
       _apiResponse.data.forEach((sub) {
-        if (sub['display'] != 'default')
+        if (sub['display'] != 0)
           addSubCategoriesList(SubCategory.fromJson(sub));
       });
     }

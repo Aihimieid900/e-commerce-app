@@ -73,7 +73,7 @@ Category _$CategoryFromJson(Map<String, dynamic> json) {
     json['display'] as String,
     false,
     [],
-    [],
+    
     json['parent'] as int,
   );
 }
@@ -84,7 +84,7 @@ Map<String, dynamic> _$CategoryToJson(Category instance) => <String, dynamic>{
       'selected': instance.selected,
       'display': instance.display,
       'products': instance.products,
-      'subCategory': instance.subCategory,
+      // 'subCategory': instance.subCategory,
       'parent': instance.parent,
     };
 

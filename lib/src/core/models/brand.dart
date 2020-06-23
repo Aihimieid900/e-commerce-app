@@ -51,7 +51,8 @@ class BrandsList with ChangeNotifier {
       // callFirst();
     } else {
       setErrorMsg(_apiResponse.errorMsg);
-      throw Exception('error');
+      
+      throw Exception(_apiResponse.errorMsg);
       // }
     }
     notifyListeners();
@@ -59,27 +60,31 @@ class BrandsList with ChangeNotifier {
 
   Future<List<Product>> getProductBrand(int id) async {
     /// set Loading for Spinner until get data from api
+    id == null ? id = callFirst() : id = id;
     List<Product> products = _list.firstWhere((tag) {
       // if (category.id == id) category.selected = true;
       return tag.id == id;
     }).products;
+    selectById(id);
     if (products.isEmpty) {
       setLoading(true);
-      notifyListeners();
+      // notifyListeners();
       String productForTag = 'products?tag=$id';
       _apiResponse = await network.getData(productForTag);
       setLoading(false);
       setError(_apiResponse.error);
-      setErrorMsg(_apiResponse.errorMsg);
-      _apiResponse.data.forEach((product) {
-        /// addProductsList is funC for add item in _list.products
-        // addProductsList(id, Product.fromJson(product));
-        if (!products.contains(Product.fromJson(product)))
-          products.add(Product.fromJson(product));
-      });
-      notifyListeners();
+
+      if (!isError()) {
+        _apiResponse.data.forEach((product) {
+          Product item = Product.fromJson(product);
+          if (!products.contains(item)) products.add(item);
+        });
+      } else
+        setErrorMsg(_apiResponse.errorMsg);
+
+      // notifyListeners();
     }
-      return products;
+    return products;
   }
 
   void addProductsList(int id, Product item) {
@@ -130,7 +135,7 @@ class BrandsList with ChangeNotifier {
   }
 
   callFirst() {
-    notifyListeners();
+    // notifyListeners();
     return _list.first.id;
   }
 
@@ -166,11 +171,11 @@ class BrandsList with ChangeNotifier {
 
   selectById(int id) {
     this._list.forEach((Brand brand) {
-      notifyListeners();
+      // notifyListeners();
       brand.selected = false;
       if (brand.id == id) {
         brand.selected = true;
-        notifyListeners();
+        // notifyListeners();
       }
     });
   }
