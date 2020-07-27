@@ -1,26 +1,27 @@
-import 'package:ecommerce_app_ui_kit/src/core/models/route_argument.dart';
-import 'package:ecommerce_app_ui_kit/src/ui/screens/Splash.dart';
-import 'package:ecommerce_app_ui_kit/src/ui/screens/brand.dart';
-import 'package:ecommerce_app_ui_kit/src/ui/screens/brands.dart';
-import 'package:ecommerce_app_ui_kit/src/ui/screens/cart.dart';
-import 'package:ecommerce_app_ui_kit/src/ui/screens/categories.dart';
-import 'package:ecommerce_app_ui_kit/src/ui/screens/category.dart';
-import 'package:ecommerce_app_ui_kit/src/ui/screens/chat.dart';
-import 'package:ecommerce_app_ui_kit/src/ui/screens/checkout.dart';
-import 'package:ecommerce_app_ui_kit/src/ui/screens/checkout_done.dart';
-import 'package:ecommerce_app_ui_kit/src/ui/screens/help.dart';
-import 'package:ecommerce_app_ui_kit/src/ui/screens/languages.dart';
-import 'package:ecommerce_app_ui_kit/src/ui/screens/on_boarding.dart';
-import 'package:ecommerce_app_ui_kit/src/ui/screens/orders.dart';
-import 'package:ecommerce_app_ui_kit/src/ui/screens/product.dart';
-import 'package:ecommerce_app_ui_kit/src/ui/screens/signin.dart';
-import 'package:ecommerce_app_ui_kit/src/ui/screens/signup.dart';
-import 'package:ecommerce_app_ui_kit/src/ui/screens/tabs.dart';
-import 'package:ecommerce_app_ui_kit/src/ui/screens/vendor/add/product.dart';
+import 'package:ecommerce_app_ui_kit/models/route_argument.dart';
+import 'package:ecommerce_app_ui_kit/ui/screens/Products.dart';
+import 'package:ecommerce_app_ui_kit/ui/screens/Splash.dart';
+import 'package:ecommerce_app_ui_kit/ui/screens/brand.dart';
+import 'package:ecommerce_app_ui_kit/ui/screens/brands.dart';
+import 'package:ecommerce_app_ui_kit/ui/screens/cart.dart';
+import 'package:ecommerce_app_ui_kit/ui/screens/categories.dart';
+import 'package:ecommerce_app_ui_kit/ui/screens/category.dart';
+import 'package:ecommerce_app_ui_kit/ui/screens/chat.dart';
+import 'package:ecommerce_app_ui_kit/ui/screens/checkout.dart';
+import 'package:ecommerce_app_ui_kit/ui/screens/checkout_done.dart';
+import 'package:ecommerce_app_ui_kit/ui/screens/help.dart';
+import 'package:ecommerce_app_ui_kit/ui/screens/languages.dart';
+import 'package:ecommerce_app_ui_kit/ui/screens/on_boarding.dart';
+import 'package:ecommerce_app_ui_kit/ui/screens/orders.dart';
+import 'package:ecommerce_app_ui_kit/ui/screens/product.dart';
+import 'package:ecommerce_app_ui_kit/ui/screens/signin.dart';
+import 'package:ecommerce_app_ui_kit/ui/screens/signup.dart';
+import 'package:ecommerce_app_ui_kit/ui/screens/tabs.dart';
+import 'package:ecommerce_app_ui_kit/ui/screens/vendor/add/product.dart';
 import 'package:flutter/material.dart';
 
-import 'src/ui/screens/vendor/add/category.dart';
-import 'src/ui/screens/vendor/add/tag.dart';
+import 'ui/screens/vendor/add/category.dart';
+import 'ui/screens/vendor/add/tag.dart';
 
 // import 'src/ui/screens/splash.dart';
 
@@ -46,6 +47,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => BrandsWidget());
       case '/Chat':
         return MaterialPageRoute(builder: (_) => ChatWidget());
+      case '/Products':
+        return MaterialPageRoute(builder: (_) => ProductsWidget());
 //      case '/MobileVerification':
 //        return MaterialPageRoute(builder: (_) => MobileVerification());
 //      case '/MobileVerification2':
@@ -82,11 +85,11 @@ class RouteGenerator {
       case '/Languages':
         return MaterialPageRoute(builder: (_) => LanguagesWidget());
       case '/AddProduct':
-        return MaterialPageRoute(builder: (_) => ProductAddScreen());
+      // return MaterialPageRoute(builder: (_) => ProductAddScreen());
       case '/AddCategory':
-        return MaterialPageRoute(builder: (_) => CategoryAddScreen());
+      // return MaterialPageRoute(builder: (_) => CategoryAddScreen());
       case '/AddTag':
-        return MaterialPageRoute(builder: (_) => TagAddScreen());
+      // return MaterialPageRoute(builder: (_) => TagAddScreen());
 //      case '/second':
 //      // Validation of correct data type
 //        if (args is String) {
