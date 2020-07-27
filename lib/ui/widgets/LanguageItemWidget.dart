@@ -1,5 +1,7 @@
+import 'package:ecommerce_app_ui_kit/models/App_Lang.dart';
 import 'package:ecommerce_app_ui_kit/models/language.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LanguageItemWidget extends StatefulWidget {
   final Language language;
@@ -61,8 +63,11 @@ class _LanguageItemWidgetState extends State<LanguageItemWidget>
 
   @override
   Widget build(BuildContext context) {
+    var appLanguage = Provider.of<AppLanguage>(context);
     return InkWell(
       onTap: () {
+        appLanguage.changeLanguage(Locale(widget.language.code));
+
         if (checked) {
           animationController.reverse();
         } else {

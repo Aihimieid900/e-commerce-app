@@ -1,6 +1,7 @@
 import 'dart:core';
 
 import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
 import 'package:ecommerce_app_ui_kit/models/brand.dart';
 import 'package:ecommerce_app_ui_kit/models/category.dart';
 import 'package:ecommerce_app_ui_kit/models/order.dart';
@@ -57,12 +58,12 @@ class _HomeWidgetState extends State<HomeWidget>
     animationController.forward();
   }
 
-
   @override
   Widget build(BuildContext context) {
     // SchedulerBinding.instance.addPostFrameCallback((_) => setState(() {}));
     var modelCategories = Provider.of<CategoriesList>(context);
     var modelBrand = Provider.of<BrandsList>(context);
+
     return Provider.of<CheckConnection>(context).internet
         ? ListView(
             children: <Widget>[
@@ -89,7 +90,7 @@ class _HomeWidgetState extends State<HomeWidget>
                     color: Theme.of(context).hintColor,
                   ),
                   title: Text(
-                    'Recommended For You',
+                    AppLocalizations.of(context).translate('recommended'),
                     style: Theme.of(context).textTheme.headline4,
                   ),
                 ),
