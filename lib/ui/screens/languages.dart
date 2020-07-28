@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
 import 'package:ecommerce_app_ui_kit/models/language.dart';
 import 'package:ecommerce_app_ui_kit/ui/widgets/DrawerWidget.dart';
 import 'package:ecommerce_app_ui_kit/ui/widgets/LanguageItemWidget.dart';
@@ -22,6 +23,7 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var modelLang = AppLocalizations.of(context);
     return Scaffold(
       key: _scaffoldKey,
       drawer: DrawerWidget(),
@@ -38,7 +40,7 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(
-          'Languages',
+          modelLang.translate('languages'),
           style: Theme.of(context).textTheme.headline4,
         ),
         actions: <Widget>[
@@ -79,7 +81,7 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
                     color: Theme.of(context).hintColor,
                   ),
                   title: Text(
-                    'App Language',
+                    modelLang.translate('languages_app'),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.headline4,

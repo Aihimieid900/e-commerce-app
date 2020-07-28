@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
 import 'package:ecommerce_app_ui_kit/models/product.dart';
 import 'package:ecommerce_app_ui_kit/services/locators.dart';
 import 'package:ecommerce_app_ui_kit/ui/widgets/DrawerWidget.dart';
@@ -25,12 +26,12 @@ class _ProductsWidgetState extends State<ProductsWidget> {
   void initState() {
     if (Provider.of<ProductsList>(context, listen: false).itemCountList != 0)
       Provider.of<ProductsList>(context, listen: false).getProducts();
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    var modelLang = AppLocalizations.of(context);
     return Scaffold(
       drawer: DrawerWidget(),
       endDrawer: FilterWidget(),
@@ -46,7 +47,7 @@ class _ProductsWidgetState extends State<ProductsWidget> {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text('Products'),
+        title: Text(modelLang.translate("products")),
 
         actions: <Widget>[
           new ShoppingCartButtonWidget(
@@ -91,7 +92,7 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                     color: Theme.of(context).hintColor,
                   ),
                   title: Text(
-                    'Products List',
+                    modelLang.translate("products_list"),
                     overflow: TextOverflow.fade,
                     softWrap: false,
                     style: Theme.of(context).textTheme.headline4,

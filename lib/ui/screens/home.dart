@@ -63,7 +63,7 @@ class _HomeWidgetState extends State<HomeWidget>
     // SchedulerBinding.instance.addPostFrameCallback((_) => setState(() {}));
     var modelCategories = Provider.of<CategoriesList>(context);
     var modelBrand = Provider.of<BrandsList>(context);
-
+    var modelLang = AppLocalizations.of(context);
     return Provider.of<CheckConnection>(context).internet
         ? ListView(
             children: <Widget>[
@@ -90,7 +90,7 @@ class _HomeWidgetState extends State<HomeWidget>
                     color: Theme.of(context).hintColor,
                   ),
                   title: Text(
-                    AppLocalizations.of(context).translate('recommended'),
+                    modelLang.translate('recommended'),
                     style: Theme.of(context).textTheme.headline4,
                   ),
                 ),
@@ -126,7 +126,7 @@ class _HomeWidgetState extends State<HomeWidget>
                     color: Theme.of(context).hintColor,
                   ),
                   title: Text(
-                    'Brands',
+                    modelLang.translate("brands"),
                     style: Theme.of(context).textTheme.headline4,
                   ),
                 ),

@@ -1,5 +1,6 @@
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
+import 'package:ecommerce_app_ui_kit/l10n/App_localizations.dart';
 import 'package:ecommerce_app_ui_kit/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show DateFormat;
@@ -19,6 +20,8 @@ class _ProfileSettingsDialogState extends State<ProfileSettingsDialog> {
 
   @override
   Widget build(BuildContext context) {
+    var modelLang = AppLocalizations.of(context);
+
     return FlatButton(
       onPressed: () {
         showDialog(
@@ -33,7 +36,7 @@ class _ProfileSettingsDialogState extends State<ProfileSettingsDialog> {
                     Icon(UiIcons.user_1),
                     SizedBox(width: 10),
                     Text(
-                      'Profile Settings',
+                      modelLang.translate("profile_setting"),
                       style: Theme.of(context).textTheme.bodyText2,
                     )
                   ],
@@ -47,10 +50,11 @@ class _ProfileSettingsDialogState extends State<ProfileSettingsDialog> {
                           style: TextStyle(color: Theme.of(context).hintColor),
                           keyboardType: TextInputType.text,
                           decoration: getInputDecoration(
-                              hintText: 'John Doe', labelText: 'Full Name'),
+                              hintText: 'John Doe',
+                              labelText: modelLang.translate("full_name")),
                           initialValue: widget.user.name,
                           validator: (input) => input.trim().length < 3
-                              ? 'Not a valid full name'
+                              ? modelLang.translate("full_name_not_vaild")
                               : null,
                           onSaved: (input) => widget.user.name = input,
                         ),
@@ -59,18 +63,20 @@ class _ProfileSettingsDialogState extends State<ProfileSettingsDialog> {
                           keyboardType: TextInputType.emailAddress,
                           decoration: getInputDecoration(
                               hintText: 'johndo@gmail.com',
-                              labelText: 'Email Address'),
+                              labelText: modelLang.translate("email")),
                           initialValue: widget.user.email,
-                          validator: (input) =>
-                              !input.contains('@') ? 'Not a valid email' : null,
+                          validator: (input) => !input.contains('@')
+                              ? modelLang.translate("email_not_vaild")
+                              : null,
                           onSaved: (input) => widget.user.email = input,
                         ),
                         FormField<String>(
                           builder: (FormFieldState<String> state) {
                             return DropdownButtonFormField<String>(
                               decoration: getInputDecoration(
-                                  hintText: 'Female', labelText: 'Gender'),
-                              hint: Text("Select Device"),
+                                  hintText: modelLang.translate("male"),
+                                  labelText: modelLang.translate("gender")),
+                              hint: Text(modelLang.translate("select_device")),
                               value: widget.user.gender,
                               onChanged: (input) {
                                 setState(() {
@@ -81,9 +87,11 @@ class _ProfileSettingsDialogState extends State<ProfileSettingsDialog> {
                               onSaved: (input) => widget.user.gender = input,
                               items: [
                                 new DropdownMenuItem(
-                                    value: 'Male', child: Text('Male')),
+                                    value: 'Male',
+                                    child: Text(modelLang.translate("male"))),
                                 new DropdownMenuItem(
-                                    value: 'Female', child: Text('Female')),
+                                    value: 'Female',
+                                    child: Text(modelLang.translate("female"))),
                               ],
                             );
                           },
@@ -93,7 +101,7 @@ class _ProfileSettingsDialogState extends State<ProfileSettingsDialog> {
                             return DateTimeField(
                               decoration: getInputDecoration(
                                   hintText: '1996-12-31',
-                                  labelText: 'Birth Date'),
+                                  labelText: modelLang.translate("birth_date")),
                               format: new DateFormat('yyyy-MM-dd'),
                               initialValue: widget.user.dateOfBirth,
                               onShowPicker: (context, currentValue) {
@@ -120,12 +128,12 @@ class _ProfileSettingsDialogState extends State<ProfileSettingsDialog> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: Text('Cancel'),
+                        child: Text(modelLang.translate("cancel")),
                       ),
                       MaterialButton(
                         onPressed: _submit,
                         child: Text(
-                          'Save',
+                          modelLang.translate("save"),
                           style:
                               TextStyle(color: Theme.of(context).accentColor),
                         ),
@@ -139,7 +147,7 @@ class _ProfileSettingsDialogState extends State<ProfileSettingsDialog> {
             });
       },
       child: Text(
-        "Edit",
+        modelLang.translate("edit"),
         style: Theme.of(context).textTheme.bodyText1,
       ),
     );

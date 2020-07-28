@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
 import 'package:ecommerce_app_ui_kit/models/order.dart';
 import 'package:ecommerce_app_ui_kit/models/route_argument.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,8 @@ class OrderGridItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var modelLang = AppLocalizations.of(context);
+
     return InkWell(
       highlightColor: Colors.transparent,
       splashColor: Theme.of(context).accentColor.withOpacity(0.08),
@@ -62,7 +65,7 @@ class OrderGridItemWidget extends StatelessWidget {
                   // The title of the order
                   Expanded(
                     child: Text(
-                      '${order.product.sales} Sales',
+                      '${order.product.sales} ' + modelLang.translate("sales"),
                       style: Theme.of(context).textTheme.bodyText1,
                       overflow: TextOverflow.fade,
                       softWrap: false,

@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
 import 'package:ecommerce_app_ui_kit/services/check_connection.dart';
 import 'package:ecommerce_app_ui_kit/ui/screens/Products.dart';
 import 'package:ecommerce_app_ui_kit/ui/screens/account.dart';
@@ -54,11 +55,13 @@ class _TabsWidgetState extends State<TabsWidget> {
       widget.selectedTab = tabItem;
       switch (tabItem) {
         case 0:
-          widget.currentTitle = 'Notifications';
+          widget.currentTitle =
+              AppLocalizations.of(context).translate("notifications");
           widget.currentPage = NotificationsWidget();
           break;
         case 1:
-          widget.currentTitle = 'Account';
+          widget.currentTitle =
+              AppLocalizations.of(context).translate("account");
           widget.currentPage = AccountWidget();
           break;
         case 2:

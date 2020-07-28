@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
 import 'package:ecommerce_app_ui_kit/models/product.dart';
 import 'package:ecommerce_app_ui_kit/models/route_argument.dart';
 import 'package:flutter/material.dart';
@@ -43,8 +44,8 @@ class _FavoriteListItemWidgetState extends State<FavoriteListItemWidget> {
 
         // Then show a snackbar.
         Scaffold.of(context).showSnackBar(SnackBar(
-            content: Text(
-                "The ${widget.product.name} product is removed from wish list")));
+            content: Text("${widget.product.name} " +
+                AppLocalizations.of(context).translate("product_removed"))));
       },
       child: InkWell(
         splashColor: Theme.of(context).accentColor,
@@ -100,7 +101,9 @@ class _FavoriteListItemWidgetState extends State<FavoriteListItemWidget> {
                             children: <Widget>[
                               // The title of the product
                               Text(
-                                '${widget.product.sales} Sales',
+                                '${widget.product.sales} ' +
+                                    AppLocalizations.of(context)
+                                        .translate("sales"),
                                 style: Theme.of(context).textTheme.bodyText1,
                                 overflow: TextOverflow.fade,
                                 softWrap: false,

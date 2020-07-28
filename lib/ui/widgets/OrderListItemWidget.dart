@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
 import 'package:ecommerce_app_ui_kit/models/order.dart';
 import 'package:ecommerce_app_ui_kit/models/route_argument.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,8 @@ class OrderListItemWidget extends StatefulWidget {
 class _OrderListItemWidgetState extends State<OrderListItemWidget> {
   @override
   Widget build(BuildContext context) {
+    var modelLang = AppLocalizations.of(context);
+
     return Dismissible(
       key: Key(this.widget.order.hashCode.toString()),
       background: Container(
@@ -42,8 +45,8 @@ class _OrderListItemWidgetState extends State<OrderListItemWidget> {
 
         // Then show a snackbar.
         Scaffold.of(context).showSnackBar(SnackBar(
-            content: Text(
-                "The ${widget.order.product.name} order is removed from wish list")));
+            content: Text("${widget.order.product.name} " +
+                modelLang.translate("order_removed"))));
       },
       child: InkWell(
         splashColor: Theme.of(context).accentColor,

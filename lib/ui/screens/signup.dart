@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
 import 'package:ecommerce_app_ui_kit/ui/widgets/SocialMediaWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   bool _showPassword = false;
 
   Widget build(BuildContext context) {
+    var modelLang = AppLocalizations.of(context);
+
     return Scaffold(
       backgroundColor: Theme.of(context).accentColor,
       body: SingleChildScrollView(
@@ -45,14 +48,14 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                   child: Column(
                     children: <Widget>[
                       SizedBox(height: 25),
-                      Text('Sign Up',
+                      Text(modelLang.translate("sign_up"),
                           style: Theme.of(context).textTheme.headline2),
                       SizedBox(height: 20),
                       new TextField(
                         style: TextStyle(color: Theme.of(context).accentColor),
                         keyboardType: TextInputType.emailAddress,
                         decoration: new InputDecoration(
-                          hintText: 'Email Address',
+                          hintText: modelLang.translate("email"),
                           hintStyle: Theme.of(context)
                               .textTheme
                               .bodyText1
@@ -79,7 +82,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                         keyboardType: TextInputType.text,
                         obscureText: !_showPassword,
                         decoration: new InputDecoration(
-                          hintText: 'Password',
+                          hintText: modelLang.translate("password"),
                           hintStyle: Theme.of(context)
                               .textTheme
                               .bodyText1
@@ -118,7 +121,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                         keyboardType: TextInputType.text,
                         obscureText: !_showPassword,
                         decoration: new InputDecoration(
-                          hintText: 'Confirm Password',
+                          hintText: modelLang.translate("confirm_password"),
                           hintStyle: Theme.of(context)
                               .textTheme
                               .bodyText1
@@ -159,7 +162,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                           Navigator.of(context).pushNamed('/SignIn');
                         },
                         child: Text(
-                          'Sign Up',
+                          modelLang.translate("sign_up"),
                           style: Theme.of(context).textTheme.headline6.merge(
                                 TextStyle(
                                     color: Theme.of(context).primaryColor),
@@ -170,7 +173,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                       ),
                       SizedBox(height: 50),
                       Text(
-                        'Or using social media',
+                        modelLang.translate("using_social"),
                         style: Theme.of(context).textTheme.bodyText1,
                       ),
                       SizedBox(height: 20),
@@ -190,9 +193,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                         TextStyle(color: Theme.of(context).primaryColor),
                       ),
                   children: [
-                    TextSpan(text: 'Already have an account ?'),
+                    TextSpan(text: modelLang.translate("already_have_acc")),
                     TextSpan(
-                        text: ' Sign In',
+                        text: modelLang.translate("sign_in"),
                         style: TextStyle(fontWeight: FontWeight.w700)),
                   ],
                 ),

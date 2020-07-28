@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
 import 'package:ecommerce_app_ui_kit/models/category.dart';
 import 'package:ecommerce_app_ui_kit/models/product.dart';
 import 'package:ecommerce_app_ui_kit/ui/widgets/FavoriteListItemWidget.dart';
@@ -13,13 +14,15 @@ class ProductsByCategoryWidget extends StatefulWidget {
   ProductsByCategoryWidget({Key key, this.subCategory}) : super(key: key);
 
   @override
-  _ProductsByCategoryWidgetState createState() => _ProductsByCategoryWidgetState();
+  _ProductsByCategoryWidgetState createState() =>
+      _ProductsByCategoryWidgetState();
 }
 
 class _ProductsByCategoryWidgetState extends State<ProductsByCategoryWidget> {
   String layout = 'grid';
   @override
   Widget build(BuildContext context) {
+    var modelLang = AppLocalizations.of(context);
     return Wrap(
       children: <Widget>[
         Padding(
@@ -36,7 +39,7 @@ class _ProductsByCategoryWidgetState extends State<ProductsByCategoryWidget> {
               color: Theme.of(context).hintColor,
             ),
             title: Text(
-              '${widget.subCategory.name} Category',
+              '${widget.subCategory.name} ' + modelLang.translate("category"),
               overflow: TextOverflow.fade,
               softWrap: false,
               style: Theme.of(context).textTheme.headline4,
@@ -52,7 +55,9 @@ class _ProductsByCategoryWidgetState extends State<ProductsByCategoryWidget> {
                   },
                   icon: Icon(
                     Icons.format_list_bulleted,
-                    color: this.layout == 'list' ? Theme.of(context).accentColor : Theme.of(context).focusColor,
+                    color: this.layout == 'list'
+                        ? Theme.of(context).accentColor
+                        : Theme.of(context).focusColor,
                   ),
                 ),
                 IconButton(
@@ -63,7 +68,9 @@ class _ProductsByCategoryWidgetState extends State<ProductsByCategoryWidget> {
                   },
                   icon: Icon(
                     Icons.apps,
-                    color: this.layout == 'grid' ? Theme.of(context).accentColor : Theme.of(context).focusColor,
+                    color: this.layout == 'grid'
+                        ? Theme.of(context).accentColor
+                        : Theme.of(context).focusColor,
                   ),
                 )
               ],

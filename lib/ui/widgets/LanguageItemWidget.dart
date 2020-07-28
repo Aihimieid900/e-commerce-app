@@ -67,7 +67,6 @@ class _LanguageItemWidgetState extends State<LanguageItemWidget>
     return InkWell(
       onTap: () {
         appLanguage.changeLanguage(Locale(widget.language.code));
-
         if (checked) {
           animationController.reverse();
         } else {

@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
+import 'package:ecommerce_app_ui_kit/l10n/App_localizations.dart';
 import 'package:ecommerce_app_ui_kit/models/brand.dart';
 import 'package:ecommerce_app_ui_kit/models/product.dart';
 import 'package:ecommerce_app_ui_kit/ui/widgets/FavoriteListItemWidget.dart';
@@ -36,7 +37,8 @@ class _ProductsByBrandWidgetState extends State<ProductsByBrandWidget> {
               color: Theme.of(context).hintColor,
             ),
             title: Text(
-              '${widget.brand.name} Products',
+              '${widget.brand.name} ' +
+                  AppLocalizations.of(context).translate("product"),
               overflow: TextOverflow.fade,
               softWrap: false,
               style: Theme.of(context).textTheme.headline4,

@@ -1,5 +1,6 @@
 import 'package:ecommerce_app_ui_kit/config/app_config.dart' as config;
 import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
 import 'package:flutter/material.dart';
 
 class EmptyNotificationsWidget extends StatelessWidget {
@@ -24,10 +25,13 @@ class EmptyNotificationsWidget extends StatelessWidget {
                 height: 150,
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    gradient: LinearGradient(begin: Alignment.bottomLeft, end: Alignment.topRight, colors: [
-                      Theme.of(context).focusColor,
-                      Theme.of(context).focusColor.withOpacity(0.1),
-                    ])),
+                    gradient: LinearGradient(
+                        begin: Alignment.bottomLeft,
+                        end: Alignment.topRight,
+                        colors: [
+                          Theme.of(context).focusColor,
+                          Theme.of(context).focusColor.withOpacity(0.1),
+                        ])),
                 child: Icon(
                   UiIcons.bell,
                   color: Theme.of(context).primaryColor,
@@ -64,9 +68,12 @@ class EmptyNotificationsWidget extends StatelessWidget {
           Opacity(
             opacity: 0.4,
             child: Text(
-              'D\'ont have any notification',
+              AppLocalizations.of(context).translate("empty_notifications"),
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline3.merge(TextStyle(fontWeight: FontWeight.w300)),
+              style: Theme.of(context)
+                  .textTheme
+                  .headline3
+                  .merge(TextStyle(fontWeight: FontWeight.w300)),
             ),
           ),
           SizedBox(height: 50),
@@ -78,7 +85,8 @@ class EmptyNotificationsWidget extends StatelessWidget {
             color: Theme.of(context).focusColor.withOpacity(0.15),
             shape: StadiumBorder(),
             child: Text(
-              'Start Exploring',
+              AppLocalizations.of(context).translate("start_exploring"),
+
 //                        textAlign: TextAlign.ce,
               style: Theme.of(context).textTheme.headline6,
             ),

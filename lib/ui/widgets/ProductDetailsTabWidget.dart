@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
 import 'package:ecommerce_app_ui_kit/models/product.dart';
 import 'package:ecommerce_app_ui_kit/ui/widgets/FlashSalesCarouselWidget.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,8 @@ class ProductDetailsTabWidget extends StatefulWidget {
 class ProductDetailsTabWidgetState extends State<ProductDetailsTabWidget> {
   @override
   Widget build(BuildContext context) {
+    var modelLang = AppLocalizations.of(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -30,7 +33,7 @@ class ProductDetailsTabWidgetState extends State<ProductDetailsTabWidget> {
               color: Theme.of(context).hintColor,
             ),
             title: Text(
-              'Description',
+              modelLang.translate("description"),
               style: Theme.of(context).textTheme.headline6,
             ),
           ),
@@ -44,10 +47,7 @@ class ProductDetailsTabWidgetState extends State<ProductDetailsTabWidget> {
                   fontSize: FontSize.xLarge,
                 ),
               },
-            )
-            //  Text(widget.product.description ??
-            //     '😔 عذراً هذا المنتج لا يحتوي علي وصف  '),
-            ),
+            )),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
           child: ListTile(
@@ -58,7 +58,7 @@ class ProductDetailsTabWidgetState extends State<ProductDetailsTabWidget> {
               color: Theme.of(context).hintColor,
             ),
             title: Text(
-              'Related Poducts',
+              modelLang.translate("related_poducts"),
               style: Theme.of(context).textTheme.headline6,
             ),
           ),
@@ -73,10 +73,6 @@ class ProductDetailsTabWidgetState extends State<ProductDetailsTabWidget> {
 }
 
 class SelectColorWidget extends StatefulWidget {
-  SelectColorWidget({
-    Key key,
-  }) : super(key: key);
-
   @override
   _SelectColorWidgetState createState() => _SelectColorWidgetState();
 }
@@ -126,10 +122,6 @@ class _SelectColorWidgetState extends State<SelectColorWidget> {
 }
 
 class SelectSizeWidget extends StatefulWidget {
-  SelectSizeWidget({
-    Key key,
-  }) : super(key: key);
-
   @override
   _SelectSizeWidgetState createState() => _SelectSizeWidgetState();
 }

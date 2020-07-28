@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
 import 'package:ecommerce_app_ui_kit/models/brand.dart';
 import 'package:ecommerce_app_ui_kit/models/route_argument.dart';
 import 'package:flutter/material.dart';
@@ -112,7 +113,9 @@ class BrandGridWidget extends StatelessWidget {
                           // The title of the product
                           Expanded(
                             child: Text(
-                              '${brand.products.length} Products',
+                              '${brand.products.length} ' +
+                                  AppLocalizations.of(context)
+                                      .translate("products"),
                               style: Theme.of(context).textTheme.bodyText1,
                               overflow: TextOverflow.fade,
                               softWrap: false,

@@ -1,14 +1,11 @@
 import 'dart:async';
 
 import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show DateFormat;
 
 class FlashSalesHeaderWidget extends StatefulWidget {
-  const FlashSalesHeaderWidget({
-    Key key,
-  }) : super(key: key);
-
   @override
   _FlashSalesHeaderWidgetState createState() => _FlashSalesHeaderWidgetState();
 }
@@ -23,6 +20,8 @@ class _FlashSalesHeaderWidgetState extends State<FlashSalesHeaderWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var modelLang = AppLocalizations.of(context);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: ListTile(
@@ -33,10 +32,10 @@ class _FlashSalesHeaderWidgetState extends State<FlashSalesHeaderWidget> {
           color: Theme.of(context).hintColor,
         ),
         title: Text(
-          'Flash Sales',
+          modelLang.translate('flash'),
           style: Theme.of(context).textTheme.headline4,
         ),
-        trailing: Text('End in $_timer'),
+        trailing: Text('${modelLang.translate("end_in") + _timer}'),
       ),
     );
   }

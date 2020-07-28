@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
 import 'package:ecommerce_app_ui_kit/services/check_connection.dart';
 import 'package:ecommerce_app_ui_kit/ui/widgets/LoadingPlaced2item.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class _NetworkErrorState extends State<NetworkError> {
           height: 20,
         ),
         Text(
-          'ناسف يوجد خطأ في الاتصال',
+          AppLocalizations.of(context).translate('error_network'),
           style: TextStyle(fontSize: 24.0),
         ),
         loading

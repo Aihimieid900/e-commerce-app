@@ -1,8 +1,10 @@
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
 import 'package:ecommerce_app_ui_kit/models/product.dart';
 import 'package:ecommerce_app_ui_kit/models/route_argument.dart';
 import 'package:ecommerce_app_ui_kit/ui/widgets/AvailableProgressBarWidget.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class FlashSalesCarouselItemWidget extends StatelessWidget {
   String heroTag;
   double marginLeft;
@@ -24,6 +26,7 @@ class FlashSalesCarouselItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var modelLang = AppLocalizations.of(context);
     return InkWell(
       onTap: () {
         Navigator.of(context).pushNamed('/Product',
@@ -97,7 +100,7 @@ class FlashSalesCarouselItemWidget extends StatelessWidget {
                       // The title of the product
                       Expanded(
                         child: Text(
-                          '${product.sales} Sales',
+                          "${product.sales}" + modelLang.translate("sales"),
                           style: Theme.of(context).textTheme.bodyText1,
                           overflow: TextOverflow.fade,
                           softWrap: false,
@@ -117,7 +120,7 @@ class FlashSalesCarouselItemWidget extends StatelessWidget {
                   ),
                   SizedBox(height: 7),
                   Text(
-                    '${product.available} Available',
+                    '${product.available}' + modelLang.translate("available"),
                     style: Theme.of(context).textTheme.bodyText1,
                     overflow: TextOverflow.ellipsis,
                   ),

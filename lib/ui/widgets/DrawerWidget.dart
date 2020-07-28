@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
 import 'package:ecommerce_app_ui_kit/models/order.dart';
 import 'package:ecommerce_app_ui_kit/models/theme.dart';
 import 'package:ecommerce_app_ui_kit/models/user.dart';
@@ -20,6 +21,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var modelLang = AppLocalizations.of(context);
     ThemeChanger _theme = Provider.of<ThemeChanger>(context);
     // TODO: implement build
     return Drawer(
@@ -57,7 +59,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               color: Theme.of(context).focusColor.withOpacity(1),
             ),
             title: Text(
-              "Home",
+              modelLang.translate("home"),
               style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
@@ -70,7 +72,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               color: Theme.of(context).focusColor.withOpacity(1),
             ),
             title: Text(
-              "Notifications",
+              modelLang.translate("notifications"),
               style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
@@ -83,7 +85,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               color: Theme.of(context).focusColor.withOpacity(1),
             ),
             title: Text(
-              "My Orders",
+              modelLang.translate("my_order"),
               style: Theme.of(context).textTheme.subtitle1,
             ),
             trailing: Chip(
@@ -106,7 +108,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               color: Theme.of(context).focusColor.withOpacity(1),
             ),
             title: Text(
-              "Wish List",
+              modelLang.translate("wish_list"),
               style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
@@ -119,14 +121,14 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               color: Theme.of(context).focusColor.withOpacity(1),
             ),
             title: Text(
-              "Chat",
+              modelLang.translate("chat"),
               style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
           ListTile(
             dense: true,
             title: Text(
-              "Products",
+              modelLang.translate("products"),
               style: Theme.of(context).textTheme.bodyText1,
             ),
             trailing: Icon(
@@ -144,7 +146,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               color: Theme.of(context).focusColor.withOpacity(1),
             ),
             title: Text(
-              "Products",
+              modelLang.translate("products"),
               style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
@@ -158,7 +160,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               color: Theme.of(context).focusColor.withOpacity(1),
             ),
             title: Text(
-              "Categories",
+              modelLang.translate("categories"),
               style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
@@ -171,14 +173,14 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               color: Theme.of(context).focusColor.withOpacity(1),
             ),
             title: Text(
-              "Brands",
+              modelLang.translate("brands"),
               style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
           ListTile(
             dense: true,
             title: Text(
-              "Application Preferences",
+              modelLang.translate("application_preferences"),
               style: Theme.of(context).textTheme.bodyText1,
             ),
             trailing: Icon(
@@ -197,7 +199,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               color: Theme.of(context).focusColor.withOpacity(1),
             ),
             title: Text(
-              "Dark / Light",
+              modelLang.translate("dark_light"),
               style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
@@ -210,7 +212,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               color: Theme.of(context).focusColor.withOpacity(1),
             ),
             title: Text(
-              "Help & Support",
+              modelLang.translate("help"),
               style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
@@ -223,7 +225,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               color: Theme.of(context).focusColor.withOpacity(1),
             ),
             title: Text(
-              "Settings",
+              modelLang.translate("settings"),
               style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
@@ -236,7 +238,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               color: Theme.of(context).focusColor.withOpacity(1),
             ),
             title: Text(
-              "Languages",
+              modelLang.translate("languages"),
               style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
@@ -249,14 +251,14 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               color: Theme.of(context).focusColor.withOpacity(1),
             ),
             title: Text(
-              "Log out",
+              modelLang.translate("logout"),
               style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
           ListTile(
             dense: true,
             title: Text(
-              "Version 0.0.1",
+              modelLang.translate("version"),
               style: Theme.of(context).textTheme.bodyText1,
             ),
             trailing: Icon(

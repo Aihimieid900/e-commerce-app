@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
 import 'package:ecommerce_app_ui_kit/models/order.dart';
 import 'package:ecommerce_app_ui_kit/ui/widgets/EmptyOrdersProductsWidget.dart';
 import 'package:ecommerce_app_ui_kit/ui/widgets/OrderGridItemWidget.dart';
@@ -20,6 +21,8 @@ class _OrdersProductsWidgetState extends State<OrdersProductsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var modelLang = AppLocalizations.of(context);
+
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -38,7 +41,7 @@ class _OrdersProductsWidgetState extends State<OrdersProductsWidget> {
                   color: Theme.of(context).hintColor,
                 ),
                 title: Text(
-                  'Orders List',
+                  modelLang.translate("orders_list"),
                   overflow: TextOverflow.fade,
                   softWrap: false,
                   style: Theme.of(context).textTheme.headline3,

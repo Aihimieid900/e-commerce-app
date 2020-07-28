@@ -43,6 +43,7 @@ class MyApp extends StatelessWidget {
         create: (_) => appLanguage,
         child: Consumer<AppLanguage>(builder: (context, model, child) {
           return MaterialApp(
+            locale: model.appLocal,
             supportedLocales: [
               Locale('en', 'US'),
               Locale('ar', 'EG'),

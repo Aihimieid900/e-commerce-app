@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce_app_ui_kit/config/app_config.dart' as config;
 
@@ -8,7 +9,7 @@ const kStyleTextNoItem = TextStyle(
 
 InputDecoration kInoutDecoration(BuildContext context) => InputDecoration(
       contentPadding: EdgeInsets.all(12),
-      hintText: 'Search',
+      hintText: AppLocalizations.of(context).translate("search"),
       hintStyle:
           TextStyle(color: Theme.of(context).focusColor.withOpacity(0.8)),
       prefixIcon:

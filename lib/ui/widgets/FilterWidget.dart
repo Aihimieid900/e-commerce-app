@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
 import 'package:ecommerce_app_ui_kit/models/brand.dart';
 import 'package:ecommerce_app_ui_kit/models/category.dart';
 import 'package:ecommerce_app_ui_kit/models/product_color.dart';
@@ -21,6 +22,7 @@ class _FilterWidgetState extends State<FilterWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var modelLang = AppLocalizations.of(context);
     return Drawer(
       child: SafeArea(
         child: Column(
@@ -30,7 +32,7 @@ class _FilterWidgetState extends State<FilterWidget> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('Refine Results'),
+                  Text(modelLang.translate("refine_result")),
                   MaterialButton(
                     onPressed: () {
                       setState(() {
@@ -38,7 +40,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                       });
                     },
                     child: Text(
-                      'Clear',
+                      modelLang.translate("clear"),
                       style: Theme.of(context).textTheme.bodyText2,
                     ),
                   )
@@ -51,7 +53,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                 shrinkWrap: true,
                 children: <Widget>[
                   ExpansionTile(
-                    title: Text('Categories'),
+                    title: Text(modelLang.translate("categories")),
                     children: List.generate(5, (index) {
                       var _category = _categoriesList.list.elementAt(index);
                       return ExpansionTile(
@@ -81,7 +83,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                   ),
                   ExpansionTile(
                     initiallyExpanded: true,
-                    title: Text('Brands'),
+                    title: Text(modelLang.translate("brands")),
                     children: List.generate(_brandsList.list.length, (index) {
                       var _brand = _brandsList.list.elementAt(index);
                       return CheckboxListTile(
@@ -110,7 +112,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                   ),
                   ExpansionTile(
                     initiallyExpanded: true,
-                    title: Text('Colors'),
+                    title: Text(modelLang.translate("colors")),
                     children: List.generate(5, (index) {
                       var _color = _productColorsList.list.elementAt(index);
                       return CheckboxListTile(
@@ -138,7 +140,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                     }),
                   ),
                   ExpansionTile(
-                    title: Text('Size'),
+                    title: Text(modelLang.translate("size")),
                     children:
                         List.generate(_productSizesList.list.length, (index) {
                       var _size = _productSizesList.list.elementAt(index);
@@ -190,7 +192,7 @@ class _FilterWidgetState extends State<FilterWidget> {
               color: Theme.of(context).accentColor,
               shape: StadiumBorder(),
               child: Text(
-                'Apply Filters',
+                modelLang.translate("applay_filter"),
                 textAlign: TextAlign.start,
                 style: TextStyle(color: Theme.of(context).primaryColor),
               ),

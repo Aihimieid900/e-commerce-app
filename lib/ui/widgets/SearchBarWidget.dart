@@ -1,14 +1,16 @@
 import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
 import 'package:ecommerce_app_ui_kit/helpers/style/constants.dart';
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
 import 'package:flutter/material.dart';
 
 class SearchBarWidget extends StatelessWidget {
-  SearchBarWidget({
-    Key key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    Alignment checkLang() =>
+        AppLocalizations.of(context).locale.languageCode == "ar"
+            ? Alignment.centerLeft
+            : Alignment.centerRight;
+
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
@@ -21,7 +23,7 @@ class SearchBarWidget extends StatelessWidget {
         ],
       ),
       child: Stack(
-        alignment: Alignment.centerRight,
+        alignment: checkLang(),
         children: <Widget>[
           TextField(
             decoration: kInoutDecoration(context),

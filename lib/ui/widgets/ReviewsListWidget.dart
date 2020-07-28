@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
 import 'package:ecommerce_app_ui_kit/models/review.dart';
 import 'package:ecommerce_app_ui_kit/helpers/style/constants.dart';
 import 'package:ecommerce_app_ui_kit/ui/widgets/ReviewItemWidget.dart';
@@ -8,12 +9,10 @@ import 'LoadingPlaced2item.dart';
 
 // ignore: must_be_immutable
 class ReviewsListWidget extends StatelessWidget {
-  ReviewsListWidget({
-    Key key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    var modelLang = AppLocalizations.of(context);
+
     return Consumer<ReviewsList>(
       builder: (context, value, child) => value.isLoading()
           ? LoadingPlace2or1Item()
@@ -22,7 +21,7 @@ class ReviewsListWidget extends StatelessWidget {
               itemBuilder: (context, index) {
                 return value.reviewCount() == 0
                     ? Text(
-                        ' 😀 بنعتذر المنتج لا يحتوي علي تقييمات ',
+                        modelLang.translate("product_not_have_review"),
                         textAlign: TextAlign.center,
                         style: kStyleTextNoItem,
                       )

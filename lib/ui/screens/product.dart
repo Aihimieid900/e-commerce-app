@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
 import 'package:ecommerce_app_ui_kit/models/product.dart';
 import 'package:ecommerce_app_ui_kit/models/review.dart';
 import 'package:ecommerce_app_ui_kit/models/route_argument.dart';
@@ -71,6 +72,7 @@ class _ProductWidgetState extends State<ProductWidget>
   @override
   Widget build(BuildContext context) {
     // SchedulerBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    var modelLang = AppLocalizations.of(context);
 
     var providerProductsList =
         Provider.of<ProductsList>(context, listen: false);
@@ -135,7 +137,7 @@ class _ProductWidgetState extends State<ProductWidget>
                   children: <Widget>[
                     Expanded(
                       child: Text(
-                        'Add to Cart',
+                        modelLang.translate("add_cart"),
                         textAlign: TextAlign.start,
                         style: TextStyle(color: Theme.of(context).primaryColor),
                       ),
@@ -272,7 +274,7 @@ class _ProductWidgetState extends State<ProductWidget>
                             width: 1)),
                     child: Align(
                       alignment: Alignment.center,
-                      child: Text("Product"),
+                      child: Text(modelLang.translate("product")),
                     ),
                   ),
                 ),
@@ -287,7 +289,7 @@ class _ProductWidgetState extends State<ProductWidget>
                             width: 1)),
                     child: Align(
                       alignment: Alignment.center,
-                      child: Text("Detail"),
+                      child: Text(modelLang.translate("detail")),
                     ),
                   ),
                 ),
@@ -302,7 +304,7 @@ class _ProductWidgetState extends State<ProductWidget>
                             width: 1)),
                     child: Align(
                       alignment: Alignment.center,
-                      child: Text("Review"),
+                      child: Text(modelLang.translate("review")),
                     ),
                   ),
                 ),
@@ -343,7 +345,7 @@ class _ProductWidgetState extends State<ProductWidget>
                         color: Theme.of(context).hintColor,
                       ),
                       title: Text(
-                        'Product Reviews',
+                        modelLang.translate("product_review"),
                         overflow: TextOverflow.fade,
                         softWrap: false,
                         style: Theme.of(context).textTheme.headline4,

@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
 import 'package:ecommerce_app_ui_kit/models/product.dart';
 import 'package:ecommerce_app_ui_kit/models/product_color.dart';
 import 'package:ecommerce_app_ui_kit/models/product_size.dart';
@@ -18,6 +19,7 @@ class ProductHomeTabWidget extends StatefulWidget {
 class ProductHomeTabWidgetState extends State<ProductHomeTabWidget> {
   @override
   Widget build(BuildContext context) {
+    var modelLang = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -72,7 +74,8 @@ class ProductHomeTabWidgetState extends State<ProductHomeTabWidget> {
               SizedBox(width: 10),
               Expanded(
                 child: Text(
-                  '${widget.product.sales.toString()} Sales',
+                  '${widget.product.sales.toString()} ' +
+                      modelLang.translate('sales'),
                   textAlign: TextAlign.right,
                 ),
               )
@@ -98,7 +101,7 @@ class ProductHomeTabWidgetState extends State<ProductHomeTabWidget> {
                 children: <Widget>[
                   Expanded(
                     child: Text(
-                      'Select Color',
+                      modelLang.translate('select_color'),
                       style: Theme.of(context).textTheme.bodyText2,
                     ),
                   ),
@@ -107,7 +110,7 @@ class ProductHomeTabWidgetState extends State<ProductHomeTabWidget> {
                     padding: EdgeInsets.all(0),
                     minWidth: 0,
                     child: Text(
-                      'Clear All',
+                      modelLang.translate('clear_all'),
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                   )
@@ -138,7 +141,7 @@ class ProductHomeTabWidgetState extends State<ProductHomeTabWidget> {
                 children: <Widget>[
                   Expanded(
                     child: Text(
-                      'Select Size',
+                      modelLang.translate('select_size'),
                       style: Theme.of(context).textTheme.bodyText2,
                     ),
                   ),
@@ -147,7 +150,7 @@ class ProductHomeTabWidgetState extends State<ProductHomeTabWidget> {
                     padding: EdgeInsets.all(0),
                     minWidth: 0,
                     child: Text(
-                      'Clear All',
+                      modelLang.translate('clear_all'),
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                   )
@@ -168,7 +171,7 @@ class ProductHomeTabWidgetState extends State<ProductHomeTabWidget> {
               color: Theme.of(context).hintColor,
             ),
             title: Text(
-              'Related Poducts',
+              modelLang.translate('related_poducts'),
               style: Theme.of(context).textTheme.headline1,
             ),
           ),
@@ -183,10 +186,6 @@ class ProductHomeTabWidgetState extends State<ProductHomeTabWidget> {
 }
 
 class SelectColorWidget extends StatefulWidget {
-  SelectColorWidget({
-    Key key,
-  }) : super(key: key);
-
   @override
   _SelectColorWidgetState createState() => _SelectColorWidgetState();
 }
@@ -229,10 +228,6 @@ class _SelectColorWidgetState extends State<SelectColorWidget> {
 }
 
 class SelectSizeWidget extends StatefulWidget {
-  SelectSizeWidget({
-    Key key,
-  }) : super(key: key);
-
   @override
   _SelectSizeWidgetState createState() => _SelectSizeWidgetState();
 }

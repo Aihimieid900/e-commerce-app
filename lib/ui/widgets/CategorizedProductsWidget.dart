@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
 import 'package:ecommerce_app_ui_kit/models/category.dart';
 import 'package:ecommerce_app_ui_kit/models/product.dart';
 import 'package:ecommerce_app_ui_kit/services/locators.dart';
@@ -48,7 +49,8 @@ class CategorizedProductsWidget extends StatelessWidget {
                       child: Column(
                         children: <Widget>[
                           Text(
-                            ('اسفين لا يوجد منتجات في هذا التصنيف'),
+                            AppLocalizations.of(context)
+                                .translate("empty_list"),
                             textAlign: TextAlign.center,
                             style: kStyleTextNoItem,
                           )

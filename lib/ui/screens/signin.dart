@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
 import 'package:ecommerce_app_ui_kit/models/user.dart';
 import 'package:ecommerce_app_ui_kit/ui/widgets/SocialMediaWidget.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,6 +18,8 @@ class _SignInWidgetState extends State<SignInWidget> {
   TextEditingController _password = TextEditingController();
 
   Widget build(BuildContext context) {
+    var modelLang = AppLocalizations.of(context);
+
     return Scaffold(
       backgroundColor: Theme.of(context).accentColor,
       body: SingleChildScrollView(
@@ -49,7 +52,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                   child: Column(
                     children: <Widget>[
                       SizedBox(height: 25),
-                      Text('Sign In',
+                      Text(modelLang.translate("sign_in"),
                           style: Theme.of(context).textTheme.headline2),
                       SizedBox(height: 20),
                       new TextField(
@@ -57,7 +60,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                         style: TextStyle(color: Theme.of(context).accentColor),
                         keyboardType: TextInputType.emailAddress,
                         decoration: new InputDecoration(
-                          hintText: 'Email Address',
+                          hintText: modelLang.translate("email"),
                           hintStyle: Theme.of(context)
                               .textTheme
                               .bodyText1
@@ -85,7 +88,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                         keyboardType: TextInputType.text,
                         obscureText: !_showPassword,
                         decoration: new InputDecoration(
-                          hintText: 'Password',
+                          hintText: modelLang.translate("password"),
                           hintStyle: Theme.of(context)
                               .textTheme
                               .bodyText1
@@ -122,7 +125,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                       FlatButton(
                         onPressed: () {},
                         child: Text(
-                          'Forgot your password ?',
+                          modelLang.translate("forget_password"),
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
                       ),
@@ -139,7 +142,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                           // Navigator.of(context).pushNamed('/Tabs', arguments: 2);
                         },
                         child: Text(
-                          'Login',
+                          modelLang.translate("login"),
                           style: Theme.of(context).textTheme.headline6.merge(
                                 TextStyle(
                                     color: Theme.of(context).primaryColor),
@@ -150,7 +153,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                       ),
                       SizedBox(height: 50),
                       Text(
-                        'Or using social media',
+                        modelLang.translate("using_social"),
                         style: Theme.of(context).textTheme.bodyText1,
                       ),
                       SizedBox(height: 20),
@@ -170,9 +173,9 @@ class _SignInWidgetState extends State<SignInWidget> {
                         TextStyle(color: Theme.of(context).primaryColor),
                       ),
                   children: [
-                    TextSpan(text: 'Don\'t have an account ?'),
+                    TextSpan(text: modelLang.translate("already_not_have_acc")),
                     TextSpan(
-                        text: ' Sign Up',
+                        text: modelLang.translate("sign_up"),
                         style: TextStyle(fontWeight: FontWeight.w700)),
                   ],
                 ),
