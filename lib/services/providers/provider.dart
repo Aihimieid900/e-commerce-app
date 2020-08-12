@@ -5,6 +5,7 @@ import 'package:ecommerce_app_ui_kit/models/order.dart';
 import 'package:ecommerce_app_ui_kit/models/product.dart';
 import 'package:ecommerce_app_ui_kit/models/review.dart';
 import 'package:ecommerce_app_ui_kit/models/theme.dart';
+import 'package:ecommerce_app_ui_kit/models/user.dart';
 import 'package:ecommerce_app_ui_kit/services/check_connection.dart';
 import 'package:ecommerce_app_ui_kit/ui/screens/Products.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,10 @@ class ProviderForAllApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider<User>(
+          create: (context) => User(),
+          // dispose: (_, ProductsList provider) => provider.dispose(),
+        ),
         ChangeNotifierProvider<CheckConnection>(
           create: (context) => locator<CheckConnection>(),
           // dispose: (_, ProductsList provider) => provider.dispose(),

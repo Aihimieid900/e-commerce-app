@@ -28,7 +28,7 @@ class _NetworkErrorState extends State<NetworkError> {
         ),
         Text(
           AppLocalizations.of(context).translate('error_network'),
-          style: TextStyle(fontSize: 24.0),
+          style: TextStyle(fontSize: 20.0),
         ),
         loading
             ? LoadingPlace2or1Item()

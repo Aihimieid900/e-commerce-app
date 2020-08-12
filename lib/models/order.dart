@@ -5,10 +5,22 @@ import 'package:ecommerce_app_ui_kit/services/network_data_url.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show DateFormat;
 import 'package:json_annotation/json_annotation.dart';
-part 'order.g.dart';
 
-enum OrderState { unpaid, toBeShipped, shipped, inDispute }
+enum OrderState {
+  processing,
+  toBeShipped,
+  shipped,
+  unpaid,
+  inDispute,
+  refunded,
+}
 
+///  1 -- processing when order is don`t take any action
+///  2 -- onHold == toBeShipped  || onHold == Shipped
+///  4 -- cancelled
+///  5 -- inDispute  mean  have a problem
+///  3 -- unpaid == pending
+///  6 -- refunded
 class Track {
   int id;
   String description;

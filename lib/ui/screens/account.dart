@@ -1,8 +1,11 @@
 import 'package:ecommerce_app_ui_kit/config/ui_icons.dart';
+import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
+import 'package:ecommerce_app_ui_kit/models/App_Lang.dart';
 import 'package:ecommerce_app_ui_kit/models/user.dart';
 import 'package:ecommerce_app_ui_kit/ui/widgets/ProfileSettingsDialog.dart';
 import 'package:ecommerce_app_ui_kit/ui/widgets/SearchBarWidget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AccountWidget extends StatefulWidget {
   @override
@@ -10,10 +13,16 @@ class AccountWidget extends StatefulWidget {
 }
 
 class _AccountWidgetState extends State<AccountWidget> {
-  User _user = new User.init().getCurrentUser();
+  User _user;
+  @override
+  void initState() {
+    _user = Provider.of<User>(context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    var modelLang = AppLocalizations.of(context);
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(vertical: 7),
       child: Column(
@@ -81,7 +90,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                       children: <Widget>[
                         Icon(UiIcons.heart),
                         Text(
-                          'Wish List',
+                          modelLang.translate('wish_list'),
                           style: Theme.of(context).textTheme.bodyText1,
                         )
                       ],
@@ -98,7 +107,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                       children: <Widget>[
                         Icon(UiIcons.favorites),
                         Text(
-                          'Following',
+                          modelLang.translate('following'),
                           style: Theme.of(context).textTheme.bodyText1,
                         )
                       ],
@@ -115,7 +124,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                       children: <Widget>[
                         Icon(UiIcons.chat_1),
                         Text(
-                          'Messages',
+                          modelLang.translate('messages'),
                           style: Theme.of(context).textTheme.bodyText1,
                         )
                       ],
@@ -144,7 +153,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                 ListTile(
                   leading: Icon(UiIcons.inbox),
                   title: Text(
-                    'My Orders',
+                    modelLang.translate('my_order'),
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
                   trailing: ButtonTheme(
@@ -156,7 +165,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                         Navigator.of(context).pushNamed('/Orders');
                       },
                       child: Text(
-                        "View all",
+                        modelLang.translate('view_all'),
                         style: Theme.of(context).textTheme.bodyText1,
                       ),
                     ),
@@ -168,7 +177,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                   },
                   dense: true,
                   title: Text(
-                    'Unpaid',
+                    modelLang.translate('unpaid'),
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   trailing: Chip(

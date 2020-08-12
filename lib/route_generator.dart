@@ -18,6 +18,7 @@ import 'package:ecommerce_app_ui_kit/ui/screens/signin.dart';
 import 'package:ecommerce_app_ui_kit/ui/screens/signup.dart';
 import 'package:ecommerce_app_ui_kit/ui/screens/tabs.dart';
 import 'package:ecommerce_app_ui_kit/ui/screens/vendor/add/product.dart';
+import 'package:ecommerce_app_ui_kit/ui/screens/vendor/dashboard.dart';
 import 'package:flutter/material.dart';
 
 import 'ui/screens/vendor/add/category.dart';
@@ -35,6 +36,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => SplashScreen());
       case '/onBoarding':
         return MaterialPageRoute(builder: (_) => OnBoardingWidget());
+      case '/Dashboard':
+        return MaterialPageRoute(builder: (_) => DashboardScreen());
       case '/SignUp':
         return MaterialPageRoute(builder: (_) => SignUpWidget());
       case '/SignIn':
@@ -85,11 +88,11 @@ class RouteGenerator {
       case '/Languages':
         return MaterialPageRoute(builder: (_) => LanguagesWidget());
       case '/AddProduct':
-      // return MaterialPageRoute(builder: (_) => ProductAddScreen());
+        return MaterialPageRoute(builder: (_) => ProductAddScreen());
       case '/AddCategory':
-      // return MaterialPageRoute(builder: (_) => CategoryAddScreen());
+        return MaterialPageRoute(builder: (_) => CategoryAddScreen());
       case '/AddTag':
-      // return MaterialPageRoute(builder: (_) => TagAddScreen());
+        return MaterialPageRoute(builder: (_) => TagAddScreen());
 //      case '/second':
 //      // Validation of correct data type
 //        if (args is String) {

@@ -58,7 +58,7 @@ class ProductDetailsTabWidgetState extends State<ProductDetailsTabWidget> {
               color: Theme.of(context).hintColor,
             ),
             title: Text(
-              modelLang.translate("related_poducts"),
+              modelLang.translate("related_products"),
               style: Theme.of(context).textTheme.headline6,
             ),
           ),

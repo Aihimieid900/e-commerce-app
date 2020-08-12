@@ -8,7 +8,7 @@ import 'package:intl/intl.dart' show DateFormat;
 
 enum UserState { available, away, busy }
 
-class User {
+class User with ChangeNotifier {
   String id = UniqueKey().toString();
   String name;
   String email;
@@ -34,6 +34,7 @@ class User {
   }
 
   User getCurrentUser() {
+    notifyListeners();
     return User.advanced(
         'Andrew R. Whitesides',
         'andrew@gmail.com',

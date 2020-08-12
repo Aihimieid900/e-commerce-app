@@ -6,8 +6,14 @@ import 'package:ecommerce_app_ui_kit/config/app_config.dart' as config;
 const kStyleTextNoItem = TextStyle(
   fontSize: 18.0,
 );
-
-InputDecoration kInoutDecoration(BuildContext context) => InputDecoration(
+LinearGradient kGradientColor(BuildContext context) => LinearGradient(
+        begin: Alignment.bottomLeft,
+        end: Alignment.topRight,
+        colors: [
+          Theme.of(context).accentColor.withOpacity(0.3),
+          Theme.of(context).accentColor.withOpacity(0.09),
+        ]);
+InputDecoration kInputDecoration(BuildContext context) => InputDecoration(
       contentPadding: EdgeInsets.all(12),
       hintText: AppLocalizations.of(context).translate("search"),
       hintStyle:

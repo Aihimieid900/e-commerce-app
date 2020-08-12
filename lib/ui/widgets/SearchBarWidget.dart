@@ -6,11 +6,6 @@ import 'package:flutter/material.dart';
 class SearchBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Alignment checkLang() =>
-        AppLocalizations.of(context).locale.languageCode == "ar"
-            ? Alignment.centerLeft
-            : Alignment.centerRight;
-
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
@@ -23,18 +18,13 @@ class SearchBarWidget extends StatelessWidget {
         ],
       ),
       child: Stack(
-        alignment: checkLang(),
+        alignment: AppLocalizations.of(context).locale.languageCode == "ar"
+            ? Alignment.centerLeft
+            : Alignment.centerRight,
         children: <Widget>[
           TextField(
-            decoration: kInoutDecoration(context),
-            // InputDecoration(
-            //   contentPadding: EdgeInsets.all(12),
-            //   hintText: 'Search',
-            //   hintStyle: TextStyle(color: Theme.of(context).focusColor.withOpacity(0.8)),
-            //   prefixIcon: Icon(UiIcons.loupe, size: 20, color: Theme.of(context).hintColor),
-            //   border: UnderlineInputBorder(borderSide: BorderSide.none),
-            //   enabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
-            //   focusedBorder: UnderlineInputBorder(borderSide: BorderSide.none),
+            decoration: kInputDecoration(context),
+
             // ),
           ),
           IconButton(

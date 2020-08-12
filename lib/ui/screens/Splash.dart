@@ -28,42 +28,36 @@ class Splash extends State<SplashScreen> {
   CheckConnection get _checkConnection => locator<CheckConnection>();
   @override
   void initState() {
+    loadData();
     super.initState();
   }
 
-  Widget ifInternetIsOff(v) {
-    if (v) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Image(
-              image: AssetImage('img/logoApp.png'),
-              width: MediaQuery.of(context).size.width - 50,
-              height: 250),
-          // LoadingPlace2or1Item(),
-        ],
-      );
-    } else
-      return NetworkError();
+  Future<Timer> loadData() async {
+    return new Timer(Duration(seconds: 3), onDoneLoading);
+  }
+
+  onDoneLoading() async {
+    Navigator.of(context).pushReplacementNamed('/Tabs', arguments: 2);
   }
 
   @override
   Widget build(BuildContext context) {
     _checkConnection.checkConnection();
     var haveInternetOrNO = Provider.of<CheckConnection>(context).internet;
-    if (haveInternetOrNO)
-      Timer(Duration(seconds: 2), () {
-        Navigator.of(context).pushReplacementNamed('/Tabs', arguments: 2);
-      }
-          // () => Navigator.of(context).pushReplacementNamed('/AddProduct'),
-          ); //<- Creates an object that fetches an image.
-    //<- Creates a widget that displays an image.
-
     return Scaffold(
       body: Container(
         // decoration: new BoxDecoration(color: Colors.white),
         child: new Center(
-          child: ifInternetIsOff(haveInternetOrNO),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image(
+                  image: AssetImage('img/logoApp.png'),
+                  width: MediaQuery.of(context).size.width - 50,
+                  height: 250),
+              // LoadingPlace2or1Item(),
+            ],
+          ),
         ),
       ),
     );

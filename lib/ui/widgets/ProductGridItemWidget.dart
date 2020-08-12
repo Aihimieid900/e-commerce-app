@@ -64,7 +64,7 @@ class ProductGridItemWidget extends StatelessWidget {
                   // The title of the product
                   Expanded(
                     child: Text(
-                      '${product.sales}' + modelLang.translate("sales"),
+                      '${product.sales} ' + modelLang.translate("sales"),
                       style: Theme.of(context).textTheme.bodyText1,
                       overflow: TextOverflow.fade,
                       softWrap: false,

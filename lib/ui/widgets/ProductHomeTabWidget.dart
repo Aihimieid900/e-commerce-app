@@ -171,7 +171,7 @@ class ProductHomeTabWidgetState extends State<ProductHomeTabWidget> {
               color: Theme.of(context).hintColor,
             ),
             title: Text(
-              modelLang.translate('related_poducts'),
+              modelLang.translate('related_products'),
               style: Theme.of(context).textTheme.headline1,
             ),
           ),

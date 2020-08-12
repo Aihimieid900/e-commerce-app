@@ -1,13 +1,21 @@
-
 import 'package:flutter/material.dart';
 
-class CustomInput extends StatelessWidget {
-  final InputDecoration decoration;
-  CustomInput({@required this.decoration});
+class CustomInput extends StatefulWidget {
+  final Widget textField;
 
+  CustomInput({
+    @required this.textField,
+  });
+
+  @override
+  _CustomInputState createState() => _CustomInputState();
+}
+
+class _CustomInputState extends State<CustomInput> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(10),
@@ -20,11 +28,7 @@ class CustomInput extends StatelessWidget {
       ),
       child: Stack(
         alignment: Alignment.centerRight,
-        children: <Widget>[
-          TextField(
-            decoration: decoration,
-          ),
-        ],
+        children: <Widget>[widget.textField],
       ),
     );
   }

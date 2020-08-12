@@ -39,9 +39,9 @@ class CategorizedProductsWidget extends StatelessWidget {
                     count: 2,
                   );
                 default:
-                  if (snapshot.hasError == null ||
-                      snapshot.data == null ||
-                      snapshot.data.length == 0)
+                  if (snapshot.hasError == null || snapshot.data == null)
+                    return NetworkError();
+                  if (snapshot.data.length == 0)
                     return Container(
                       padding: const EdgeInsets.only(top: 50.0),
                       width: double.infinity,

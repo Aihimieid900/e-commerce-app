@@ -35,7 +35,7 @@ class _FlashSalesHeaderWidgetState extends State<FlashSalesHeaderWidget> {
           modelLang.translate('flash'),
           style: Theme.of(context).textTheme.headline4,
         ),
-        trailing: Text('${modelLang.translate("end_in") + _timer}'),
+        trailing: Text(modelLang.translate("end_in") + " $_timer"),
       ),
     );
   }

@@ -24,8 +24,8 @@ class _ProductsWidgetState extends State<ProductsWidget> {
   // ProductsList _productsList = new ProductsList();
   @override
   void initState() {
-    if (Provider.of<ProductsList>(context, listen: false).itemCountList != 0)
-      Provider.of<ProductsList>(context, listen: false).getProducts();
+//    if (Provider.of<ProductsList>(context, listen: false).itemCountList == 0)
+//      Provider.of<ProductsList>(context, listen: false).getProducts();
     super.initState();
   }
 

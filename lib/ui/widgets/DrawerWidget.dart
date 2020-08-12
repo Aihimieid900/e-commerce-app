@@ -52,6 +52,19 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           ),
           ListTile(
             onTap: () {
+              Navigator.of(context).pushNamed('/Dashboard');
+            },
+            leading: Icon(
+              Icons.apps,
+              color: Theme.of(context).focusColor.withOpacity(1),
+            ),
+            title: Text(
+              modelLang.translate("dashboard"),
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
+          ),
+          ListTile(
+            onTap: () {
               Navigator.of(context).pushNamed('/Tabs', arguments: 2);
             },
             leading: Icon(

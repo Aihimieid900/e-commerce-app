@@ -14,60 +14,19 @@ class CategoriesWidget extends StatefulWidget {
 
 class _CategoriesWidgetState extends State<CategoriesWidget> {
   CategoriesList _categoriesList = GetIt.I<CategoriesList>();
-  SubCategoriesList _subCategoriesList = new SubCategoriesList();
 
-  // void getCategories() async {
-  //   isLoading = true;
-  //   listCategories = await _categoriesList.getCategories();
-  //   listSubCategories = _subCategoriesList.getSubCategory();
-  //   setState(() {
-  //     _categoriesList.list = listCategories;
-  //     _subCategoriesList.list = listSubCategories;
-  //     if (_categoriesList.list.isNotEmpty) isLoading = false;
-  //   });
-  // }
   int index;
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
     //  context.read<SubCategoriesList>().getSubCategory();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: DrawerWidget(),
-      // appBar:  AppBar(
-      //   automaticallyImplyLeading: false,
-      //   leading: new IconButton(
-      //     icon: new Icon(Icons.sort, color: Theme.of(context).hintColor),
-      //     onPressed: () => Navigator.of(context).pop(),
-      //   ),
-      //   backgroundColor: Colors.transparent,
-      //   elevation: 0,
-      //   title: Text(
-      //     'Categories',
-      //     style: Theme.of(context).textTheme.display1,
-      //   ),
-      //   actions: <Widget>[
-      //     new ShoppingCartButtonWidget(
-      //         iconColor: Theme.of(context).hintColor, labelColor: Theme.of(context).accentColor),
-      //     Container(
-      //         width: 30,
-      //         height: 30,
-      //         margin: EdgeInsets.only(top: 12.5, bottom: 12.5, right: 20),
-      //         child: InkWell(
-      //           borderRadius: BorderRadius.circular(300),
-      //           onTap: () {
-      //             Navigator.of(context).pushNamed('/Tabs', arguments: 1);
-      //           },
-      //           child: CircleAvatar(
-      //             backgroundImage: AssetImage('img/user2.jpg'),
-      //           ),
-      //         )),
-      //   ],
-      // ),
       body: Provider.of<CategoriesList>(context).isLoading()
           ? LoadingPlace2or1Item()
           : SingleChildScrollView(
@@ -96,7 +55,6 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
     );
   }
 
-  subbCategory() {}
   Widget buildEvenCategory(BuildContext context, Category category) {
     var modelSub = Provider.of<SubCategoriesList>(context);
 
@@ -195,34 +153,32 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
               spacing: 10,
               runSpacing: 5,
               children: modelSub.list.map((e) {
-                if (category.id == e.parent) {
-                  index = modelSub.list.indexOf(e);
-                  Material(
-                    borderRadius: BorderRadius.circular(30),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.of(context).pushNamed('/Category',
-                            arguments: RouteArgument(
-                                id: index, argumentsList: [category]));
-                      },
-                      borderRadius: BorderRadius.circular(20),
-                      child: Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          border: Border.all(
-                              color:
-                                  Theme.of(context).hintColor.withOpacity(0.2)),
-                        ),
-                        child: Text(
-                          e.name,
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
+                index = modelSub.list.indexOf(e);
+                Material(
+                  borderRadius: BorderRadius.circular(30),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushNamed('/Category',
+                          arguments: RouteArgument(
+                              id: index, argumentsList: [category]));
+                    },
+                    borderRadius: BorderRadius.circular(20),
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(
+                            color:
+                                Theme.of(context).hintColor.withOpacity(0.2)),
+                      ),
+                      child: Text(
+                        e.name,
+                        style: Theme.of(context).textTheme.bodyText1,
                       ),
                     ),
-                  );
-                }
+                  ),
+                );
               }).toList(),
 
               // List.(modelSub.itemCount, (index) {

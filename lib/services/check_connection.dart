@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 class CheckConnection extends ChangeNotifier {
-  bool internet = false;
+  bool internet = true;
 
   checkConnection() async {
     try {

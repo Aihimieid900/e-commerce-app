@@ -23,6 +23,9 @@ import 'package:provider/provider.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 class HomeWidget extends StatefulWidget {
+  HomeWidget({Key key, this.duration}) : super(key: key);
+
+  final Duration duration;
   @override
   _HomeWidgetState createState() => _HomeWidgetState();
 }
@@ -35,17 +38,18 @@ class _HomeWidgetState extends State<HomeWidget>
 
   int idCategory;
   int idBrand;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   // List<Product> _productsOfBrandList;
   // List<Product> _productsOfCategoryList;
   // CategoriesList get _categoriesList => locator<CategoriesList>();
   // ProductsList get _productsList => locator<ProductsList>();
-  // OrderList get _orderList => locator<OrderList>();
+  OrderList get _orderList => locator<OrderList>();
   // BrandsList get _brandsList => locator<BrandsList>();
   @override
   void initState() {
-    super.initState();
     // _orderList.getOrders();
+    SchedulerBinding.instance.addPostFrameCallback((_) => setState(() {}));
     animationController =
         AnimationController(duration: Duration(milliseconds: 200), vsync: this);
     CurvedAnimation curve =
@@ -56,16 +60,29 @@ class _HomeWidgetState extends State<HomeWidget>
       });
 
     animationController.forward();
+    super.initState();
   }
 
   @override
+  void didUpdateWidget(HomeWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    animationController.duration = widget.duration;
+  }
+
+//  @override
+//  void dispose() {
+//    animationController.dispose();
+//    super.dispose();
+//  }
+
+  @override
   Widget build(BuildContext context) {
-    // SchedulerBinding.instance.addPostFrameCallback((_) => setState(() {}));
     var modelCategories = Provider.of<CategoriesList>(context);
     var modelBrand = Provider.of<BrandsList>(context);
     var modelLang = AppLocalizations.of(context);
     return Provider.of<CheckConnection>(context).internet
         ? ListView(
+            key: _scaffoldKey,
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),

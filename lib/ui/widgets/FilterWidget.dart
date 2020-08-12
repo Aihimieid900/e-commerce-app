@@ -192,7 +192,7 @@ class _FilterWidgetState extends State<FilterWidget> {
               color: Theme.of(context).accentColor,
               shape: StadiumBorder(),
               child: Text(
-                modelLang.translate("applay_filter"),
+                modelLang.translate("apply_filter"),
                 textAlign: TextAlign.start,
                 style: TextStyle(color: Theme.of(context).primaryColor),
               ),
