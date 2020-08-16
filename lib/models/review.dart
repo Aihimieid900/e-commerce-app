@@ -40,7 +40,7 @@ class ReviewsList with ChangeNotifier {
   Future<void> getReview(int idProduct) async {
     setLoading(true);
     removeAll();
-    String reviewID = 'products/reviews?product=$idProduct';
+    String reviewID = 'wc/v3/products/reviews?product=$idProduct';
     _apiResponse = await network.getData(reviewID);
     setLoading(false);
 

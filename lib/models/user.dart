@@ -27,7 +27,7 @@ class User with ChangeNotifier {
 
   NetworkWoocommerce network = NetworkWoocommerce();
   Future<void> loginUser({String email, String password}) async {
-    String customerPath = 'customers?email=$email&password=$password';
+    String customerPath = 'wc/v3/customers?email=$email&password=$password';
     log(customerPath);
     var userData = await network.getData(customerPath);
     print(userData);

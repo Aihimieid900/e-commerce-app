@@ -39,7 +39,7 @@ class CategoriesList extends ChangeNotifier {
   // var categoriesData;
   Future<void> getCategories() async {
     // if (_list.length == 1) {
-    String categories = 'products/categories?per_page=100';
+    String categories = 'wc/v3/products/categories?per_page=100';
     _apiResponse = await network.getData(categories);
     // setLoading(true);
     setLoading();
@@ -231,11 +231,11 @@ class SubCategoriesList with ChangeNotifier {
   Future<void> getSubCategories() async {
     if (checkEmptyOrNotCategoryList()) {
       setLoading(true);
-      String categories = 'products/categories?per_page=100';
+      String categories = 'wc/v3/products/categories?per_page=100';
       _apiResponse = await network.getData(categories);
       setLoading(false);
       _apiResponse.data.forEach((sub) {
-        if (sub['display'] != 0)
+        if (sub['parent'] != 0)
           addSubCategoriesList(SubCategory.fromJson(sub));
       });
     }

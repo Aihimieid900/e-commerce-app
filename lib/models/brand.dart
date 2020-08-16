@@ -51,7 +51,7 @@ class BrandsList extends ChangeNotifier {
   Future<void> getTags() async {
     // if (_list.first.id == 0) {
     setLoading(true);
-    String tags = 'products/tags';
+    String tags = 'wc/v3/products/tags';
     _apiResponse = await network.getData(tags);
     setLoading(false);
     setError(_apiResponse.error);

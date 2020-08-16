@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:ecommerce_app_ui_kit/services/api_response.dart';
 
-const String site = 'https://sa-munafis.com/wp-json/wc/v3/';
+const String site = 'https://sa-munafis.com/wp-json/';
 const String key = 'ck_bf08ed09cb20cb3b1468f62187de9ea9e3e7be15';
 const String sec = 'cs_65a36ed1bf27f9d1e68dd30e0080dc6f120eb3fb';
 const Map<String, dynamic> headers = {

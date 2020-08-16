@@ -1,5 +1,7 @@
 import 'package:ecommerce_app_ui_kit/helpers/style/constants.dart';
 import 'package:ecommerce_app_ui_kit/l10n/App_Localizations.dart';
+import 'package:ecommerce_app_ui_kit/services/api_response.dart';
+import 'package:ecommerce_app_ui_kit/services/network_data_url.dart';
 
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -12,6 +14,19 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  NetworkWoocommerce networkWoocommerce = NetworkWoocommerce();
+   ApiResponse _apiResponse;
+  Map  dataCounter ;
+  counterCustomers() async{
+  _apiResponse =  await networkWoocommerce.getData('wc-analytics/reports/import/totals');
+  dataCounter =  _apiResponse.data;
+//  print(dataCounter['customers']);
+  }
+@override
+  void initState() {
+    counterCustomers();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var modelLang = AppLocalizations.of(context);
@@ -40,6 +55,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
         namePage: '/AddProduct',
         icon: Icons.folder,
       ),
+    ];
+    List _listCounterTotal = [
+      SquareCounterApi(name: modelLang.translate('customers'),counter: dataCounter['customers'],),
+      SquareCounterApi(name: modelLang.translate('orders'),counter: dataCounter['orders'],),
+//      SquareCounterApi(),
+//      SquareCounterApi(),
     ];
     return Scaffold(
       appBar: AppBar(
@@ -94,15 +115,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
 //                  height: 80,
 //                  icon: Icons.people,
 //                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SquareCounterApi(),
-                    SquareCounterApi(),
-                    SquareCounterApi(),
-                    SquareCounterApi(),
-                  ],
-                ),
+               dataCounter  != null ?  StaggeredGridView.countBuilder(
+                  primary: false,
+                  shrinkWrap: true,
+                  crossAxisCount: 4,
+                  itemCount: _listCounterTotal.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    Widget total = _listCounterTotal.elementAt(index);
+                    return total;
+                  },
+//                  staggeredTileBuilder: (int index) => new StaggeredTile.fit(index % 2 == 0 ? 1 : 2),
+                  staggeredTileBuilder: (int index) => new StaggeredTile.fit(2),
+                  mainAxisSpacing: 15.0,
+                  crossAxisSpacing: 15.0,
+                ) : SizedBox(width: 5,) ,
+
               ],
             ),
           ),
@@ -113,6 +140,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
 }
 
 class SquareCounterApi extends StatelessWidget {
+ final  int counter;
+ final String name;
+ SquareCounterApi({this.counter,this.name});
   @override
   build(BuildContext context) {
     return Material(
@@ -120,7 +150,7 @@ class SquareCounterApi extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
       child: Container(
 //                width: 100,
-//                height: 100,
+                height: 100,
           decoration: BoxDecoration(
             gradient: kGradientColor(context),
             borderRadius: BorderRadius.circular(10),
@@ -138,8 +168,9 @@ class SquareCounterApi extends StatelessWidget {
                   SizedBox(
                     height: 2,
                   ),
-                  Text('customers', style: TextStyle(fontSize: 16)),
-                  Text("100", style: TextStyle(fontSize: 16)),
+                  Text(name, style: TextStyle(fontSize: 16)),
+
+                  Text("$counter", style: TextStyle(fontSize: 16)),
                 ],
               ),
             ),
@@ -244,53 +275,4 @@ class DashboardButton extends StatelessWidget {
       ),
     );
   }
-}
-
-class SimpleLineChart extends StatelessWidget {
-  final List<charts.Series> seriesList;
-  final bool animate;
-
-  SimpleLineChart(this.seriesList, {this.animate});
-
-  /// Creates a [LineChart] with sample data and no transition.
-  factory SimpleLineChart.withSampleData() {
-    return new SimpleLineChart(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return new charts.LineChart(seriesList, animate: animate);
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<LinearSales, String>> _createSampleData() {
-    final data = [
-      new LinearSales("0", "5"),
-      new LinearSales("1", "25"),
-      new LinearSales("2", "100"),
-      new LinearSales("3", "75"),
-    ];
-
-    return [
-      new charts.Series<LinearSales, String>(
-        id: 'Sales',
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-        domainFn: (LinearSales sales, _) => sales.year,
-        measureFn: (LinearSales sales, _) => int.parse(sales.sales),
-        data: data,
-      )
-    ];
-  }
-}
-
-/// Sample linear data type.
-class LinearSales {
-  final String year;
-  final String sales;
-
-  LinearSales(this.year, this.sales);
 }

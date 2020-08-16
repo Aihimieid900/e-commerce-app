@@ -91,7 +91,7 @@ class OrderList with ChangeNotifier {
   NetworkWoocommerce network = NetworkWoocommerce();
   ApiResponse _apiResponse;
   Future<void> getOrders() async {
-    String orders = 'orders';
+    String orders = 'wc/v3/orders';
     _apiResponse = await network.getData(orders);
     setLoading(true);
     setError(_apiResponse.error);

@@ -75,7 +75,7 @@ class ProductsList with ChangeNotifier {
 
   Future<void> getProducts() async {
     // setLoading(true);
-    String products = 'products?per_page=100';
+    String products = 'wc/v3/products?per_page=100';
     _apiResponse = await network.getData(products);
     setLoading();
     setError(_apiResponse.error);
